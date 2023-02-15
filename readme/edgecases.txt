@@ -1,0 +1,3 @@
+COMMANDSTRINGS MIT LEERZEICHEN
+	awk 'NR==3, NR==6 {print NR,$0}' text.txt
+		--> "NR==3, NR==6 {print NR,$0}" soll nicht gesplittet werden
