@@ -1,22 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:22:23 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/16 14:28:21 by vlenard          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/minishell.h"
 
+	//enum token{word = 1, option, pipe, io};
 int main ()
 {
-	const char *input;
+	char *input;
+	char *promptline;
+	t_token *tokens;
 
-	input = readline(prompt());
-	printf("%s\n", input);
+	promptline = prompt();
+	input = readline(promptline);
+	tokens = lexer(input);
+	freestrings(input, promptline, NULL, NULL);
+	//system ("leaks shell");
 	return (0);
 }

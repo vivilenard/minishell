@@ -3,7 +3,9 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 SRCPATH = src/
 LIBFTPATH = include/libft/
-SRC = $(addprefix $(SRCPATH),  main.c prep.c) $(addprefix $(LIBFTPATH), ft_strjoinwithoutfree.c ft_strlen.c)
+SRC = 	$(addprefix $(SRCPATH),  main.c prep.c utils.c lexer.c) $(addprefix $(LIBFTPATH), 	ft_strjoinwithoutfree.c ft_strlen.c ft_split.c \
+									ft_strdup.c ft_strlcpy.c ft_putstr_fd.c ft_putchar_fd.c \
+									ft_put2dstr_fd.c ft_free2d.c)
 OBJ = $(SRC:.c=.o) 
 DOWNLOADFOLDER = dwnlds
 LIBFT = include/libft/libft.a

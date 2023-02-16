@@ -6,7 +6,7 @@
 #    By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 15:04:49 by vlenard           #+#    #+#              #
-#    Updated: 2023/01/30 16:22:49 by vlenard          ###   ########.fr        #
+#    Updated: 2023/02/16 16:57:31 by vlenard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ SRC = 	ft_isdigit.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isprint.c \
 		ft_substr.c ft_strjoin.c ft_strtrim.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
 		ft_putnbr_fd.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_split.c ft_isXxps.c \
 		ft_printf.c ft_takearg.c ft_tohex.c ft_topointer.c ft_utoa.c ft_strcmp.c ft_atodouble.c \
-		ft_haystack.c ft_free2d.c ft_strjoinwithoutfree.c ft_iswhitespace.c get_next_line/get_next_line.c \
-		get_next_line/get_next_line_utils.c
+		ft_haystack.c ft_free2d.c ft_strjoinwithoutfree.c ft_iswhitespace.c \
+		ft_put2dstr_fd.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 SRCBONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 		ft_lstclear.c ft_lstiter.c ft_lstmap.c
 OBJS = $(SRC:.c=.o)

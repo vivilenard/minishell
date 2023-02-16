@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:59:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/25 21:57:30 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/16 16:55:41 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ int			ft_putandcountstr(char *str, int print_length);
 double		ft_atodouble(char *str);
 char		*ft_haystack(const char *haystack, const char *needle);
 void		ft_free2d(char **s);
+void		ft_put2dstr_fd(char **str, int fd);
 int			ft_iswhitespace(char c);
 #endif
