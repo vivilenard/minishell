@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   practice.c                                         :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 19:41:38 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/15 13:45:24 by vlenard          ###   ########.fr       */
+/*   Created: 2022/10/30 14:58:30 by vlenard           #+#    #+#             */
+/*   Updated: 2022/10/30 14:58:55 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
+#include "libft.h"
 
-int main ()
+void	ft_putchar_fd(char c, int fd)
 {
-	const char *str;
-
-	str = readline("enter pls: ");
-	printf("%s\n", str);
-	return (0);
+	write(fd, &c, 1);
 }
