@@ -6,9 +6,11 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 11:32:19 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/17 13:54:49 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/17 14:07:02 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/minishell.h"
 
 int main (void)
 {

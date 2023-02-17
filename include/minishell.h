@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgraefen <mgraefen@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:56:41 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/17 10:47:54 by mgraefen         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:10:40 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <readline/readline.h>
 # include <limits.h>
 # include <fcntl.h>
-# include "../Libft/libft.h"
+# include "../libft/libft.h"
 # include <sys/wait.h>
 
 /* Data contains all the data of one input. This input is divided by prompts
@@ -51,7 +52,9 @@ typedef struct s_data
 }	t_data;
 
 
-int	main (void);
-
+int		main (void);
+char	*prompt(void);
+char	*username(void);
+void	freestrings(char *s1, char *s2, char *s3, char **array);
 
 #endif

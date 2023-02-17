@@ -3,16 +3,16 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 SRCPATH = src/
 LIBFTPATH = libft/
-SRC = 	$(addprefix $(SRCPATH),  main.c prep.c utils.c lexer.c)
+SRC = 	$(addprefix $(SRCPATH),  main.c prep.c utils.c)
 OBJ = $(SRC:.c=.o) 
 DOWNLOADFOLDER = dwnlds
-LIBFT = libft/libft.a
+LIBFT = ./libft/libft.a
 INCFLAG = -I$(DOWNLOADFOLDER)/readline_out/include
 INCLUDE = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline
 
 all: $(NAME)
 $(NAME): $(OBJ) $(DOWNLOADFOLDER) $(LIBFT)
-	$(CC) $(OBJ) $(INCFLAG) $(INCLUDE) -o $(NAME)
+	$(CC) $(OBJ) $(INCFLAG) $(INCLUDE) $(LIBFT) -o $(NAME)
 run: $(NAME)
 	./$(NAME)
 clean:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgraefen <mgraefen@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:18:04 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/17 12:57:49 by mgraefen         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:40:51 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ void split_into_tokens(t_data data, char *str)
 	while(str[i] || str[i] != '|')
 	{
 		if(str[i] == '<' || str[i] == '>' )
+		
+		i++;
 	}
 }
