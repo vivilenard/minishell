@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 11:32:19 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/17 13:54:49 by vlenard          ###   ########.fr       */
+/*   Created: 2023/02/16 17:15:01 by vlenard           #+#    #+#             */
+/*   Updated: 2023/02/16 17:17:42 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main (void)
-{
-	char *input;
-	char *promptline;
+#include "../include/minishell.h"
 
-	promptline = prompt();
-	while (1)
-		input = readline(promptline);
-	freestrings(input, promptline, NULL, NULL);
-	return (0);
+void freestrings(char *s1, char *s2, char *s3, char **array)
+{
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	if (s3)
+		free(s3);
+	if (array)
+		ft_free2d(array);
 }

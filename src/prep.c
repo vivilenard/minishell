@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prep.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 11:32:19 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/17 13:54:49 by vlenard          ###   ########.fr       */
+/*   Created: 2023/02/16 14:28:24 by vlenard           #+#    #+#             */
+/*   Updated: 2023/02/16 17:03:22 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main (void)
-{
-	char *input;
-	char *promptline;
+#include "../include/minishell.h"
 
-	promptline = prompt();
-	while (1)
-		input = readline(promptline);
-	freestrings(input, promptline, NULL, NULL);
-	return (0);
+char *username()
+{
+	return (getenv("USER"));
+}
+
+char *prompt()
+{
+	char	*user;
+	char	*prompt;
+	
+	user = username();
+	prompt = ft_strjoinwithoutfree(user, "@minishell♥ ");
+	return (prompt);
 }
