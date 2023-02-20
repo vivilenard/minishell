@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mgraefen <mgraefen@student.42heilbronn.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 11:56:41 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/20 11:44:55 by mgraefen         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <unistd.h>
@@ -59,5 +47,7 @@ int		main (void);
 char	*prompt(void);
 char	*username(void);
 void	freestrings(char *s1, char *s2, char *s3, char **array);
+int		is_char(char place, char c);
+void	switch_flag(int *flag);
 
 #endif

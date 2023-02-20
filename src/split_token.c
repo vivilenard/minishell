@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split_token.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 10:18:04 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/20 14:55:22 by vlenard          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 /* Splits at whitespaces and redirections signs. Until the function encounters
 a null terminator or Pipe-Sign.
 
@@ -183,6 +171,8 @@ char **create_strings(char **split, char *str)
 			if (is_delimiter(str[i]))
 			{
 				split = makestring(split, str, start, i);
+				while(ft_iswhitespace(str[i]))
+					i++;
 				start = i;
 			}
 		}

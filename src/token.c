@@ -15,7 +15,7 @@
 //     return (1);
 // }
 
-void switchflag(int *flag)
+void switch_flag(int *flag)
 {
     if (*flag == 0)
         *flag = 1;
@@ -23,45 +23,31 @@ void switchflag(int *flag)
         *flag = 0;
 }
 
-int jumpoverredir(char *str, int i)
-{
-    if (str[i] == '>')
-    {
-        while (str[i] == '>')
-            i++;
-    }
-    else if (str[i] == '<')
-    {
-        while (str[i] == '<')
-            i++; 
-    }
-    return (i);
-}
 
-int ischar(char place, char c)
+int is_char(char place, char c)
 {
     if (place == c)
         return (1);
     return (0);
 }
 
-int ft_isredirwithoutspace(char *str, int i)
-{
-    if ((str[i] == '<' && ft_isalpha(str[i + 1])) 
-        || (str[i] == '>' && ft_isalpha(str[i + 1])))
-        return (1);
-    if ((str[i] == '<' && str[i + 1] == '<' && ft_isalpha(str[i + 2])) 
-        || (str[i] == '>' && str[i + 1] == '>' && ft_isalpha(str[i + 2])))
-        return (1);
-    return (0);
-}
+// int ft_isredirwithoutspace(char *str, int i)
+// {
+//     if ((str[i] == '<' && ft_isalpha(str[i + 1])) 
+//         || (str[i] == '>' && ft_isalpha(str[i + 1])))
+//         return (1);
+//     if ((str[i] == '<' && str[i + 1] == '<' && ft_isalpha(str[i + 2])) 
+//         || (str[i] == '>' && str[i + 1] == '>' && ft_isalpha(str[i + 2])))
+//         return (1);
+//     return (0);
+// }
 
-int jumpdelimiters(char *str, int *i)
+int jump_delimiters(char *str, int *i)
 {
     int start;
 
     start = *i;
-    while(ft_iswhitespace(str[*i]) || ft_isredirwithoutspace(str, *i))
+    while(ft_iswhitespace(str[*i])) //|| ft_isredirwithoutspace(str, *i))
         *i += 1;
     if (start == *i)
         return (0);
@@ -82,17 +68,6 @@ int cut_ws_redir(char *str, int *i)
     return (1);   
 }
 
-// int cutredir(char *str, int *i)
-// {
-//     int start;
-
-//     start = *i;
-//     while((ft_iswhitespace(str[*i]) || ft_isredirwithoutspace(str, *i)))
-//         *i += 1;
-//     if (start == *i)
-//         return (0);
-//     return (1);    
-
 
 int countstrs(char *str)
 {
@@ -104,15 +79,15 @@ int countstrs(char *str)
     i = 0;
     count = 0;
     flag = 0;
-    i = jumpoverredir(str, i);
+    //i = jumpoverredir(str, i);
     while (str[i])
     {
         //printf("when count-> l: %c, c: %d, i: %d\n", str[i], count, i);
-        if (ischar(str[i], '\''))
-            switchflag(&flag);
+        if (is_char(str[i], '\''))
+            switch_flag(&flag);
         if (flag == 0)
         {
-            if (jumpdelimiters(str, &i))
+            if (jump_delimiters(str, &i))
                 count++;
             else
                 i++;
@@ -162,12 +137,12 @@ char **createstrings(char **split, char *str)
     i = 0;
     flag = 0;
     start = i;
-    i = jumpoverredir(str, i);
+    //i = jumpoverredir(str, i);
     //printf("bef: %s, i: %d\n", str + i, i);
     while (str[i])
     {
-        if (ischar(str[i], '\''))
-            switchflag(&flag);
+        if (is_char(str[i], '\''))
+            switch_flag(&flag);
         if (flag == 0)
         {
             //printf("hi\n");
@@ -193,8 +168,8 @@ char **splitme (char *str)
     split = NULL;
     str = ft_strtrim(str, "\n\t\v\f\r ");
     strnumber = countstrs(str);
-    printf("%d\n", strnumber);
-    printf("%s\n", str);
+    // printf("%d\n", strnumber);
+    // printf("%s\n", str);
     split = allocate(split, strnumber);
     while (strnumber > 0)
     {
@@ -213,4 +188,29 @@ int main ()
     char **split;
     split = splitme("  <<in cat >out>out > out         ");
     return 0;
+}
+// int jumpoverredir(char *str, int i)
+// {
+//     if (str[i] == '>')
+//     {
+//         while (str[i] == '>')
+//             i++;
+//     }
+//     else if (str[i] == '<')
+//     {
+//         while (str[i] == '<')
+//             i++; 
+//     }
+//     return (i);
+// }
+// int cutredir(char *str, int *i)
+// {
+//     int start;
+
+//     start = *i;
+//     while((ft_iswhitespace(str[*i]) || ft_isredirwithoutspace(str, *i)))
+//         *i += 1;
+//     if (start == *i)
+//         return (0);
+//     return (1);    
 }

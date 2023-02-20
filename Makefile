@@ -3,6 +3,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 SRCPATH = src/
+LIBFTPATH = ./libft
 SRC = 	$(addprefix $(SRCPATH),  main.c prep.c utils.c)
 OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 DOWNLOADFOLDER = dwnlds
