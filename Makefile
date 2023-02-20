@@ -1,18 +1,19 @@
 NAME = shell
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
+
 SRCPATH = src/
-LIBFTPATH = libft/
 SRC = 	$(addprefix $(SRCPATH),  main.c prep.c utils.c)
-OBJ = $(SRC:.c=.o) 
+OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 DOWNLOADFOLDER = dwnlds
+INCFLAG = -Iinclude -Ilibft -I$(DOWNLOADFOLDER)/readline_out/include
+LINK = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline -Llibft -lft
 LIBFT = ./libft/libft.a
-INCFLAG = -I$(DOWNLOADFOLDER)/readline_out/include
-INCLUDE = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline
 
 all: $(NAME)
-$(NAME): $(OBJ) $(DOWNLOADFOLDER) $(LIBFT)
-	$(CC) $(OBJ) $(INCFLAG) $(INCLUDE) $(LIBFT) -o $(NAME)
+
+$(NAME): $(SRC) $(LIBFT) $(DOWNLOADFOLDER)
+	$(CC) $(CFLAGS) $(SRC) $(INCFLAG) $(LINK) -o $(NAME)
 run: $(NAME)
 	./$(NAME)
 clean:

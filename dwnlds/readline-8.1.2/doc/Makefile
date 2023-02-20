@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /Users/vlenard/coding/shell/dwnlds/readline_out
+prefix = /Users/mgraefen/Documents/shell/dwnlds/readline_out
 
 datarootdir = ${prefix}/share
 
@@ -49,7 +49,7 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-BUILD_DIR = /Users/vlenard/coding/shell/dwnlds/readline-8.1.2
+BUILD_DIR = /Users/mgraefen/Documents/shell/dwnlds/readline-8.1.2
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo

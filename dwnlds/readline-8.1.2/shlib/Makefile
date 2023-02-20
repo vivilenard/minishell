@@ -32,7 +32,7 @@ datarootdir = ${prefix}/share
 srcdir = .
 VPATH = ..
 topdir = ..
-BUILD_DIR = /Users/vlenard/coding/shell/dwnlds/readline-8.1.2
+BUILD_DIR = /Users/mgraefen/Documents/shell/dwnlds/readline-8.1.2
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -52,7 +52,7 @@ SHELL = /bin/sh
 host_os = darwin19.6.0
 host_vendor = apple
 
-prefix = /Users/vlenard/coding/shell/dwnlds/readline_out
+prefix = /Users/mgraefen/Documents/shell/dwnlds/readline_out
 exec_prefix = ${prefix}
 includedir = ${prefix}/include
 bindir = ${exec_prefix}/bin

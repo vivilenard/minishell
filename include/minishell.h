@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgraefen <mgraefen@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:56:41 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/17 14:10:40 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/20 11:44:55 by mgraefen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <limits.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
 # include <sys/wait.h>
+#include <signal.h>
+#include <unistd.h>
 
 /* Data contains all the data of one input. This input is divided by prompts
 (one prompt could be piped into another). Every Prompt is divided into tokens.

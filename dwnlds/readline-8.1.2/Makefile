@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/vlenard/coding/shell/dwnlds/readline-8.1.2
+BUILD_DIR = /Users/mgraefen/Documents/shell/dwnlds/readline-8.1.2
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/vlenard/coding/shell/dwnlds/readline_out
+prefix = /Users/mgraefen/Documents/shell/dwnlds/readline_out
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

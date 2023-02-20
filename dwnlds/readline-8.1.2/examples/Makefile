@@ -21,7 +21,7 @@ RL_LIBRARY_VERSION = 8.1
 SHELL = /bin/sh
 RM = rm -f
 
-prefix = /Users/vlenard/coding/shell/dwnlds/readline_out
+prefix = /Users/mgraefen/Documents/shell/dwnlds/readline_out
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -32,7 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /Users/vlenard/coding/shell/dwnlds/readline-8.1.2
+BUILD_DIR = /Users/mgraefen/Documents/shell/dwnlds/readline-8.1.2
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c
