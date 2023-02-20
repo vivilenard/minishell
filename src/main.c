@@ -17,16 +17,24 @@ int main (void)
 
 	char *input;
 	char *promptline;
+	char **tokens;
+
+	t_data	*data;
+
+
+	data = malloc((sizeof(*data) + 1));
+	if(!data)
+		return(1);
 
 	promptline = prompt();
 	while (1)
 	{
 		input = readline(promptline);
-		split_token(input);
+		tokens = split_token(input);
+		
 		if(!input)
 			exit(1);
 	}
-	
 	freestrings(input, promptline, NULL, NULL);
 	return (0);
 }
