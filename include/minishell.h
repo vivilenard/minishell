@@ -49,5 +49,6 @@ char	*username(void);
 void	freestrings(char *s1, char *s2, char *s3, char **array);
 int		is_char(char place, char c);
 void	switch_flag(int *flag);
+char 	**split_token(char *str);
 
 #endif

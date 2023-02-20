@@ -14,19 +14,6 @@ The function then continues */
 
 #include "../include/minishell.h"
 
-// void split_into_tokens(t_data data, char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while(str[i] || str[i] != '|')
-// 	{
-// 		if(str[i] == '<' || str[i] == '>' )
-		
-// 		i++;
-// 	}
-// }
-
 char **allocate(char **split, int strnumber)
 {
 	int i;
@@ -128,7 +115,7 @@ char **makestring(char **split, char *str, int start, int i)
 	range = i - start;
 	while (split[count])
 		count++;
-	printf("start: %d, i: %d, range: %d, count: %d\n", start, i, range, count);
+	//printf("start: %d, i: %d, range: %d, count: %d, strlen: %zu\n", start, i, range, count, ft_strlen(str));
 	split[count] = malloc(range + 1);
 	split[count][range] = '\0';
 	ft_strlcpy(split[count], str + start, range + 1);
@@ -171,7 +158,10 @@ char **create_strings(char **split, char *str)
 			if (is_delimiter(str[i]))
 			{
 				split = makestring(split, str, start, i);
-				if (jump_redir(str, &i) == 2)
+				while(ft_iswhitespace(str[i]))
+					i++;
+				start = i;
+				if (jump_redir(str, &i))
 				 	split = makestring(split, str, start, i);
 				while(ft_iswhitespace(str[i]))
 					i++;
@@ -180,59 +170,20 @@ char **create_strings(char **split, char *str)
 		}
 		i++;
 	}
+
+	split = makestring(split, str, start, i);
 	return (split);
 }
 
-char **splitme (char *str)
+char **split_token (char *str)
 {
 	char **split;
 	int strnumber;
 
-	printf("%s\n", str);
 	split = NULL;
 	str = ft_strtrim(str, "\n\t\v\f\r ");
-	strnumber = countstrs(str);
-	printf("strnumber %d\n", strnumber);
+	strnumber = countstrs(str) + 1;
 	split = allocate(split, strnumber);
 	create_strings(split, str);
 	return (split);
 }
-
-int main ()
-{
-	char **split;
-	split = splitme("<<in cat<out>out> out<<");
-	return 0;
-}
-
-// char **create_strings(char **split, char *str, int strlen)
-// {
-// 	int i;
-// 	int n;
-// 	int flag;
-// 	int	start;
-
-// 	i = 0;
-// 	n = 0;
-// 	flag = 0;
-// 	start = 0;
-// 	printf("%d\n", strlen);
-// 	while (str[i])
-// 	{
-// 		n = 0;
-// 		if (is_char(str[i], '\''))
-// 			switch_flag(&flag);
-// 		if (flag == 0)
-// 		{
-// 			n = jump_delimiters(str, &i);
-// 			if (n)
-// 			{
-// 				split = makestring(split, str, start, i);
-// 				start = i;
-// 				i--;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (split);
-// }

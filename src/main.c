@@ -22,6 +22,7 @@ int main (void)
 	while (1)
 	{
 		input = readline(promptline);
+		split_token(input);
 		if(!input)
 			exit(1);
 	}
