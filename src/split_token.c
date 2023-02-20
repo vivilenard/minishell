@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:18:04 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/17 14:40:51 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/20 10:38:40 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,183 @@ The function then continues */
 
 #include "../include/minishell.h"
 
-void split_into_tokens(t_data data, char *str)
+// void split_into_tokens(t_data data, char *str)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while(str[i] || str[i] != '|')
+// 	{
+// 		if(str[i] == '<' || str[i] == '>' )
+		
+// 		i++;
+// 	}
+// }
+
+char **allocate(char **split, int strnumber)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while(str[i] || str[i] != '|')
+	split = malloc(sizeof(char *) * (strnumber + 1));
+	while (i < strnumber + 1)
 	{
-		if(str[i] == '<' || str[i] == '>' )
-		
+		split[i] = NULL;
 		i++;
 	}
+	return (split);
+}
+
+int	jump_redir(char *str, int *i)
+{
+	int count;
+
+	count = 0;
+	if (*i == 0)
+		count = 1;
+	if (is_char(str[*i], '<'))
+	{
+		while(is_char(str[*i], '<'))
+			*i += 1;
+		if (str[*i + 1] == '\0')
+			count++;
+		return (2 - count);
+	}
+	if (is_char(str[*i], '>'))
+	{
+		while(is_char(str[*i], '>'))
+			*i += 1;
+		if (str[*i + 1] == '\0')
+			count++;
+		return (2 - count);
+	}
+	return (0);
+}
+
+int jump_delimiters(char *str, int *i)
+{
+	int start;
+	int redir;
+
+	start = *i;
+	redir = jump_redir(str, i);
+	if(ft_iswhitespace(str[*i]))
+	{
+		while (ft_iswhitespace(str[*i]))
+			*i += 1;
+		if (redir)
+			return (redir);
+		return (1);
+	}
+	if (redir)
+	{
+		while(ft_iswhitespace(str[*i]))
+			*i += 1;
+		return (redir);
+	}
+	return (0);
+}
+
+int countstrs(char *str)
+{
+	int i;
+	int count;
+	int n;
+	int flag;
+
+	i = 0;
+	count = 0;
+	n = 0;
+	flag = 0;
+	while (str[i])
+	{
+		//printf("when count-> l: %c, c: %d, i: %d\n", str[i], count, i);
+		if (is_char(str[i], '\''))
+			switch_flag(&flag);
+		if (flag == 0)
+		{
+			n = jump_delimiters(str, &i);
+			count += n;
+			if (n)
+				i--;
+		}
+		i++;
+	}
+	return (count);
+}
+
+char **makestring(char **split, char *str, int start, int i)
+{
+	int count;
+	int range;
+
+	count = 0;
+	range = i - start;
+	while (split[count])
+		count++;
+	printf("range: %d, count: %d\n", range, count);
+	split[count] = malloc(range + 1);
+	split[count][range] = '\0';
+	ft_strlcpy(split[count], str + start, range);
+	printf("split: %s\n", split[count]);
+	return (split);
+}
+
+char **create_strings(char **split, char *str, int strlen)
+{
+	int i;
+	int n;
+	int flag;
+	int	start;
+
+	i = 0;
+	n = 0;
+	flag = 0;
+	start = 0;
+	printf("%d\n", strlen);
+	while (str[i])
+	{
+		n = 0;
+		if (is_char(str[i], '\''))
+			switch_flag(&flag);
+		if (flag == 0)
+		{
+			n = jump_delimiters(str, &i);
+				printf("i: %d, c: %c, n: %d\n", start, str[i], n);
+			if (n)
+			{
+				split = makestring(split, str, start, i);
+				start = i;
+				i--;
+			}
+		}
+		i++;
+	}
+	return (split);
+}
+
+char **splitme (char *str)
+{
+	char **split;
+	int strnumber;
+
+	printf("%s\n", str);
+	split = NULL;
+	str = ft_strtrim(str, "\n\t\v\f\r ");
+	strnumber = countstrs(str);
+	printf("strnumber %d\n", strnumber);
+	split = allocate(split, strnumber);
+	// while (strnumber > 0)
+	// {
+		create_strings(split, str, ft_strlen(str));
+	// 	strnumber--;
+	// }
+	return (split);
+}
+
+int main ()
+{
+	char **split;
+	split = splitme("<<in cat<out>out> out<<");
+	return 0;
 }
