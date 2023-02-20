@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:18:04 by mgraefen          #+#    #+#             */
-/*   Updated: 2023/02/20 10:38:40 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/20 14:55:22 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,15 +140,22 @@ char **makestring(char **split, char *str, int start, int i)
 	range = i - start;
 	while (split[count])
 		count++;
-	printf("range: %d, count: %d\n", range, count);
+	printf("start: %d, i: %d, range: %d, count: %d\n", start, i, range, count);
 	split[count] = malloc(range + 1);
 	split[count][range] = '\0';
-	ft_strlcpy(split[count], str + start, range);
+	ft_strlcpy(split[count], str + start, range + 1);
 	printf("split: %s\n", split[count]);
 	return (split);
 }
 
-char **create_strings(char **split, char *str, int strlen)
+int	is_delimiter(char c)
+{
+	if (ft_iswhitespace(c) || c == '<' || c == '>')
+		return (c);
+	return (0);
+}
+
+char **create_strings(char **split, char *str)
 {
 	int i;
 	int n;
@@ -159,7 +166,13 @@ char **create_strings(char **split, char *str, int strlen)
 	n = 0;
 	flag = 0;
 	start = 0;
-	printf("%d\n", strlen);
+	if (is_delimiter(str[i]))
+	{
+		while (is_delimiter(str[i]))
+			i++;
+		split = makestring(split, str, start, i);
+		start = i;
+	}
 	while (str[i])
 	{
 		n = 0;
@@ -167,13 +180,10 @@ char **create_strings(char **split, char *str, int strlen)
 			switch_flag(&flag);
 		if (flag == 0)
 		{
-			n = jump_delimiters(str, &i);
-				printf("i: %d, c: %c, n: %d\n", start, str[i], n);
-			if (n)
+			if (is_delimiter(str[i]))
 			{
 				split = makestring(split, str, start, i);
 				start = i;
-				i--;
 			}
 		}
 		i++;
@@ -192,11 +202,7 @@ char **splitme (char *str)
 	strnumber = countstrs(str);
 	printf("strnumber %d\n", strnumber);
 	split = allocate(split, strnumber);
-	// while (strnumber > 0)
-	// {
-		create_strings(split, str, ft_strlen(str));
-	// 	strnumber--;
-	// }
+	create_strings(split, str);
 	return (split);
 }
 
@@ -206,3 +212,35 @@ int main ()
 	split = splitme("<<in cat<out>out> out<<");
 	return 0;
 }
+
+// char **create_strings(char **split, char *str, int strlen)
+// {
+// 	int i;
+// 	int n;
+// 	int flag;
+// 	int	start;
+
+// 	i = 0;
+// 	n = 0;
+// 	flag = 0;
+// 	start = 0;
+// 	printf("%d\n", strlen);
+// 	while (str[i])
+// 	{
+// 		n = 0;
+// 		if (is_char(str[i], '\''))
+// 			switch_flag(&flag);
+// 		if (flag == 0)
+// 		{
+// 			n = jump_delimiters(str, &i);
+// 			if (n)
+// 			{
+// 				split = makestring(split, str, start, i);
+// 				start = i;
+// 				i--;
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	return (split);
+// }
