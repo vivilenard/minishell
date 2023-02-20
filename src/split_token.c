@@ -171,6 +171,8 @@ char **create_strings(char **split, char *str)
 			if (is_delimiter(str[i]))
 			{
 				split = makestring(split, str, start, i);
+				if (jump_redir(str, &i) == 2)
+				 	split = makestring(split, str, start, i);
 				while(ft_iswhitespace(str[i]))
 					i++;
 				start = i;
