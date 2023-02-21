@@ -41,6 +41,8 @@ t_tokentype	content_analyse(t_token *token)
 		return(redirection);
 	else if (str[0] == '|')
 		return(is_pipe);
+	else if (str[0] == '$')
+		return(variable);
 	else
 		return(word);
 }

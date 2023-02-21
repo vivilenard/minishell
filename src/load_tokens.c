@@ -68,7 +68,6 @@ int load_tokens(char **split_tokens, t_data *data)
 		i++;
 	}
 	free(split_tokens);
-	/* printf("Token Content in Tokens1: %s\n", data->tokens->content); */
 	print_tokens(data->tokens);
 	return (0);
 }

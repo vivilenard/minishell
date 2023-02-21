@@ -18,10 +18,9 @@ Every token has a tokentype */
 
 typedef enum e_tokentype
 {
-	empty,
 	word,
 	option,
-	value,
+	variable,
 	redirection,
 	is_pipe,
 }	t_tokentype;
