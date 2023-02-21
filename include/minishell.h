@@ -23,6 +23,7 @@ typedef enum e_tokentype
 	option,
 	value,
 	redirection,
+	is_pipe,
 }	t_tokentype;
 
 
@@ -38,18 +39,20 @@ typedef struct s_data
 	struct s_token	**tokens;
 }	t_data;
 
-int		main (void);
-char	*prompt(void);
-char 	**split_token(char *str);
-int		load_tokens(char **split_tokens, t_data *data);
+int			main (void);
+char		*prompt(void);
+char		**split_token(char *str);
+int			load_tokens(char **split_tokens, t_data *data);
+t_tokentype	content_analyse(t_token *token);
+
 
 //Utils
 int		is_char(char place, char c);
 void	freestrings(char *s1, char *s2, char *s3, char **array);
 char	*username(void);
 void	switch_flag(int *flag);
-void print_tokens (t_token **token);
-
+void	print_tokens (t_token **token);
+void	free_data(t_data *data);
 
 
 #endif

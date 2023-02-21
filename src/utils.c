@@ -31,11 +31,37 @@ void print_tokens (t_token **token)
 {
 	t_token *current;
 
-	printf("in print\n");
 	current = *token;
 	while (current)
 	{
 		ft_printf("Token-Content: %s\n", current->content);
+		ft_printf("Token-Type: %d\n", current->type);
+		ft_printf("\n", current->type);
 		current = current->next;
 	}
+}
+
+void free_tokens(t_token **token)
+{
+	t_token *current;
+
+	if(*token)
+	{
+		current = *token;
+		while (current)
+		{
+			free(current->content);
+			current = current->next;
+		}
+	}
+}
+
+void free_data(t_data *data)
+{
+	free_tokens(data->tokens);
+	if(data->tokens)
+		free(data->tokens);
+	if(data)
+		free(data);
+	exit(1);
 }

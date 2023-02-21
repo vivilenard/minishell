@@ -34,10 +34,14 @@ int main (void)
 		input = readline(promptline);
 		tokens = split_token(input);
 		if(load_tokens(tokens, data))
-			return(1);
+			return(free_data(data), freestrings(input, promptline, NULL, NULL), 1);
 		if(!input)
-			exit(1);
+		{
+			freestrings(input, promptline, NULL, NULL);
+			free_data(data);
+		}
 	}
 	freestrings(input, promptline, NULL, NULL);
+	free_data(data);
 	return (0);
 }
