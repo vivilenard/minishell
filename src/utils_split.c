@@ -20,6 +20,7 @@ char **makestring(char **split, char *str, int start, int i)
 	split[count] = malloc(range + 1);
 	split[count][range] = '\0';
 	ft_strlcpy(split[count], str + start, range + 1);
+	printf("%s\n", split[count]);
 	return (split);
 }
 

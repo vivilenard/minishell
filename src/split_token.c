@@ -62,47 +62,90 @@ int countstrs(char *str)
 	return (count);
 }
 
+int	jump_delimiter(char **split, char *str, int *start, int *i)
+{
+	if (is_delimiter(str[*i]))
+	{
+		while (is_delimiter(str[*i]))
+			(*i)++;
+		split = makestring(split, str, *start, *i);
+		*start = *i;
+		return (1);
+	}
+	return (0);
+}
+
+void switch_flags(int *flag, int i)
+{
+	if (flag[i] == 0)
+		flag[i] = 1;
+	else if (flag[i] == 1)
+		flag[i] = 0;
+}
+
+int	handle_quote(char *str, int i, int *flag, int *keep_quote)
+{
+	if (is_char(str[i], '\"'))
+	{
+		if (flag[0] == 0)
+			*keep_quote = 0;
+		if (*keep_quote == 0)
+			switch_flags(flag, 0);
+		printf("%c, %d, %d\n", str[i], flag[0], flag[1]);
+		return (1);
+	}
+	if (is_char(str[i], '\''))
+	{
+		if (flag[1] == 0)
+			*keep_quote = 1;
+		if (*keep_quote == 1)
+			switch_flags(flag, 1);
+		printf("%c, %d, %d\n", str[i], flag[0], flag[1]);
+		return (1);
+	}
+	//printf("%c, %d\n", str[i], *flag);
+	return (0);
+}
+
+int	do_shit(char **split, char *str, int *i, int *start)
+{
+	if (is_delimiter(str[*i]))
+	{
+		split = makestring(split, str, *start, *i);
+		while(ft_iswhitespace(str[*i]))
+			(*i)++;
+		*start = *i;
+		if (jump_redir(str, i))
+		 	split = makestring(split, str, *start, *i);
+		while(ft_iswhitespace(str[*i]))
+			(*i)++;
+		*start = *i;
+		return (1);
+	}
+	return (0);
+}
+
 char **create_strings(char **split, char *str)
 {
 	int i;
-	int n;
-	int flag;
+	int flag[2] = {0, 0};
+	int	keep_quote;
 	int	start;
 
 	i = 0;
-	n = 0;
-	flag = 0;
 	start = 0;
-	if (is_delimiter(str[i]))
-	{
-		while (is_delimiter(str[i]))
-			i++;
-		split = makestring(split, str, start, i);
-		start = i;
-	}
+	keep_quote = 5;
+	jump_delimiter(split, str, &start, &i);
 	while (str[i])
 	{
-		n = 0;
-		if (is_char(str[i], '\''))
-			switch_flag(&flag);
-		if (flag == 0)
-		{
-			if (is_delimiter(str[i]))
-			{
-				split = makestring(split, str, start, i);
-				while(ft_iswhitespace(str[i]))
-					i++;
-				start = i;
-				if (jump_redir(str, &i))
-				 	split = makestring(split, str, start, i);
-				while(ft_iswhitespace(str[i]))
-					i++;
-				start = i;
-			}
-		}
+		handle_quote(str, i, flag, &keep_quote);
+		//printf("%c, %d\n", str[i], flag);
+		if (flag[0] == 0)
+			do_shit(split, str, &i, &start);
+		handle_quote(str, i, flag, &keep_quote);
 		i++;
 	}
-		split = makestring(split, str, start, i);
+	split = makestring(split, str, start, i);
 	return (split);
 }
 
