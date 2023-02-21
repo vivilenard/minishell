@@ -52,6 +52,12 @@ char	*username(void);
 void	switch_flag(int *flag);
 void	print_tokens (t_token **token);
 void	free_data(t_data *data);
+//Split
+
+int	is_delimiter(char c);
+char **makestring(char **split, char *str, int start, int i);
+int jump_delimiters(char *str, int *i);
+int	jump_redir(char *str, int *i);
 
 
 #endif
