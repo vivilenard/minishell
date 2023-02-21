@@ -32,14 +32,15 @@ int main (void)
 	while (1)
 	{
 		input = readline(promptline);
-		tokens = split_token(input);
-		if(load_tokens(tokens, data))
-			return(free_data(data), freestrings(input, promptline, NULL, NULL), 1);
 		if(!input)
 		{
 			freestrings(input, promptline, NULL, NULL);
 			free_data(data);
 		}
+		tokens = split_token(input);
+		if(load_tokens(tokens, data))
+			return(freestrings(input, promptline, NULL, NULL),
+				free(tokens), free_data(data), 1);
 	}
 	freestrings(input, promptline, NULL, NULL);
 	free_data(data);
