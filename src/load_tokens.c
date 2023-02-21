@@ -13,7 +13,7 @@ t_token	*ft_new_token(char *str)
 			return (0);
 		new_token->content = str;
 		new_token->type = empty;
-		printf("Token Content in new Token: %s\n", new_token->content);
+		//printf("Token Content in new Token: %s\n", new_token->content);
 		new_token->next = NULL;
 	}
 	return (new_token);
@@ -35,12 +35,12 @@ t_token	*ft_token_last(t_token *lst)
 
 void	ft_token_add_back(t_token **tokens, t_token *new)
 {
-	printf("in add back\n");
+	//printf("in add back\n");
 	t_token	*tmp;
 
 	if (!tokens || !*tokens)
 	{
-		printf("in this condition\n");
+		//printf("in this condition\n");
 		*tokens = new;
 	}	
 	else
@@ -49,7 +49,7 @@ void	ft_token_add_back(t_token **tokens, t_token *new)
 		if (tmp)
 			tmp->next = new;
 	}
-	printf("after add back\n");
+	//printf("after add back\n");
 }
 
 int	init_token(t_token **tokens, char *str)
@@ -69,7 +69,7 @@ int load_tokens(char **split_tokens, t_data *data)
 	i = 0;
 	while(split_tokens[i])
 	{
-		printf("in loop %i \n", i);
+		//printf("in loop %i \n", i);
 		if(init_token(data->tokens, split_tokens[i]))
 			return(1);
 		i++;

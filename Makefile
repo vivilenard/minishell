@@ -4,7 +4,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 SRCPATH = src/
 LIBFTPATH = ./libft
-SRC = 	$(addprefix $(SRCPATH),  main.c split_token.c prep.c utils.c load_tokens.c)
+SRC = 	$(addprefix $(SRCPATH),  main.c split_token.c utils_split.c utils_prep.c utils.c load_tokens.c)
 OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 #OBJ = $(SRC:.c=.o)
 DOWNLOADFOLDER = dwnlds

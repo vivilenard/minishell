@@ -16,7 +16,6 @@ The function then continues */
 /*TO DO:
 	- echo
 	- quotes
-	- nullstr weg
 */
 
 #include "../include/minishell.h"
@@ -35,55 +34,6 @@ char **allocate(char **split, int strnumber)
 	return (split);
 }
 
-int	jump_redir(char *str, int *i)
-{
-	int count;
-
-	count = 0;
-	if (*i == 0)
-		count = 1;
-	if (is_char(str[*i], '<'))
-	{
-		while(is_char(str[*i], '<'))
-			*i += 1;
-		if (str[*i + 1] == '\0')
-			count++;
-		return (2 - count);
-	}
-	if (is_char(str[*i], '>'))
-	{
-		while(is_char(str[*i], '>'))
-			*i += 1;
-		if (str[*i + 1] == '\0')
-			count++;
-		return (2 - count);
-	}
-	return (0);
-}
-
-int jump_delimiters(char *str, int *i)
-{
-	int start;
-	int redir;
-
-	start = *i;
-	redir = jump_redir(str, i);
-	if(ft_iswhitespace(str[*i]))
-	{
-		while (ft_iswhitespace(str[*i]))
-			*i += 1;
-		if (redir)
-			return (redir);
-		return (1);
-	}
-	if (redir)
-	{
-		while(ft_iswhitespace(str[*i]))
-			*i += 1;
-		return (redir);
-	}
-	return (0);
-}
 
 int countstrs(char *str)
 {
@@ -98,7 +48,6 @@ int countstrs(char *str)
 	flag = 0;
 	while (str[i])
 	{
-		//printf("when count-> l: %c, c: %d, i: %d\n", str[i], count, i);
 		if (is_char(str[i], '\''))
 			switch_flag(&flag);
 		if (flag == 0)
@@ -111,30 +60,6 @@ int countstrs(char *str)
 		i++;
 	}
 	return (count);
-}
-
-char **makestring(char **split, char *str, int start, int i)
-{
-	int count;
-	int range;
-
-	count = 0;
-	range = i - start;
-	while (split[count])
-		count++;
-	//printf("start: %d, i: %d, range: %d, count: %d, strlen: %zu\n", start, i, range, count, ft_strlen(str));
-	split[count] = malloc(range + 1);
-	split[count][range] = '\0';
-	ft_strlcpy(split[count], str + start, range + 1);
-	printf("split: %s\n", split[count]);
-	return (split);
-}
-
-int	is_delimiter(char c)
-{
-	if (ft_iswhitespace(c) || c == '<' || c == '>')
-		return (c);
-	return (0);
 }
 
 char **create_strings(char **split, char *str)
@@ -177,8 +102,7 @@ char **create_strings(char **split, char *str)
 		}
 		i++;
 	}
-
-	split = makestring(split, str, start, i);
+		split = makestring(split, str, start, i);
 	return (split);
 }
 
@@ -190,7 +114,9 @@ char **split_token (char *str)
 	split = NULL;
 	str = ft_strtrim(str, "\n\t\v\f\r ");
 	strnumber = countstrs(str) + 1;
+	printf("%d\n", strnumber);
 	split = allocate(split, strnumber);
 	create_strings(split, str);
+	split[strnumber] = NULL;
 	return (split);
 }
