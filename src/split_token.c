@@ -12,6 +12,13 @@ is present in the string.
 
 The function then continues */
 
+
+/*TO DO:
+	- echo
+	- quotes
+	- nullstr weg
+*/
+
 #include "../include/minishell.h"
 
 char **allocate(char **split, int strnumber)
