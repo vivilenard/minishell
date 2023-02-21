@@ -4,9 +4,9 @@ CFLAGS = -Wall -Werror -Wextra
 
 SRCPATH = src/
 LIBFTPATH = ./libft
-SRC = 	$(addprefix $(SRCPATH),  main.c split_token.c prep.c utils.c)
-#OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
-OBJ = $(SRC:.c=.o)
+SRC = 	$(addprefix $(SRCPATH),  main.c split_token.c prep.c utils.c load_tokens.c)
+OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
+#OBJ = $(SRC:.c=.o)
 DOWNLOADFOLDER = dwnlds
 INCFLAG = -Iinclude -Ilibft -I$(DOWNLOADFOLDER)/readline_out/include
 LINK = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline -Llibft -lft

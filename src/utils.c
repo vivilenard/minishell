@@ -26,3 +26,16 @@ void switch_flag(int *flag)
 	else if (*flag == 1)
 		*flag = 0;
 }
+
+void print_tokens (t_token **token)
+{
+	t_token *current;
+
+	printf("in print\n");
+	current = *token;
+	while (current)
+	{
+		ft_printf("Token-Content: %s\n", current->content);
+		current = current->next;
+	}
+}

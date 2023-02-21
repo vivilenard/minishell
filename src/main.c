@@ -22,16 +22,19 @@ int main (void)
 	t_data	*data;
 
 
-	data = malloc((sizeof(*data) + 1));
+	data = malloc(sizeof(*data));
 	if(!data)
 		return(1);
-
+	data->tokens = malloc(sizeof(**tokens));
+/* 	if(data->tokens)
+		return(1); */
 	promptline = prompt();
 	while (1)
 	{
 		input = readline(promptline);
 		tokens = split_token(input);
-		
+		if(load_tokens(tokens, data))
+			return(1);
 		if(!input)
 			exit(1);
 	}

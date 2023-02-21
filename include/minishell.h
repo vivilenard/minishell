@@ -18,37 +18,38 @@ Every token has a tokentype */
 
 typedef enum e_tokentype
 {
+	empty,
 	word,
 	option,
 	value,
+	redirection,
 }	t_tokentype;
 
 
 typedef struct s_token
 {
-	char		*content;
-	t_tokentype	token;
+	char			*content;
+	struct s_token	*next;
+	t_tokentype	type;
 }				t_token;
-
-typedef struct s_string
-{
-	t_token *tokens;
-	char	*input;
-	char	*output;
-}	t_string;
 
 typedef struct s_data
 {
-	t_string *strings;
+	struct s_token	**tokens;
 }	t_data;
-
 
 int		main (void);
 char	*prompt(void);
-char	*username(void);
-void	freestrings(char *s1, char *s2, char *s3, char **array);
-int		is_char(char place, char c);
-void	switch_flag(int *flag);
 char 	**split_token(char *str);
+int		load_tokens(char **split_tokens, t_data *data);
+
+//Utils
+int		is_char(char place, char c);
+void	freestrings(char *s1, char *s2, char *s3, char **array);
+char	*username(void);
+void	switch_flag(int *flag);
+void print_tokens (t_token **token);
+
+
 
 #endif
