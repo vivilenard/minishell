@@ -65,3 +65,8 @@ void free_data(t_data *data)
 		free(data);
 	exit(1);
 }
+
+void	init_data(t_data *data)
+{
+	data->token_count = 0;
+}

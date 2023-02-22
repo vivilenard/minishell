@@ -27,6 +27,7 @@ int main (void)
 	data->tokens = malloc(sizeof(**tokens));
 /* 	if(data->tokens)
 		return(1); */
+	init_data(data);
 	promptline = prompt();
 	while (1)
 	{

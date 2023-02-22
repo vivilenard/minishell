@@ -34,9 +34,19 @@ typedef struct s_token
 	t_tokentype	type;
 }				t_token;
 
+typedef struct s_exec
+{
+	char			*command;
+	char			**args;
+	char			**input;
+	char			**output;
+}				t_exec;
+
 typedef struct s_data
 {
 	struct s_token	**tokens;
+	int				token_count;
+	struct s_exec	**execs;
 }	t_data;
 
 int			main (void);
