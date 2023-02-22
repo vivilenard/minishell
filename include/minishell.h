@@ -49,15 +49,18 @@ t_tokentype	content_analyse(t_token *token);
 int		is_char(char place, char c);
 void	freestrings(char *s1, char *s2, char *s3, char **array);
 char	*username(void);
-void	switch_flag(int *flag);
 void	print_tokens (t_token **token);
 void	free_data(t_data *data);
-//Split
 
-int	is_delimiter(char c);
-char **makestring(char **split, char *str, int start, int i);
-int jump_delimiters(char *str, int *i);
-int	jump_redir(char *str, int *i);
+//Parser
 
+char	**allocate(char **split, int strnumber);
+char	**makestring(char **split, char *str, int start, int i);
+int		is_delimiter(char c);
+int		jump_delimiters(char *str, int *i);
+int		jump_redir(char *str, int *i);
+int		jump_delimiter_split(char **split, char *str, int *start, int *i);
+void	switch_flags(int *flag, int quote, int *keep_quote);
+int		handle_quote(char *str, int *i, int *flag, int *keep_quote);
 
 #endif

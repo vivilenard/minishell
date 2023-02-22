@@ -1,16 +1,23 @@
 #include "../include/minishell.h"
 
-int	is_delimiter(char c)
+char	**allocate(char **split, int strnumber)
 {
-	if (ft_iswhitespace(c) || c == '<' || c == '>')
-		return (c);
-	return (0);
+	int	i;
+
+	i = 0;
+	split = malloc(sizeof(char *) * (strnumber + 1));
+	while (i < strnumber + 1)
+	{
+		split[i] = NULL;
+		i++;
+	}
+	return (split);
 }
 
-char **makestring(char **split, char *str, int start, int i)
+char	**makestring(char **split, char *str, int start, int i)
 {
-	int count;
-	int range;
+	int	count;
+	int	range;
 
 	count = 0;
 	range = i - start;
@@ -19,17 +26,16 @@ char **makestring(char **split, char *str, int start, int i)
 	split[count] = malloc(range + 1);
 	split[count][range] = '\0';
 	ft_strlcpy(split[count], str + start, range + 1);
-	printf("%s\n", split[count]);
 	return (split);
 }
 
-int jump_delimiters(char *str, int *i)
+int	jump_delimiters(char *str, int *i)
 {
-	int start;
-	int redir;
+	int	start;
+	int	redir;
 
 	start = *i;
-	if(ft_iswhitespace(str[*i]))
+	if (ft_iswhitespace(str[*i]))
 	{
 		while (ft_iswhitespace(str[*i]))
 			*i += 1;
@@ -43,7 +49,7 @@ int jump_delimiters(char *str, int *i)
 	redir = jump_redir(str, i);
 	if (redir)
 	{
-		while(ft_iswhitespace(str[*i]))
+		while (ft_iswhitespace(str[*i]))
 			*i += 1;
 		return (redir);
 	}
@@ -52,14 +58,14 @@ int jump_delimiters(char *str, int *i)
 
 int	jump_redir(char *str, int *i)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (*i == 0)
 		count = 1;
 	if (is_char(str[*i], '<'))
 	{
-		while(is_char(str[*i], '<'))
+		while (is_char(str[*i], '<'))
 			*i += 1;
 		if (str[*i] == '\0')
 			count++;
@@ -67,7 +73,7 @@ int	jump_redir(char *str, int *i)
 	}
 	if (is_char(str[*i], '>'))
 	{
-		while(is_char(str[*i], '>'))
+		while (is_char(str[*i], '>'))
 			*i += 1;
 		if (str[*i] == '\0')
 			count++;
