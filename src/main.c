@@ -6,7 +6,7 @@ void	handle_sigint(int sig)
 	(void)sig;
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
-	rl_replace_line("" ,0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
@@ -21,7 +21,6 @@ int main (void)
 
 	t_data	*data;
 
-
 	data = malloc(sizeof(*data));
 	if(!data)
 		return(1);
@@ -34,6 +33,7 @@ int main (void)
 		input = readline(promptline);
 		if(!input)
 		{
+			ft_putendl_fd("Shell Aborted", 2);
 			freestrings(input, promptline, NULL, NULL);
 			free_data(data);
 		}

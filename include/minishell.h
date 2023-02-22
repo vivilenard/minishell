@@ -9,8 +9,9 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
 # include <sys/wait.h>
-#include <signal.h>
-#include <unistd.h>
+# include <signal.h>
+# include <unistd.h>
+# include <termios.h>
 
 /* Data contains all the data of one input. This input is divided by prompts
 (one prompt could be piped into another). Every Prompt is divided into tokens.
