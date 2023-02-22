@@ -15,7 +15,6 @@ The function then continues */
 
 /*TO DO:
 	- echo
-	- quotes
 */
 
 #include "../include/minishell.h"
@@ -75,35 +74,44 @@ int	jump_delimiter(char **split, char *str, int *start, int *i)
 	return (0);
 }
 
-void switch_flags(int *flag, int i)
+// void switch_flags(int *flag, int i)
+// {
+// 	if (flag[i] == 0)
+// 		flag[i] = 1;
+// 	else if (flag[i] == 1)
+// 		flag[i] = 0;
+// }
+
+void switch_flags(int *flag, int quote, int *keep_quote)
 {
-	if (flag[i] == 0)
-		flag[i] = 1;
-	else if (flag[i] == 1)
-		flag[i] = 0;
+	if (*flag == 0)
+	{
+		*flag = 1;
+		*keep_quote = quote;
+	}
+	else if (*flag == 1 && quote == *keep_quote)
+	{
+		*flag = 0;
+	}
 }
 
 int	handle_quote(char *str, int i, int *flag, int *keep_quote)
 {
+	int	quote;
+
+	quote = 0;
 	if (is_char(str[i], '\"'))
 	{
-		if (flag[0] == 0)
-			*keep_quote = 0;
-		if (*keep_quote == 0)
-			switch_flags(flag, 0);
-		printf("%c, %d, %d\n", str[i], flag[0], flag[1]);
+		quote = 1;
+			switch_flags(flag, quote, keep_quote);
 		return (1);
 	}
 	if (is_char(str[i], '\''))
 	{
-		if (flag[1] == 0)
-			*keep_quote = 1;
-		if (*keep_quote == 1)
-			switch_flags(flag, 1);
-		printf("%c, %d, %d\n", str[i], flag[0], flag[1]);
+		quote = 2;
+			switch_flags(flag, quote, keep_quote);
 		return (1);
 	}
-	//printf("%c, %d\n", str[i], *flag);
 	return (0);
 }
 
@@ -128,21 +136,20 @@ int	do_shit(char **split, char *str, int *i, int *start)
 char **create_strings(char **split, char *str)
 {
 	int i;
-	int flag[2] = {0, 0};
+	int flag;
 	int	keep_quote;
 	int	start;
 
 	i = 0;
 	start = 0;
-	keep_quote = 5;
+	flag = 0;
+	keep_quote = 0;
 	jump_delimiter(split, str, &start, &i);
 	while (str[i])
 	{
-		handle_quote(str, i, flag, &keep_quote);
-		//printf("%c, %d\n", str[i], flag);
-		if (flag[0] == 0)
+		handle_quote(str, i, &flag, &keep_quote);
+		if (flag == 0)
 			do_shit(split, str, &i, &start);
-		handle_quote(str, i, flag, &keep_quote);
 		i++;
 	}
 	split = makestring(split, str, start, i);
