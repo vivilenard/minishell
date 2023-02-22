@@ -16,7 +16,6 @@ char **makestring(char **split, char *str, int start, int i)
 	range = i - start;
 	while (split[count])
 		count++;
-	//printf("start: %d, i: %d, range: %d, count: %d, strlen: %zu\n", start, i, range, count, ft_strlen(str));
 	split[count] = malloc(range + 1);
 	split[count][range] = '\0';
 	ft_strlcpy(split[count], str + start, range + 1);

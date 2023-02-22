@@ -74,14 +74,6 @@ int	jump_delimiter(char **split, char *str, int *start, int *i)
 	return (0);
 }
 
-// void switch_flags(int *flag, int i)
-// {
-// 	if (flag[i] == 0)
-// 		flag[i] = 1;
-// 	else if (flag[i] == 1)
-// 		flag[i] = 0;
-// }
-
 void switch_flags(int *flag, int quote, int *keep_quote)
 {
 	if (*flag == 0)
@@ -95,21 +87,23 @@ void switch_flags(int *flag, int quote, int *keep_quote)
 	}
 }
 
-int	handle_quote(char *str, int i, int *flag, int *keep_quote)
+int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 {
 	int	quote;
 
 	quote = 0;
-	if (is_char(str[i], '\"'))
+	if (is_char(str[*i], '\"'))
 	{
 		quote = 1;
 			switch_flags(flag, quote, keep_quote);
+		(*i)++;
 		return (1);
 	}
-	if (is_char(str[i], '\''))
+	if (is_char(str[*i], '\''))
 	{
 		quote = 2;
 			switch_flags(flag, quote, keep_quote);
+		(*i)++;
 		return (1);
 	}
 	return (0);
@@ -147,10 +141,11 @@ char **create_strings(char **split, char *str)
 	jump_delimiter(split, str, &start, &i);
 	while (str[i])
 	{
-		handle_quote(str, i, &flag, &keep_quote);
+		handle_quote(str, &i, &flag, &keep_quote);
 		if (flag == 0)
 			do_shit(split, str, &i, &start);
-		i++;
+		if (!handle_quote(str, &i, &flag, &keep_quote))
+			i++;
 	}
 	split = makestring(split, str, start, i);
 	return (split);
