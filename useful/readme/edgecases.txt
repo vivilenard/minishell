@@ -1,0 +1,7 @@
+COMMANDSTRINGS MIT LEERZEICHEN
+	awk 'NR==3, NR==6 {print NR,$0}' text.txt
+		--> "NR==3, NR==6 {print NR,$0}" soll nicht gesplittet werden
+	cat > out1 > out2 > out3 
+		alle outfiles müssen da sein, aber es geht nur in die letzte
+	cat > out1 | wc
+	echo "test" "test" hi du > out   --> echo uebernimmt aaaaaaalles
