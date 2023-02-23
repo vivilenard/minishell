@@ -17,6 +17,8 @@
 (one prompt could be piped into another). Every Prompt is divided into tokens.
 Every token has a tokentype */
 
+typedef struct s_token 	t_token;
+
 typedef enum e_tokentype
 {
 	word,
@@ -29,8 +31,8 @@ typedef enum e_tokentype
 
 typedef struct s_token
 {
-	char			*content;
-	struct s_token	*next;
+	char		*content;
+	t_token		*next;
 	t_tokentype	type;
 }				t_token;
 
@@ -38,15 +40,15 @@ typedef struct s_exec
 {
 	char			*command;
 	char			**args;
-	char			**input;
+	char			**input;											
 	char			**output;
 }				t_exec;
 
 typedef struct s_data
 {
-	struct s_token	**tokens;
+	t_token			**tokens;
 	int				token_count;
-	struct s_exec	**execs;
+	t_exec			**execs;
 }	t_data;
 
 int			main (void);
