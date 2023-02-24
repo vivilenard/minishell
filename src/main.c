@@ -27,7 +27,7 @@ int main (void)
 	data->tokens = malloc(sizeof(**tokens));
 /* 	if(data->tokens)
 		return(1); */
-	init_data(data);
+	//init_data(data);
 	promptline = prompt();
 	while (1)
 	{
@@ -38,6 +38,8 @@ int main (void)
 			freestrings(input, promptline, NULL, NULL);
 			free_data(data);
 		}
+		if (ft_strlen(input) > 0)
+			add_history(input);
 		tokens = split_token(input);
 		if(load_tokens(tokens, data))
 			return(freestrings(input, promptline, NULL, NULL),
