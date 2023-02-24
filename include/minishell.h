@@ -71,4 +71,6 @@ int			jump_delimiter_split(char **split, char *str, int *start, int *i);
 void		switch_flags(int *flag, int quote, int *keep_quote);
 int			handle_quote(char *str, int *i, int *flag, int *keep_quote);
 
+//executer
+int			executer(t_exec **exec);
 #endif
