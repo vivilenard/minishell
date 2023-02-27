@@ -6,7 +6,7 @@ SRCPATH = src/
 LIBFTPATH = ./libft
 #SRC = 	$(addprefix $(SRCPATH),  main.c utils_prep.c utils.c load_tokens.c content_analyse.c\
 		lexer/split_token.c lexer/split_utils1.c lexer/split_utils2.c)
-SRC  =  src/executer/executer_dummy.c src/executer/executer.c
+SRC  =  src/executer/executer_dummy2.c src/executer/executer.c
 OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 #OBJ = $(SRC:.c=.o)
 DOWNLOADFOLDER = dwnlds

@@ -46,33 +46,32 @@ int	file_as_stdout(t_exec *exec)
 	return (0);
 }
 
-// int	pipe_as_stdin(int *fd_pipe)
-// {
-// 	if (dup2(fd_pipe[0], 0) == -1)
-// 		perror("pipe as stdin");
-// 	return (0);
-// }
+int	pipe_as_stdin(int fd_keep_pipe)
+{
+	if (dup2(fd_keep_pipe, 0) == -1)
+		perror("pipe as stdin");
+	close(fd_keep_pipe);
+	return (0);
+}
 
 int	pipe_as_stdout(int *fd_pipe)
 {
 	if (dup2(fd_pipe[1], STDOUT_FILENO) == -1)
 		perror("pipe as stout");
-	if (dup2(fd_pipe[0], STDIN_FILENO) == -1)
-		perror("pipe as stdin");
 	return (0);
 }
 
-int	in_out(t_exec *exec, int *fd_pipe)
+int	in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe)
 {
-	if (ft_strncmp(exec->input[0], "pipe", 5) != 0)
+	if (ft_strncmp(exec->input[0], "pipe", 5) != 0 && ft_strlen(exec->input[0]) > 0)
 	{
 		ft_putendl_fd("file as stdin\n", 2);
 		file_as_stdin(exec);
 	}
 	else if (ft_strncmp(exec->input[0], "pipe", 5) == 0)
 	{
-		ft_putendl_fd("pipe as stdin", 2);
-		//pipe_as_stdin(fd_pipe);
+		ft_putendl_fd("pipe as stdin\n", 2);
+		pipe_as_stdin(fd_keep_pipe);
 	}
 	if (ft_strncmp(exec->output[0], "pipe", 5) != 0)
 	{
@@ -88,25 +87,29 @@ int	in_out(t_exec *exec, int *fd_pipe)
 	return (0);
 }
 
-int	create_child(t_exec *exec)
+int	create_child(t_exec *exec, char *env, int *fd_pipe, int fd_keep_pipe)
 {
 	pid_t	pid;
 
+	env = NULL;
 	pid = fork();
 	if (pid == 0)
 	{
-		printf("llala\n");
+		in_out(exec, fd_pipe, fd_keep_pipe);
 		if (execve(exec->command, exec->args, NULL) == -1)		//which getenv?
 			perror("execve");
 	}
-	return (0);
+	close(fd_pipe[1]);
+	close(fd_keep_pipe);
+	return (fd_pipe[0]);
 }
 
 int	executer(t_exec **exec)
 {
 	int	i;
 	int	fd_pipe[2];
-	//int	fd_oldpipe[2];
+	int	fd_keep_pipe;
+	char *env;
 
 	printf("%s\n", exec[0]->command);
 	printf("%s\n", exec[0]->args[0]);
@@ -120,22 +123,24 @@ int	executer(t_exec **exec)
 	printf("%s\n", exec[1]->args[1]);
 	printf("%s\n", exec[1]->input[0]);
 	printf("%s\n", exec[1]->output[1]);
-	printf("\n\nEXECUTER\n\n");
+
 	i = 0;
+	fd_keep_pipe = 99;
+	env = getenv("PATH");
 	while (exec[i])
 	{
-		ft_putendl_fd("Executing !", 2);
+		ft_putendl_fd("\nExecuting !", 2);
 		if (pipe(fd_pipe) == -1)
 			perror("create pipe");
-		in_out(exec[i], fd_pipe);
-		ft_putendl_fd("bef fork", 2);
-		create_child(exec[i]);
-		usleep(10);
+		fd_keep_pipe = create_child(exec[i], env, fd_pipe, fd_keep_pipe);
+		usleep(10000);
 		if (ft_strncmp(exec[i]->output[1], "pipe", 5) == 0)
 		 	break;
 		i++;
 	}
-	//waitpid(0, NULL, 0);
+	close(fd_keep_pipe);
+	waitpid(0, NULL, 0);
+	waitpid(0, NULL, 0);
 	return (0);
 }
 	// printf("%s\n", exec->command);
