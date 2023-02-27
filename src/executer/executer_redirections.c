@@ -1,0 +1,44 @@
+#include "../../include/minishell.h"
+
+int	file_as_stdin(t_exec *exec)
+{
+	int	fd;
+
+	fd = open (exec->input[1], O_RDONLY);
+	if (fd == -1)
+		perror("open inputfile");
+	if (dup2(fd, 0) == -1)
+		perror("file as stdin");
+	return (close(fd), 0);
+}
+
+int	file_as_stdout(t_exec *exec)
+{
+	int	fd;
+
+	fd = -1;
+	if (ft_strncmp(exec->output[0], ">>", 3) == 0)
+		fd = open (exec->output[1], O_CREAT | O_APPEND | O_WRONLY, 0644);
+	else if (ft_strncmp(exec->output[0], ">", 2) == 0)
+		fd = open (exec->output[1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	if (fd == -1)
+		perror("open outputfile");
+	if (dup2(fd, 1) == -1)
+		perror ("file as stdout");
+	return (0);
+}
+
+int	pipe_as_stdin(int fd_keep_pipe)
+{
+	if (dup2(fd_keep_pipe, 0) == -1)
+		perror("pipe as stdin");
+	close(fd_keep_pipe);
+	return (0);
+}
+
+int	pipe_as_stdout(int *fd_pipe)
+{
+	if (dup2(fd_pipe[1], STDOUT_FILENO) == -1)
+		perror("pipe as stout");
+	return (0);
+}

@@ -143,6 +143,20 @@ int main ()
 	exec = init_exec1(exec);
 	exec = init_exec2(exec);
 	exec[3] = NULL;
+
+	// printf("%s\n", exec[0]->command);
+	// printf("%s\n", exec[0]->args[0]);
+	// printf("%s\n", exec[0]->args[1]);
+	// printf("%s\n", exec[0]->input[0]);
+	// printf("%s\n", exec[0]->input[1]);
+	// printf("%s\n", exec[0]->output[0]);
+	// printf("%s\n", exec[0]->output[1]);
+	// printf("%s\n", exec[1]->command);
+	// printf("%s\n", exec[1]->args[0]);
+	// printf("%s\n", exec[1]->args[1]);
+	// printf("%s\n", exec[1]->input[0]);
+	// printf("%s\n", exec[1]->output[1]);
+
 	executer(exec);
 
 	return (0);

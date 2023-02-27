@@ -11,9 +11,9 @@ t_exec **init_exec0(t_exec **exec)
 	//exec[0]->command = ft_strdup("/bin/echo");
 	exec[0]->command = ft_strdup("/bin/cat");
 	exec[0]->args[0] = ft_strdup("cat");
-	exec[0]->args[1] = ft_strdup("");
+	exec[0]->args[1] = NULL;
 	exec[0]->args[2] = NULL;
-	exec[0]->input[0] = ft_strdup("<");
+	exec[0]->input[0] = ft_strdup("");
 	exec[0]->input[1] = ft_strdup("in.txt");
 	exec[0]->input[2] = NULL;
 	exec[0]->output[0] = ft_strdup("pipe");
@@ -37,7 +37,7 @@ t_exec **init_exec1(t_exec **exec)
 	exec[1]->input[0] = ft_strdup("pipe");
 	exec[1]->input[1] = ft_strdup("in.txt");
 	exec[1]->input[2] = NULL;
-	exec[1]->output[0] = ft_strdup(">");
+	exec[1]->output[0] = ft_strdup("pipe");
 	exec[1]->output[1] = ft_strdup("out");
 	exec[1]->output[2] = NULL;
 
@@ -54,7 +54,7 @@ t_exec **init_exec2(t_exec **exec)
 	//exec[1]->command = ft_strdup("/usr/bin/head");
 	exec[2]->command = ft_strdup("/bin/ls");
 	exec[2]->args[0] = ft_strdup("ls");
-	exec[2]->args[1] = ft_strdup("");
+	exec[2]->args[1] = ft_strdup("-a");
 	exec[2]->args[2] = NULL;
 	exec[2]->input[0] = ft_strdup("pipe");
 	exec[2]->input[1] = ft_strdup("");
@@ -98,17 +98,17 @@ t_exec **init_exec2(t_exec **exec)
 // 	exec[2].output = output;
 // }
 
-int main (void)
+int main (int args, char **argv, char **env)
 {
 	t_exec **exec;
+	args = 0; argv = NULL;
 
 	exec = malloc (sizeof(t_exec *) * 3);
 	exec = init_exec0(exec);
-	printf("%s\n", exec[0]->command);
 	exec = init_exec1(exec);
 	exec = init_exec2(exec);
-	exec[2] = NULL;
-	executer(exec);
+	exec[3] = NULL;
+	executer(exec, env);
 
 	return (0);
 }

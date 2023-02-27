@@ -5,3 +5,4 @@ COMMANDSTRINGS MIT LEERZEICHEN
 		alle outfiles müssen da sein, aber es geht nur in die letzte
 	cat > out1 | wc
 	echo "test" "test" hi du > out   --> echo uebernimmt aaaaaaalles
+	stdin > cat | cat | ls

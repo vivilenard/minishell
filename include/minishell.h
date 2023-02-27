@@ -48,7 +48,6 @@ typedef struct s_data
 	struct s_exec	**execs;
 }	t_data;
 
-int			main(void);
 char		*prompt(void);
 char		**split_token(char *str);
 int			load_tokens(char **split_tokens, t_data *data);
@@ -72,5 +71,10 @@ void		switch_flags(int *flag, int quote, int *keep_quote);
 int			handle_quote(char *str, int *i, int *flag, int *keep_quote);
 
 //executer
-int			executer(t_exec **exec);
+int			executer(t_exec **exec, char **env);
+int			file_as_stdin(t_exec *exec);
+int			file_as_stdout(t_exec *exec);
+int			pipe_as_stdin(int fd_keep_pipe);
+int			pipe_as_stdout(int *fd_pipe);
+
 #endif
