@@ -6,3 +6,4 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	cat > out1 | wc
 	echo "test" "test" hi du > out   --> echo uebernimmt aaaaaaalles
 	stdin > cat | cat | ls
+	ls < infile -a
