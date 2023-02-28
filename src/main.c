@@ -24,9 +24,6 @@ int main (void)
 	data = malloc(sizeof(*data));
 	if(!data)
 		return(1);
-	data->tokens = malloc(sizeof(**tokens));
-/* 	if(data->tokens)
-		return(1); */
 	init_data(data);
 	promptline = prompt();
 	while (1)
@@ -43,9 +40,7 @@ int main (void)
 			return(freestrings(input, promptline, NULL, NULL),
 				free(tokens), free_data(data), 1);
 		parse_tokens(data);
-		/* free_tokens(data->tokens, everything); */
 	}
 	freestrings(input, promptline, NULL, NULL);
-	free_data(data);
 	return (0);
 }

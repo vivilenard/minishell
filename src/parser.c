@@ -64,7 +64,7 @@ int parse_tokens(t_data *data)
 		{
 			if (current->type == redirection)
 				current = write_redirection(current, data->execs[exec_count]);
-			else if (current->type == word)
+			else if (current->type == word || current->type == option)
 			{
 				data->execs[exec_count]->args[arg_count] = current->content;
 				arg_count++;
@@ -82,7 +82,7 @@ int parse_tokens(t_data *data)
 		}
 	}
 	data->execs[exec_count + 1] = NULL;
-	/* free_tokens(data->tokens, only_tokens); */
+	free_tokens(data, only_tokens);
 	print_execs(data);
 	return(0);
 }
