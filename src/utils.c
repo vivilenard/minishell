@@ -41,29 +41,29 @@ void print_tokens (t_token **token)
 	}
 }
 
-void free_tokens(t_token **token)
+void free_tokens(t_token **token, t_free_options type)
 {
-	t_token *current;
+	int	i;
 
-	if(*token)
+	i = 0;
+	while(token[i])
 	{
-		current = *token;
-		while (current)
-		{
-			free(current->content);
-			current = current->next;
-		}
+		if (type == everything)
+			if(token[i]->content)
+				free(token[i]->content);
+		free(token[i]);
+		i++;
 	}
 }
 
 void free_data(t_data *data)
 {
-	free_tokens(data->tokens);
+	free_tokens(data->tokens, everything);
 	if(data->tokens)
 		free(data->tokens);
 	if(data)
 		free(data);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	init_data(t_data *data)

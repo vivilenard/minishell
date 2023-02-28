@@ -42,6 +42,8 @@ int main (void)
 		if(load_tokens(tokens, data))
 			return(freestrings(input, promptline, NULL, NULL),
 				free(tokens), free_data(data), 1);
+		parse_tokens(data);
+		/* free_tokens(data->tokens, everything); */
 	}
 	freestrings(input, promptline, NULL, NULL);
 	free_data(data);

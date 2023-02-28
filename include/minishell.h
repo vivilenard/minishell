@@ -28,6 +28,12 @@ typedef enum e_tokentype
 	is_pipe,
 }	t_tokentype;
 
+typedef enum e_free_options
+{
+	everything,
+	only_tokens,
+}	t_free_options;
+
 
 typedef struct s_token
 {
@@ -49,6 +55,7 @@ typedef struct s_data
 	t_token			**tokens;
 	int				token_count;
 	t_exec			**execs;
+	int				pipeflag;
 }	t_data;
 
 int			main (void);
@@ -56,6 +63,7 @@ char		*prompt(void);
 char		**split_token(char *str);
 int			load_tokens(char **split_tokens, t_data *data);
 t_tokentype	content_analyse(t_token *token);
+int 		parse_tokens(t_data *data);
 
 
 //Utils
@@ -64,8 +72,15 @@ void	freestrings(char *s1, char *s2, char *s3, char **array);
 char	*username(void);
 void	switch_flag(int *flag);
 void	print_tokens (t_token **token);
+void 	free_tokens(t_token **token, t_free_options type);
 void	free_data(t_data *data);
 void	init_data(t_data *data);
+
+//Utils Parser
+void	print_execs(t_data *data);
+int		get_exec_count(t_token	*current);
+int		get_arg_num(t_token *current);
+
 
 //Split
 int	is_delimiter(char c);
