@@ -16,7 +16,7 @@ t_exec **init_exec0(t_exec **exec)
 	exec[0]->input[0] = ft_strdup("");
 	exec[0]->input[1] = ft_strdup("in.txt");
 	exec[0]->input[2] = NULL;
-	exec[0]->output[0] = ft_strdup("pipe");
+	exec[0]->output[0] = ft_strdup("|");
 	exec[0]->output[1] = ft_strdup("");
 	exec[0]->output[2] = NULL;
 
