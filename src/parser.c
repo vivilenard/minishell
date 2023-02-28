@@ -74,6 +74,7 @@ void write_pipe(t_token *current, t_data *data, int i)
 	if(!data->execs[i]->output)
 		exit(0);
 	data->execs[i]->output[0] = current->content;
+	//add PATH
 }
 
 int parse_tokens(t_data *data)
