@@ -10,7 +10,7 @@ t_exec **init_exec0(t_exec **exec)
 
 	//exec[0]->command = ft_strdup("/bin/echo");
 	exec[0]->command = ft_strdup("/bin/cat");
-	exec[0]->args[0] = ft_strdup("cat");
+	exec[0]->args[0] = ft_strdup("$VAR3$VAR4$USER");
 	exec[0]->args[1] = NULL;
 	exec[0]->args[2] = NULL;
 	exec[0]->input[0] = ft_strdup("");
@@ -108,7 +108,14 @@ int main (int args, char **argv, char **env)
 	exec = init_exec1(exec);
 	exec = init_exec2(exec);
 	exec[3] = NULL;
-	executer(exec, env);
+	//int i = 0;
+	// while (env[i])
+	// {
+	// 	printf("%s\n", env[i]);
+	// 	i++;
+	// }
+	exec = expander(exec, env);
+	//executer(exec, env);
 
 	return (0);
 }
