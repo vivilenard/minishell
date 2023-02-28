@@ -72,9 +72,11 @@ int			handle_quote(char *str, int *i, int *flag, int *keep_quote);
 
 //executer
 int			executer(t_exec **exec, char **env);
+int			in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe);
 int			file_as_stdin(t_exec *exec);
 int			file_as_stdout(t_exec *exec);
 int			pipe_as_stdin(int fd_keep_pipe);
 int			pipe_as_stdout(int *fd_pipe);
+int			built_in(t_exec *exec, char **env);
 
 #endif

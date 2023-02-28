@@ -34,10 +34,10 @@ t_exec **init_exec1(t_exec **exec)
 	exec[1]->args[0] = ft_strdup("cat");
 	exec[1]->args[1] = NULL;
 	exec[1]->args[2] = NULL;
-	exec[1]->input[0] = ft_strdup("pipe");
+	exec[1]->input[0] = ft_strdup("|");
 	exec[1]->input[1] = ft_strdup("in.txt");
 	exec[1]->input[2] = NULL;
-	exec[1]->output[0] = ft_strdup("pipe");
+	exec[1]->output[0] = ft_strdup("|");
 	exec[1]->output[1] = ft_strdup("out");
 	exec[1]->output[2] = NULL;
 
@@ -56,7 +56,7 @@ t_exec **init_exec2(t_exec **exec)
 	exec[2]->args[0] = ft_strdup("ls");
 	exec[2]->args[1] = ft_strdup("-a");
 	exec[2]->args[2] = NULL;
-	exec[2]->input[0] = ft_strdup("pipe");
+	exec[2]->input[0] = ft_strdup("|");
 	exec[2]->input[1] = ft_strdup("");
 	exec[2]->input[2] = NULL;
 	exec[2]->output[0] = ft_strdup(">");
