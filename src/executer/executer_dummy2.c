@@ -9,14 +9,14 @@ t_exec **init_exec0(t_exec **exec)
 	exec[0]->output = malloc(sizeof(char *) * 3); 
 
 	//exec[0]->command = ft_strdup("/bin/echo");
-	exec[0]->command = ft_strdup("/bin/cat");
-	exec[0]->args[0] = ft_strdup("$VAR3$VAR4$USER");
+	exec[0]->command = ft_strdup("/bin/ls");
+	exec[0]->args[0] = ft_strdup("ls");
 	exec[0]->args[1] = NULL;
 	exec[0]->args[2] = NULL;
-	exec[0]->input[0] = ft_strdup("");
+	exec[0]->input[0] = NULL;
 	exec[0]->input[1] = ft_strdup("in.txt");
 	exec[0]->input[2] = NULL;
-	exec[0]->output[0] = ft_strdup("|");
+	exec[0]->output[0] = ft_strdup("");
 	exec[0]->output[1] = ft_strdup("");
 	exec[0]->output[2] = NULL;
 
@@ -59,7 +59,7 @@ t_exec **init_exec2(t_exec **exec)
 	exec[2]->input[0] = ft_strdup("|");
 	exec[2]->input[1] = ft_strdup("");
 	exec[2]->input[2] = NULL;
-	exec[2]->output[0] = ft_strdup(">");
+	exec[2]->output[0] = ft_strdup("");
 	exec[2]->output[1] = ft_strdup("out");
 	exec[2]->output[2] = NULL;
 
@@ -107,15 +107,16 @@ int main (int args, char **argv, char **env)
 	exec = init_exec0(exec);
 	exec = init_exec1(exec);
 	exec = init_exec2(exec);
-	exec[3] = NULL;
+	exec[1] = NULL;
 	//int i = 0;
 	// while (env[i])
 	// {
 	// 	printf("%s\n", env[i]);
 	// 	i++;
 	// }
-	exec = expander(exec, env);
-	//executer(exec, env);
+	//exec = expander(exec, env);
+	printf("%zu\n", ft_strlen(exec[2]->input[1]));
+	executer(exec, env);
 
 	return (0);
 }

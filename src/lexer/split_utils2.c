@@ -24,7 +24,10 @@ void	switch_flags(int *flag, int quote, int *keep_quote)
 {
 	if (*flag == 0)
 	{
-		*flag = 1;
+		if (quote == 3)
+			*flag = 3;
+		else
+			*flag = 1;
 		*keep_quote = quote;
 	}
 	else if (*flag == 1 && quote == *keep_quote)
@@ -38,13 +41,16 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 	int	quote;
 
 	quote = 0;
-	if (!ft_strncmp(str + *i, "echo", 4))
-	{
-		quote = 3;
-		switch_flags(flag, quote, keep_quote);
-		(*i)++;
-		return (1);
-	}
+	//printf("%c, 	flag: %d\n", str[*i], *flag);
+	// if (!ft_strncmp(str + *i, "echo", 4))
+	// {
+	// 	quote = 3;
+	// 	switch_flags(flag, quote, keep_quote);
+	// 	(*i)++;
+	// 	return (1);
+	// }
+	if ((str[*i] == '<' || str[*i] == '>') && *flag == 4)
+		*flag = 0;
 	if (is_char(str[*i], '\"'))
 	{
 		quote = 1;
@@ -59,5 +65,14 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 		(*i)++;
 		return (1);
 	}
+	if (!ft_strncmp(str + *i, "echo", 4))
+	{
+		quote = 3;
+		switch_flags(flag, quote, keep_quote);
+		(*i)++;
+		return (1);
+	}
+	if (is_delimiter(str[*i]) && *flag == 4)
+		*flag = 0;
 	return (0);
 }

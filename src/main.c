@@ -48,7 +48,7 @@ int main (int args, char **argv, char **env)
 			add_history(input);
 		printf("\nLEXER\n");
 		tokens = split_token(input);
-		ft_put2dstr_fd(tokens, 2);
+		//ft_put2dstr_fd(tokens, 2);
 		printf("load tokens\n");
 		if(load_tokens(tokens, data))
 			return(freestrings(input, promptline, NULL, NULL),

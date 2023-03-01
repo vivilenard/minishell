@@ -24,17 +24,21 @@ char	**create_strings(char **split, char *str)
 	int	flag;
 	int	keep_quote;
 	int	start;
+	int	is_split;
 
 	i = 0;
 	start = 0;
 	flag = 0;
 	keep_quote = 0;
+	is_split = 0;
 	jump_delimiter_split(split, str, &start, &i);
 	while (str[i])
 	{
 		handle_quote(str, &i, &flag, &keep_quote);
-		if (flag == 0)
-			do_shit(split, str, &i, &start);
+		if (flag == 0 || flag == 3)
+			is_split = do_shit(split, str, &i, &start);
+		if (is_split && flag == 3)
+			flag = 4;
 		if (!handle_quote(str, &i, &flag, &keep_quote))
 			i++;
 	}
@@ -58,12 +62,15 @@ int	countstrs(char *str)
 	while (str[i])
 	{
 		handle_quote(str, &i, &flag, &keep_quote);
-		if (flag == 0)
+		if (flag == 0 || flag == 3)
 		{
 			n = jump_delimiters(str, &i);
 			count += n;
 			if (n)
+			{
+				flag = 4;
 				i--;
+			}
 		}
 		if (!handle_quote(str, &i, &flag, &keep_quote))
 			i++;

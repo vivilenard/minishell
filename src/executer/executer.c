@@ -47,10 +47,8 @@ int	executer(t_exec **exec, char **env)
 		ft_putendl_fd("\nExecuting !\n", 2);
 		if (pipe(fd_pipe) == -1)
 			perror("create pipe");
+		usleep (3000);  //actually dont need if executer is perfect
 		fd_keep_pipe = create_child(exec[i], env, fd_pipe, fd_keep_pipe);
-		usleep(10000);
-		//if (ft_strncmp(exec[i]->output[1], "pipe", 5) == 0)  //do i need??
-		 	//break ;
 		i++;
 	}
 	close(fd_keep_pipe);
