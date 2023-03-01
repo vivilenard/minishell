@@ -66,16 +66,19 @@ int 		parse_tokens(t_data *data);
 //Utils
 int			is_char(char place, char c);
 void		freestrings(char *s1, char *s2, char *s3, char **array);
+void		printtokens(t_exec **exec);
 char		*username(void);
 void		print_tokens(t_token **token);
 void	free_tokens(t_data *data, t_free_options type);
 void		free_data(t_data *data);
 void	init_data(t_data *data);
 
+
 //Utils Parser
 void	print_execs(t_data *data);
 int		get_exec_count(t_token	*current);
 int		get_arg_num(t_token *current);
+char	*get_path(char *command);
 
 
 //Split

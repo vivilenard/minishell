@@ -10,7 +10,7 @@ void	handle_sigint(int sig)
 	rl_redisplay();
 }
 
-int main (void)
+int main (int args, char **argv, char **env)
 {
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &handle_sigint);
@@ -21,6 +21,8 @@ int main (void)
 
 	t_data	*data;
 
+	args = 0;
+	argv = NULL;
 	data = malloc(sizeof(*data));
 	if(!data)
 		return(1);
@@ -42,6 +44,8 @@ int main (void)
 			return(freestrings(input, promptline, NULL, NULL),
 				free(tokens), free_data(data), 1);
 		parse_tokens(data);
+		printtokens(data->execs);
+		executer(data->execs, env);
 	}
 	freestrings(input, promptline, NULL, NULL);
 	return (0);

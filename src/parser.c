@@ -48,6 +48,7 @@ int parse_tokens(t_data *data)
 	t_token *current;
 	int		exec_count;
 	int		arg_count;
+	char 	*path;
 
 	arg_count = 0;
 	exec_count = 0;
@@ -71,7 +72,8 @@ int parse_tokens(t_data *data)
 				current = current->next;
 			}
 		}
-		data->execs[exec_count]->command = data->execs[exec_count]->args[0];
+		path = get_path(data->execs[exec_count]->args[0]);
+		data->execs[exec_count]->command = path;
 		data->execs[exec_count]->args[arg_count] = NULL;
 		if (current && current->type == is_pipe)
 		{
@@ -83,6 +85,6 @@ int parse_tokens(t_data *data)
 	}
 	data->execs[exec_count + 1] = NULL;
 	free_tokens(data, only_tokens);
-	print_execs(data);
+	//print_execs(data);
 	return(0);
 }

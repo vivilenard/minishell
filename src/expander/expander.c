@@ -122,7 +122,7 @@ t_exec	**expander(t_exec **exec, char **env)
 		if (exec[i]->command != NULL)
 			exec[i]->command = replace_var(exec[i]->command, env);
 		search_array(exec[i]->args, env);
-		printf ("%s\n", exec[i]->args[0]);
+		//printf ("%s\n", exec[i]->args[0]);
 		search_array(exec[i]->input, env);
 		search_array(exec[i]->output, env);
 		i++;

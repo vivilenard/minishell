@@ -41,15 +41,17 @@ int	executer(t_exec **exec, char **env)
 	i = 0;
 	fd_keep_pipe = 99;
 
-	int n = 0;
-	while (env[n])
-	{
-		printf("%s\n", env[n]);
-		n++;
-	}
+
+
+	//int n = 0;
+	// while (env[n])
+	// {
+	// 	printf("%s\n", env[n]);
+	// 	n++;
+	// }
 	while (exec[i])
 	{
-		ft_putendl_fd("\nExecuting !\n", 2);
+		//ft_putendl_fd("\nExecuting !\n", 2);
 		if (pipe(fd_pipe) == -1)
 			perror("create pipe");
 		fd_keep_pipe = create_child(exec[i], env, fd_pipe, fd_keep_pipe);

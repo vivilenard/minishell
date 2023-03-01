@@ -15,7 +15,7 @@ void print_execs(t_data *data)
 		ft_printf("INPUT-SOURCE: %s\n", data->execs[i]->input[1]);
 		ft_printf("-------------------\n");
 		ft_printf("COMMAND:\n");
-		ft_printf("%s\n", data->execs[i]->args[0]);
+		ft_printf("%s\n", data->execs[i]->command);
 		ft_printf("ARGS:\n");
 		while(data->execs[i]->args[j])
 		{

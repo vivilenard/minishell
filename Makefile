@@ -4,10 +4,10 @@ CFLAGS = -Wall -Werror -Wextra
 
 SRCPATH = src/
 LIBFTPATH = ./libft
-#SRC = 	$(addprefix $(SRCPATH),  main.c utils_prep.c utils.c load_tokens.c content_analyse.c\
-		lexer/split_token.c lexer/split_utils1.c lexer/split_utils2.c parser.c utils_parser.c)
-#SRC  =  src/executer/executer_dummy2.c src/executer/executer.c src/executer/executer_redirections.c src/executer/built-in.c src/expander/expander.c
-#SRC = src/executer/get_path.c
+SRC = 	$(addprefix $(SRCPATH),  main.c utils_prep.c utils.c load_tokens.c content_analyse.c\
+		lexer/split_token.c lexer/split_utils1.c lexer/split_utils2.c parser.c utils_parser.c \
+		executer/executer.c executer/executer_redirections.c executer/built-in.c expander/expander.c \
+		executer/get_path.c)
 
 OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 #OBJ = $(SRC:.c=.o)

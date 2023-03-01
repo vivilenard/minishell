@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+	
 void freestrings(char *s1, char *s2, char *s3, char **array)
 {
 	if (s1)
@@ -88,4 +89,42 @@ void free_data(t_data *data)
 void	init_data(t_data *data)
 {
 	data->token_count = 0;
+}
+
+void	printtokens(t_exec **exec)
+{
+	int	i = 0;
+	int	n = 0;
+	while (exec[i])
+	{
+		printf("\nEXEC[%d]\n", i);
+		printf("---------------------------------------------\n");
+		printf("Command:	%s\n", exec[i]->command);
+		printf("Input:	\n");
+		while (exec[i]->input[n])
+		{
+			printf("- input[%d]:	%s\n", n, exec[i]->input[n]);
+			n++;
+		}
+		if (exec[i]->input[0] == NULL)
+			printf("%s\n", NULL);
+		n = 0;
+		printf("Arguments:	\n");
+		while (exec[i]->args[n])
+		{
+			printf("- arg[%d]:	%s\n", n, exec[i]->args[n]);
+			n++;
+		}
+		n = 0;
+		printf("Output: \n");
+		while (exec[i]->output[n])
+		{
+			printf("- output[%d]:	%s\n", n, exec[i]->output[n]);
+			n++;
+		}
+		if (exec[i]->output[0] == NULL)
+			printf("%s\n", NULL);
+		i++;
+		printf("---------------------------------------------\n");
+	}
 }
