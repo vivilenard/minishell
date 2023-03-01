@@ -35,18 +35,20 @@ void print_execs(t_data *data)
 
 int	get_exec_count(t_token	*current)
 {
-	t_token *tmp;
 	int		exec_count;
 
 	exec_count = 1;
-	tmp = current;
-	while (current)
+	if (current != NULL)
 	{
-		if (current->type == is_pipe)
-			exec_count++;
-		current = current->next;
+		while (current != NULL && current->content)
+		{
+			if (current->type == is_pipe)
+				exec_count++;
+			current = current->next;
+		}
+		return (exec_count);
 	}
-	return (exec_count);
+	return (0);
 }
 
 int	get_arg_num(t_token *current)
@@ -54,12 +56,16 @@ int	get_arg_num(t_token *current)
 	t_token	*tmp;
 	int		arg_count;
 
+	tmp = NULL;
 	arg_count = 0;
 	tmp = current;
 	while (tmp && tmp->type != is_pipe)
 	{
 		if(tmp->type == redirection)
-			tmp = tmp->next->next;
+		{
+			if(tmp->next->next)
+				tmp = tmp->next->next;
+		}
 		else
 		{
 			arg_count++;

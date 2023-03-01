@@ -2,6 +2,10 @@
 
 void init_exec(t_exec *exec, int arg_count)
 {
+	exec->args = NULL;
+	exec->input = NULL;
+	exec->output = NULL;
+	exec->command = NULL;
 	exec->args = malloc((sizeof(char *) * arg_count + 1));
 	exec->input = (char **) malloc(((sizeof(char *) * 2) + 1));
 	exec->output = (char **) malloc(((sizeof(char *) * 2) + 1));
@@ -53,8 +57,12 @@ int parse_tokens(t_data *data)
 	arg_count = 0;
 	exec_count = 0;
 	data->pipeflag = 0;
-	current = *data->tokens;
-	data->execs = malloc(sizeof(t_exec *) * get_exec_count(current) + 1);
+	current = NULL;
+	if(data->tokens && data->tokens)
+		current = data->tokens;
+	data->execs = ft_calloc(sizeof(t_exec *), get_exec_count(data->tokens) + 1);
+	if (!data->execs)
+		return(1);
 	while (current)
 	{
 		data->execs[exec_count] = malloc(sizeof(t_exec));
@@ -84,7 +92,7 @@ int parse_tokens(t_data *data)
 		}
 	}
 	data->execs[exec_count + 1] = NULL;
-	free_tokens(data, only_tokens);
+	/* free_tokens(data, only_tokens); */
 	//print_execs(data);
 	return(0);
 }

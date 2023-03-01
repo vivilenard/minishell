@@ -26,6 +26,7 @@ typedef enum e_tokentype
 	variable,
 	redirection,
 	is_pipe,
+	empty,
 }	t_tokentype;
 
 typedef enum e_free_options
@@ -51,7 +52,7 @@ typedef struct s_exec
 
 typedef struct s_data
 {
-	t_token			**tokens;
+	t_token			*tokens;
 	t_exec			**execs;
 	int				token_count;
 	int				pipeflag;

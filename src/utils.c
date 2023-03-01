@@ -3,6 +3,7 @@
 	
 void freestrings(char *s1, char *s2, char *s3, char **array)
 {
+	printf("in free strings\n");
 	if (s1)
 		free(s1);
 	if (s2)
@@ -42,22 +43,23 @@ void print_tokens (t_token **token)
 	}
 }
 
-void free_tokens(t_data *data, t_free_options type)
+/* void free_tokens(t_data *data, t_free_options type)
 {
 	int	i;
 
 	i = 0;
-	while(data->tokens[i])
+	if(data && data->tokens)
 	{
-		if (type == everything)
-			if(data->tokens[i]->content)
-				free(data->tokens[i]->content);
-		free(data->tokens[i]);
-		i++;
+		while(data->tokens[i])
+		{
+			if (type == everything)
+				if(data->tokens[i]->content)
+					free(data->tokens[i]->content);
+			free(data->tokens[i]);
+			i++;
+		}
 	}
-	data->tokens = NULL;
-	data->token_count = 0;
-}
+} */
 
 void free_exec(t_data *data)
 {
@@ -75,10 +77,11 @@ void free_exec(t_data *data)
 
 void free_data(t_data *data)
 {
+	printf("in free");
 	/* free_tokens(data, everything); */
-	free_exec(data);
-	if(data->tokens)
-		free(data->tokens);
+	/* free_exec(data); */
+/* 	if(data->tokens)
+		free(data->tokens); */
 /* 	if(data->execs)
 		free(data->execs); */
 	if(data)
@@ -89,6 +92,9 @@ void free_data(t_data *data)
 void	init_data(t_data *data)
 {
 	data->token_count = 0;
+	data->tokens = NULL;
+	data->execs = NULL;
+	data->pipeflag = 0;
 }
 
 void	printtokens(t_exec **exec)

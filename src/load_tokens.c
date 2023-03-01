@@ -5,51 +5,47 @@ t_token	*ft_new_token(char *str)
 {
 	t_token	*new_token;
 
-	new_token = NULL;
+	new_token = malloc(sizeof(t_token));
+	if (!new_token)
+		return (NULL);
+	new_token->content = NULL;
 	if (str)
-	{
-		new_token = (t_token *) malloc(sizeof(t_token));
-		if (!new_token)
-			return (0);
 		new_token->content = str;
-		new_token->type = content_analyse(new_token);
-		new_token->next = NULL;
-	}
+	new_token->next = NULL;
+	/* new_token->type = (t_tokentype) malloc(sizeof(t_tokentype)); */
+	new_token->type = content_analyse(new_token);
 	return (new_token);
 }
 
 t_token	*ft_token_last(t_token *lst)
 {
-	t_token	*tmp;
-
-	tmp = lst;
-	while (tmp)
-	{
-		if (!tmp->next)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (0);
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }
 
 void	ft_token_add_back(t_token **tokens, t_token *new)
 {
-	t_token	*tmp;
+	t_token	*end;
 
-	if (!tokens || !*tokens)
-		*tokens = new;
-	else
+	if (!new)
+		return ;
+	if (*tokens)
 	{
-		tmp = ft_token_last(*tokens);
-		if (tmp)
-			tmp->next = new;
+		end = ft_token_last(*tokens);
+		end->next = new;
 	}
+	else
+		*tokens = new;
 }
 
 int	init_token(t_token **tokens, char *str)
 {
 	t_token	*temp;
 
+	temp = NULL;
 	temp = ft_new_token(str);
 	if (!temp)
 		return (1);
@@ -60,16 +56,16 @@ int	init_token(t_token **tokens, char *str)
 int load_tokens(char **split_tokens, t_data *data)
 {
 	int	i;
+
 	i = 0;
-	data->tokens = malloc(sizeof(t_token **));
+	data->tokens = NULL;
 	while(split_tokens[i])
 	{
-		if(init_token(data->tokens, split_tokens[i]))
+		if(init_token(&data->tokens, split_tokens[i]))
 			return(1);
 		i++;
 	}
 	data->token_count = i;
 	free(split_tokens);
-	//print_tokens(data->tokens);
 	return (0);
 }

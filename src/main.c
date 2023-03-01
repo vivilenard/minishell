@@ -23,7 +23,7 @@ int main (int args, char **argv, char **env)
 
 	args = 0;
 	argv = NULL;
-	data = malloc(sizeof(*data));
+	data = malloc(sizeof(t_data));
 	if(!data)
 		return(1);
 	init_data(data);
