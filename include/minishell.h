@@ -17,6 +17,8 @@
 (one prompt could be piped into another). Every Prompt is divided into tokens.
 Every token has a tokentype */
 
+typedef struct s_token 	t_token;
+
 typedef enum e_tokentype
 {
 	word,
@@ -37,15 +39,15 @@ typedef struct s_exec
 {
 	char			*command;
 	char			**args;
-	char			**input;
+	char			**input;											
 	char			**output;
 }				t_exec;
 
 typedef struct s_data
 {
-	struct s_token	**tokens;
+	t_token			**tokens;
 	int				token_count;
-	struct s_exec	**execs;
+	t_exec			**execs;
 }	t_data;
 
 char		*prompt(void);
@@ -59,6 +61,7 @@ void		freestrings(char *s1, char *s2, char *s3, char **array);
 char		*username(void);
 void		print_tokens(t_token **token);
 void		free_data(t_data *data);
+void	init_data(t_data *data);
 
 //Lexer
 char		**allocate(char **split, int strnumber);
