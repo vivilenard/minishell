@@ -86,9 +86,11 @@ void free_data(t_data *data)
 	exit(EXIT_FAILURE);
 }
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, int args, char **argv)
 {
 	data->token_count = 0;
+	args = 99999;
+	argv = NULL;
 }
 
 void	printtokens(t_exec **exec)

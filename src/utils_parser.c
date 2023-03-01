@@ -19,7 +19,7 @@ void print_execs(t_data *data)
 		ft_printf("ARGS:\n");
 		while(data->execs[i]->args[j])
 		{
-			ft_printf("ARG #%i: %s\n", i, data->execs[i]->args[j]);
+			ft_printf("ARG #%i: %s\n", j, data->execs[i]->args[j]);
 			j++;
 		}
 		ft_printf("-------------------\n");
