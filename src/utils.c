@@ -41,29 +41,48 @@ void print_tokens (t_token **token)
 	}
 }
 
-void free_tokens(t_token **token)
+void free_tokens(t_data *data, t_free_options type)
 {
-	t_token *current;
+	int	i;
 
-	if(*token)
+	i = 0;
+	while(data->tokens[i])
 	{
-		current = *token;
-		while (current)
-		{
-			free(current->content);
-			current = current->next;
-		}
+		if (type == everything)
+			if(data->tokens[i]->content)
+				free(data->tokens[i]->content);
+		free(data->tokens[i]);
+		i++;
+	}
+	data->tokens = NULL;
+	data->token_count = 0;
+}
+
+void free_exec(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while(data->execs[i])
+	{
+		free(data->execs[i]->args);
+		free(data->execs[i]->input);
+		free(data->execs[i]->output);
+		i++;
 	}
 }
 
 void free_data(t_data *data)
 {
-	free_tokens(data->tokens);
+	/* free_tokens(data, everything); */
+	free_exec(data);
 	if(data->tokens)
 		free(data->tokens);
+/* 	if(data->execs)
+		free(data->execs); */
 	if(data)
 		free(data);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	init_data(t_data *data)

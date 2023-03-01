@@ -1,109 +1,88 @@
 #include "../include/minishell.h"
 
-t_token	*write_redirection(t_token *current, t_data *data, int i)
+void init_exec(t_exec *exec, int arg_count)
+{
+	exec->args = malloc((sizeof(char *) * arg_count + 1));
+	exec->input = (char **) malloc(((sizeof(char *) * 2) + 1));
+	exec->output = (char **) malloc(((sizeof(char *) * 2) + 1));
+}
+
+t_token	*write_redirection(t_token *current, t_exec *exec)
 {
 	int	j;
 
-	i = 0;
+	j = 0;
 	if(current->content[0] == '<')
 	{
-		data->execs[i]->input = (char **) malloc(sizeof(char *) * 2);
-		if(!data->execs[i]->input)
-			exit(0);
 		while(j < 2)
 		{
-			data->execs[i]->input[j] = (char *) malloc(sizeof(char) * ft_strlen(current->content));
-			if(!data->execs[i]->input[j])
-				exit(0);
-			data->execs[i]->input[j] = current->content;
+			exec->input[j] = current->content;
 			current = current->next;
 			j++;
 		}
+		exec->input[j] = NULL;
 	}
 	else
 	{
-		data->execs[i]->output = (char **) malloc(sizeof(char *) * 2);
-		if(!data->execs[i]->output)
-			exit(0);
 		while(j < 2)
 		{
-			data->execs[i]->output[j] = (char *) malloc(sizeof(char) * ft_strlen(current->content));
-			if(!data->execs[i]->output[j])
-				exit(0);
-			data->execs[i]->output[j] = current->content;
+			exec->output[j] = current->content;
 			current = current->next;
 			j++;
 		}
+		exec->output[j] = NULL;
 	}
 	return (current);
 }
 
-int get_command_length(t_token *current)
+t_token	*write_pipe(t_exec *exec, t_token *current)
 {
-	int len;
-
-	len = 0;
-	while (current || current->type != is_pipe || current->type != redirection)
-	{
-		current = current->next;
-		len++;
-	}
-	return (len);
-}
-
-t_token	*write_command(t_token *current, t_data *data, int i)
-{
-	int	j;
-	int command_len;
-
-	j = 0;
-	command_len = get_command_length(current);
-	data->execs[i]->command = (char **) malloc(get_command_length(current) * sizeof(char *));
-	while(j < command_len)
-	{
-		data->execs[i]->command[j] = current->content;
-		current = current->next;
-		j++;
-	}
-	return (current);
-}
-
-void write_pipe(t_token *current, t_data *data, int i)
-{
-	data->execs[i]->output = (char **) malloc(sizeof(char *));
-	if(!data->execs[i]->output)
-		exit(0);
-	data->execs[i]->output[0] = current->content;
+	exec->output[0] = current->content;
+	exec->output[1] = NULL;
+	current = current->next;
+	return(current);
 }
 
 int parse_tokens(t_data *data)
 {
-	t_token	*current;
-	int		i;
+	t_token *current;
+	int		exec_count;
+	int		arg_count;
 
-	i = 0;
+	arg_count = 0;
+	exec_count = 0;
+	data->pipeflag = 0;
 	current = *data->tokens;
-	data->execs = (t_exec **) malloc(sizeof(t_exec **));
-	while(current)
+	data->execs = malloc(sizeof(t_exec *) * get_exec_count(current) + 1);
+	while (current)
 	{
-		data->execs[i] = (t_exec *) malloc(sizeof(t_exec));
-		if(current->type == redirection && current->content[0] == '<')
-			current = write_redirection(current, data, i);
-		//save redirection sign and folowing target into "input"
-		if(current->type == word)
-			current = write_command(current, data, i);
-		if(current->type == redirection && current->content[0] == '>')
+		data->execs[exec_count] = malloc(sizeof(t_exec));
+		init_exec(data->execs[exec_count], get_arg_num(current));
+		if(data->pipeflag)
+			data->execs[exec_count]->input[0] = "|";
+		while (current && current->type != is_pipe)
 		{
-			current = write_redirection(current, data, i);
-			current = current->next;
-			i++;
+			if (current->type == redirection)
+				current = write_redirection(current, data->execs[exec_count]);
+			else if (current->type == word || current->type == option)
+			{
+				data->execs[exec_count]->args[arg_count] = current->content;
+				arg_count++;
+				current = current->next;
+			}
 		}
-		//save redirection sign and folowing target into "output"
-		if(current->type == is_pipe && current)
+		data->execs[exec_count]->command = data->execs[exec_count]->args[0];
+		data->execs[exec_count]->args[arg_count] = NULL;
+		if (current && current->type == is_pipe)
 		{
-			write_pipe(current, data, i);
-			current = current->next;
-			i++;
+			current = write_pipe(data->execs[exec_count], current);
+			data->pipeflag = 1;
+			exec_count++;
+			arg_count = 0;
 		}
 	}
+	data->execs[exec_count + 1] = NULL;
+	free_tokens(data, only_tokens);
+	print_execs(data);
+	return(0);
 }

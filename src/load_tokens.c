@@ -61,6 +61,7 @@ int load_tokens(char **split_tokens, t_data *data)
 {
 	int	i;
 	i = 0;
+	data->tokens = malloc(sizeof(t_token **));
 	while(split_tokens[i])
 	{
 		if(init_token(data->tokens, split_tokens[i]))
