@@ -44,7 +44,7 @@ int	executer(t_exec **exec, char **env)
 	printtokens(exec);
 	while (exec[i])
 	{
-		ft_putendl_fd("\nExecuting !\n", 2);
+		//ft_putendl_fd("\nExecuting !\n", 2);
 		if (pipe(fd_pipe) == -1)
 			perror("create pipe");
 		usleep (3000);  //actually dont need if executer is perfect

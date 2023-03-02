@@ -13,11 +13,11 @@ t_exec **init_exec0(t_exec **exec)
 	exec[0]->args[0] = ft_strdup("ls");
 	exec[0]->args[1] = NULL;
 	exec[0]->args[2] = NULL;
-	exec[0]->input[0] = NULL;
+	exec[0]->input[0] = ft_strdup("");
 	exec[0]->input[1] = ft_strdup("in.txt");
 	exec[0]->input[2] = NULL;
-	exec[0]->output[0] = ft_strdup("");
-	exec[0]->output[1] = ft_strdup("");
+	exec[0]->output[0] = ft_strdup("|");
+	exec[0]->output[1] = ft_strdup("out");
 	exec[0]->output[2] = NULL;
 
 	return (exec);
@@ -37,7 +37,7 @@ t_exec **init_exec1(t_exec **exec)
 	exec[1]->input[0] = ft_strdup("|");
 	exec[1]->input[1] = ft_strdup("in.txt");
 	exec[1]->input[2] = NULL;
-	exec[1]->output[0] = ft_strdup("|");
+	exec[1]->output[0] = NULL;
 	exec[1]->output[1] = ft_strdup("out");
 	exec[1]->output[2] = NULL;
 
@@ -107,7 +107,7 @@ int main (int args, char **argv, char **env)
 	exec = init_exec0(exec);
 	exec = init_exec1(exec);
 	exec = init_exec2(exec);
-	exec[1] = NULL;
+	exec[2] = NULL;
 	//int i = 0;
 	// while (env[i])
 	// {
@@ -115,7 +115,8 @@ int main (int args, char **argv, char **env)
 	// 	i++;
 	// }
 	//exec = expander(exec, env);
-	printf("%zu\n", ft_strlen(exec[2]->input[1]));
+	//printf("%zu\n", ft_strlen(exec[2]->input[1]));
+	//ft_strncmp(exec->output[0], "|", 2)
 	executer(exec, env);
 
 	return (0);
