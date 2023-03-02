@@ -43,23 +43,24 @@ void print_tokens (t_token **token)
 	}
 }
 
-/* void free_tokens(t_data *data, t_free_options type)
+void free_tokens(t_data *data, t_free_options type)
 {
-	int	i;
+	t_token	*current;
+	t_token	*tmp;
 
-	i = 0;
-	if(data && data->tokens)
+	if(data->tokens)
 	{
-		while(data->tokens[i])
+		current = data->tokens;
+		while(current)
 		{
+			tmp = current->next;
 			if (type == everything)
-				if(data->tokens[i]->content)
-					free(data->tokens[i]->content);
-			free(data->tokens[i]);
-			i++;
+				free(current->content);
+			free(current);
+			current = tmp;
 		}
 	}
-} */
+}
 
 void free_exec(t_data *data)
 {
@@ -71,19 +72,17 @@ void free_exec(t_data *data)
 		free(data->execs[i]->args);
 		free(data->execs[i]->input);
 		free(data->execs[i]->output);
+		free(data->execs[i]);
 		i++;
 	}
+	free(data->execs);
 }
 
 void free_data(t_data *data)
 {
-	printf("in free");
-	/* free_tokens(data, everything); */
-	/* free_exec(data); */
-/* 	if(data->tokens)
-		free(data->tokens); */
-/* 	if(data->execs)
-		free(data->execs); */
+	free_exec(data);
+	if(data->execs)
+		free(data->execs);
 	if(data)
 		free(data);
 	exit(EXIT_FAILURE);
@@ -91,7 +90,6 @@ void free_data(t_data *data)
 
 void	init_data(t_data *data)
 {
-	data->token_count = 0;
 	data->tokens = NULL;
 	data->execs = NULL;
 	data->pipeflag = 0;

@@ -65,7 +65,6 @@ int load_tokens(char **split_tokens, t_data *data)
 			return(1);
 		i++;
 	}
-	data->token_count = i;
 	free(split_tokens);
 	return (0);
 }

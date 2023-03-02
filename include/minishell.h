@@ -54,7 +54,6 @@ typedef struct s_data
 {
 	t_token			*tokens;
 	t_exec			**execs;
-	int				token_count;
 	int				pipeflag;
 }	t_data;
 
@@ -70,9 +69,10 @@ void		freestrings(char *s1, char *s2, char *s3, char **array);
 void		printtokens(t_exec **exec);
 char		*username(void);
 void		print_tokens(t_token **token);
-void	free_tokens(t_data *data, t_free_options type);
+void		free_tokens(t_data *data, t_free_options type);
 void		free_data(t_data *data);
-void	init_data(t_data *data);
+void		init_data(t_data *data);
+void		free_exec(t_data *data);
 
 
 //Utils Parser

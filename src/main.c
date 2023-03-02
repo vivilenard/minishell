@@ -45,7 +45,9 @@ int main (int args, char **argv, char **env)
 				free(tokens), free_data(data), 1);
 		parse_tokens(data);
 		printtokens(data->execs);
+		/* print_execs(data); */
 		executer(data->execs, env);
+		/* free_exec(data); */
 	}
 	freestrings(input, promptline, NULL, NULL);
 	return (0);
