@@ -63,14 +63,6 @@ int	jump_redir(char *str, int *i)
 	count = 0;
 	if (*i == 0)
 		count = 1;
-	// if (is_char(str[*i], '<'))
-	// {
-		// while (is_char(str[*i], '<'))
-		// 	*i += 1;
-		// if (str[*i] == '\0')
-		// 	count++;
-		// return (2 - count);
-	// }
 	if (is_char(str[*i], '>') || is_char(str[*i], '<') || is_char(str[*i], '|'))
 	{
 		while (is_char(str[*i], '>') || is_char(str[*i], '<') || is_char(str[*i], '|'))

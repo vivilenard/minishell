@@ -7,3 +7,9 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	echo "test" "test" hi du > out   --> echo uebernimmt aaaaaaalles
 	stdin > cat | cat | ls
 	ls < infile -a
+
+
+
+	TO DO:
+	- quotes entfernen vor executer
+	- ls |cat funktioniert nicht

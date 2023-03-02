@@ -15,13 +15,12 @@ int	create_child(t_exec *exec, char **env, int *fd_pipe, int fd_keep_pipe)
 {
 	pid_t	pid;
 
-	env = NULL;
 	pid = fork();
 	if (pid == 0)
 	{
 		in_out(exec, fd_pipe, fd_keep_pipe);
-		// while (built_in(exec, env) == 1)
-		// 	break ;
+		while (built_in(exec, env) == 0)
+			break ;	
 		if (execve(exec->command, exec->args, env) == -1)
 			perror("execve");
 	}
@@ -41,7 +40,7 @@ int	executer(t_exec **exec, char **env)
 	i = 0;
 	fd_keep_pipe = 99;
 
-	//printtokens(exec);
+	printtokens(exec);
 	while (exec[i])
 	{
 		//ft_putendl_fd("\nExecuting !\n", 2);
