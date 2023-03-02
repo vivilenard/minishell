@@ -69,7 +69,8 @@ int	countstrs(char *str)
 			count += n;
 			if (n)
 			{
-				flag = 4;
+				if (flag == 3)
+					flag = 4;
 				i--;
 			}
 		}

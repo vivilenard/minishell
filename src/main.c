@@ -16,7 +16,7 @@ int	take_input(char **input, char *promptline, t_data *data)
 	if(!*input)
 	{
 		ft_putendl_fd("Shell Aborted", 2);
-		freestrings(*input, promptline, NULL, NULL);
+		//freestrings(*input, promptline, NULL, NULL);  //whats going on here?
 		free_data(data);
 		return (0);
 	}
@@ -60,6 +60,7 @@ int main (int args, char **argv, char **env)
 		/* print_execs(data); */
 		executer(data->execs, env);
 		/* free_exec(data); */
+		ft_strlen (env[0]); //dont need
 	}
 	freestrings(input, promptline, NULL, NULL);
 	return (0);

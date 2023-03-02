@@ -65,7 +65,7 @@ int parse_tokens(t_data *data)
 	{
 		data->execs[exec_count] = malloc(sizeof(t_exec));
 		init_exec(data->execs[exec_count], get_arg_num(current));
-		printf("%i", get_arg_num(current));
+		//printf("%i", get_arg_num(current));
 		if(data->pipeflag)
 		{
 			data->execs[exec_count]->input[0] = "|";
@@ -82,7 +82,7 @@ int parse_tokens(t_data *data)
 				current = current->next;
 			}
 		}
-		data->execs[exec_count]->command = data->execs[exec_count]->args[0];
+		data->execs[exec_count]->command = get_path(data->execs[exec_count]->args[0]);
 		data->execs[exec_count]->args[arg_count] = NULL;
 		if (current && current->type == is_pipe)
 		{
