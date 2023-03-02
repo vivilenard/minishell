@@ -47,7 +47,8 @@ t_token	*write_args(t_data *data, t_token *current)
 
 void get_command(t_data *data)
 {
-	data->execs[data->exec_count]->command = get_path(data->execs[data->exec_count]->args[0]);
+	//data->execs[data->exec_count]->command = get_path(data->execs[data->exec_count]->args[0]);
+	data->execs[data->exec_count]->command = data->execs[data->exec_count]->args[0];
 }
 
 int parse_tokens(t_data *data)
@@ -72,10 +73,10 @@ int parse_tokens(t_data *data)
 				current = write_args(data, current);
 		}
 		get_command(data);
-		printf("here\n");
 		if (current && current->type == is_pipe)
 			current = write_pipe_out(data, current);
 	}
-	free_tokens(data, only_tokens);
+	print_execs(data);
+	//free_tokens(data, only_tokens);
 	return(0);
 }
