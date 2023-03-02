@@ -32,17 +32,18 @@ int is_option(char *str)
 
 t_tokentype	content_analyse(t_token *token)
 {
-	char	*str;
-
-	str = token->content;
-	if (str[0] == '-' || is_option(str))
-		return(option);
-	else if (str[0] == '<' || str[0] == '>')
-		return(redirection);
-	else if (str[0] == '|')
-		return(is_pipe);
-	else if (str[0] == '$')
-		return(variable);
-	else
-		return(word);
+	if(token->content)
+	{
+		if (token->content[0] == '-' || is_option(token->content))
+			return(option);
+		else if (token->content[0] == '<' || token->content[0] == '>')
+			return(redirection);
+		else if (token->content[0] == '|')
+			return(is_pipe);
+		else if (token->content[0] == '$')
+			return(variable);
+		else
+			return(word);	
+	}
+	return(empty);
 }

@@ -33,8 +33,9 @@ int main (int args, char **argv, char **env)
 
 	t_data	*data;
 
-	input = NULL;
-	data = malloc(sizeof(*data));
+	args = 0;
+	argv = NULL;
+	data = malloc(sizeof(t_data));
 	if(!data)
 		return(1);
 	init_data(data, args, argv);
@@ -55,10 +56,10 @@ int main (int args, char **argv, char **env)
 				free(tokens), free_data(data), 1);
 		printf("\nPARSER\n");
 		parse_tokens(data);
-		//print_execs(data);
-		//printtokens(data->execs);
-		printf("\nEXECUTER\n");
+		printtokens(data->execs);
+		/* print_execs(data); */
 		executer(data->execs, env);
+		/* free_exec(data); */
 	}
 	freestrings(input, promptline, NULL, NULL);
 	return (0);
