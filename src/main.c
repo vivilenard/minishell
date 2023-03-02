@@ -36,14 +36,15 @@ int main (int args, char **argv, char **env)
 
 	args = 0;
 	argv = NULL;
+	(void) env;
 	data = malloc(sizeof(t_data));
 	if(!data)
 		return(1);
-	init_data(data, args, argv);
 	promptline = prompt();
 	while (1)
 	{
 		printf("\nSTART\n");
+		init_data(data, args, argv);
 		if (!take_input(&input, promptline, data))
 			return (0);
 		if (ft_strlen(input) > 0)
@@ -55,12 +56,10 @@ int main (int args, char **argv, char **env)
 		if(load_tokens(tokens, data))
 			return(freestrings(input, promptline, NULL, NULL),
 				free(tokens), free_data(data), 1);
-		//print_tokens(&data->tokens);
 		printf("\nPARSER\n");
 		parse_tokens(data);
-		print_execs(data);
 		executer(data->execs, env);
-		ft_strlen (env[0]); //dont need
+		//ft_strlen (env[0]); //dont need
 	}
 	freestrings(input, promptline, NULL, NULL);
 	return (0);

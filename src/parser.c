@@ -22,7 +22,6 @@ t_token	*write_redirection(t_data *data, t_token *current)
 			current = current->next;
 			j++;
 		}
-		//data->execs[data->exec_count]->input[j] = NULL;
 	}
 	else
 	{
@@ -32,7 +31,6 @@ t_token	*write_redirection(t_data *data, t_token *current)
 			current = current->next;
 			j++;
 		}
-		//data->execs[data->exec_count]->output[j] = NULL;
 	}
 	return (current);
 }
@@ -47,12 +45,13 @@ t_token	*write_args(t_data *data, t_token *current)
 
 void get_command(t_data *data)
 {
-	//data->execs[data->exec_count]->command = get_path(data->execs[data->exec_count]->args[0]);
-	data->execs[data->exec_count]->command = data->execs[data->exec_count]->args[0];
+	data->execs[data->exec_count]->command = get_path(data->execs[data->exec_count]->args[0]);
+	//data->execs[data->exec_count]->command = data->execs[data->exec_count]->args[0];
 }
 
 int parse_tokens(t_data *data)
 {
+	print_tokens(&data->tokens);
 	t_token *current;
 
 	if(data->tokens)
@@ -77,6 +76,6 @@ int parse_tokens(t_data *data)
 			current = write_pipe_out(data, current);
 	}
 	print_execs(data);
-	//free_tokens(data, only_tokens);
+	free_tokens(data, only_tokens);
 	return(0);
 }
