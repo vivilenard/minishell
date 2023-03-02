@@ -2,7 +2,7 @@
 
 int	is_delimiter(char c)
 {
-	if (ft_iswhitespace(c) || c == '<' || c == '>')
+	if (ft_iswhitespace(c) || c == '<' || c == '>' || c == '|')
 		return (c);
 	return (0);
 }
