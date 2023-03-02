@@ -27,7 +27,9 @@ char	*get_path(char *command)
 
 	env_paths = getenv("PATH");
 	paths = ft_split(env_paths, ':');
+	ft_printf("here\n");
 	correct_path = find_correct_path(paths, command);
+	ft_printf("here\n");
 	ft_free2d(paths);
 	return (correct_path);
 }

@@ -93,6 +93,8 @@ void	init_data(t_data *data, int args, char **argv)
 	data->tokens = NULL;
 	data->execs = NULL;
 	data->pipeflag = 0;
+	data->arg_count = 0;
+	data->exec_count = 0;
 	args = 99999;
 	argv = NULL;
 }
