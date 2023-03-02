@@ -17,6 +17,7 @@ int	take_input(char **input, char *promptline, t_data *data)
 	{
 		ft_putendl_fd("Shell Aborted", 2);
 		//freestrings(*input, promptline, NULL, NULL);  //whats going on here?
+		(void) data;
 		free_data(data);
 		return (0);
 	}
@@ -49,17 +50,16 @@ int main (int args, char **argv, char **env)
 			add_history(input);
 		printf("\nLEXER\n");
 		tokens = split_token(input);
-		ft_put2dstr_fd(tokens, 2);
+		//ft_put2dstr_fd(tokens, 2);
 		printf("load tokens\n");
 		if(load_tokens(tokens, data))
 			return(freestrings(input, promptline, NULL, NULL),
 				free(tokens), free_data(data), 1);
+		//print_tokens(&data->tokens);
 		printf("\nPARSER\n");
 		parse_tokens(data);
-		//printtokens(data->execs);
-		/* print_execs(data); */
+		print_execs(data);
 		executer(data->execs, env);
-		/* free_exec(data); */
 		ft_strlen (env[0]); //dont need
 	}
 	freestrings(input, promptline, NULL, NULL);

@@ -6,9 +6,9 @@ void init_exec(t_exec *exec, int arg_count)
 	exec->input = NULL;
 	exec->output = NULL;
 	exec->command = NULL;
-	exec->args = malloc((sizeof(char *) * (arg_count + 1)));
-	exec->input = (char **) malloc((sizeof(char *) * 2) + 1);
-	exec->output = (char **) malloc((sizeof(char *) * 2) + 1);
+	exec->args = (char **) ft_calloc(sizeof(char *), (arg_count + 1) );
+	exec->input = (char **) ft_calloc((sizeof(char *) * 2) + 1, 1);
+	exec->output = (char **) ft_calloc((sizeof(char *) * 2) + 1, 1);
 }
 
 t_token	*write_redirection(t_token *current, t_exec *exec)
@@ -65,12 +65,8 @@ int parse_tokens(t_data *data)
 	{
 		data->execs[exec_count] = malloc(sizeof(t_exec));
 		init_exec(data->execs[exec_count], get_arg_num(current));
-		//printf("%i", get_arg_num(current));
 		if(data->pipeflag)
-		{
-			data->execs[exec_count]->input[0] = "|";
-			data->execs[exec_count]->input[1] = NULL;
-		}
+			write_pipe_in(data, exec_count);
 		while (current && current->type != is_pipe)
 		{
 			if (current->type == redirection)
@@ -90,11 +86,6 @@ int parse_tokens(t_data *data)
 			data->pipeflag = 1;
 			exec_count++;
 			arg_count = 0;
-		}
-		else
-		{
-			data->execs[exec_count]->output[0] = NULL;
-			data->execs[exec_count]->output[1] = NULL;
 		}
 	}
 	data->execs[exec_count + 1] = NULL;

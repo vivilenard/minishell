@@ -80,6 +80,7 @@ void	print_execs(t_data *data);
 int		get_exec_count(t_token	*current);
 int		get_arg_num(t_token *current);
 char	*get_path(char *command);
+void	write_pipe_in(t_data *data, int exec_count);
 
 
 //Split

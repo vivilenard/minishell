@@ -12,8 +12,7 @@ void print_execs(t_data *data)
 		ft_printf("EXEC #%i\n", i);
 		ft_printf("-------------------\n");
 		ft_printf("INPUT-TYPE: %s\n", data->execs[i]->input[0]);
-		if(data->execs[i]->input[1])
-			ft_printf("INPUT-SOURCE: %s\n", data->execs[i]->input[1]);
+		ft_printf("INPUT-SOURCE: %s\n", data->execs[i]->input[1]);
 		ft_printf("-------------------\n");
 		ft_printf("COMMAND:\n");
 		ft_printf("%s\n", data->execs[i]->command);
@@ -24,10 +23,10 @@ void print_execs(t_data *data)
 			j++;
 		}
 		ft_printf("-------------------\n");
-		if(data->execs[i]->output[0])
+		//if(data->execs[i]->output[0])
 			ft_printf("OUTPUT-TYPE: %s\n", data->execs[i]->output[0]);
-		if(data->execs[i]->output[1])
-			ft_printf("OUTPUT-SOURCE: %s\n", data->execs[i]->output[1]);
+		//if(data->execs[i]->output[1])
+			ft_printf("OUTPUT-TARGET: %s\n", data->execs[i]->output[1]);
 		ft_printf("\n");
 		ft_printf("\n");
 		j = 0;
@@ -61,11 +60,17 @@ int	get_arg_num(t_token *current)
 	tmp = current;
 	while (tmp && tmp->type != is_pipe)
 	{
-		ft_printf("in ARG-LOOP %i\n", arg_count);
+		//ft_printf("in ARG-LOOP %i\n", arg_count);
 		if(tmp->type == redirection)
 			red_count ++;
 		arg_count++;
 		tmp = tmp->next;
 	}
 	return(arg_count - (red_count * 2));
+}
+
+void	write_pipe_in(t_data *data, int exec_count)
+{
+	data->execs[exec_count]->input[0] = "|";
+	data->execs[exec_count]->input[1] = NULL;
 }
