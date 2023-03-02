@@ -31,6 +31,7 @@ char	**create_strings(char **split, char *str)
 	flag = 0;
 	keep_quote = 0;
 	is_split = 0;
+	//printf("create\n");
 	jump_delimiter_split(split, str, &start, &i);
 	while (str[i])
 	{
