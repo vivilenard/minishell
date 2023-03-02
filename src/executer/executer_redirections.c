@@ -5,22 +5,22 @@ int	in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe)
 	if (ft_strlen(exec->input[0]) > 0 && ft_strncmp(exec->input[0], "|", 2)
 		!= 0)
 	{
-		ft_putendl_fd("file as stdin", 2);
+		//ft_putendl_fd("file as stdin", 2);
 		file_as_stdin(exec);
 	}
 	else if (ft_strlen(exec->input[0]) > 0 && ft_strncmp(exec->input[0], "|", 2) == 0)
 	{
-		ft_putendl_fd("pipe as stdin", 2);
+		//ft_putendl_fd("pipe as stdin", 2);
 		pipe_as_stdin(fd_keep_pipe);
 	}
 	if (ft_strlen(exec->output[0]) > 0 && ft_strncmp(exec->output[0], "|", 2) != 0)
 	{
-		ft_putendl_fd("file as stdout", 2);
+		//ft_putendl_fd("file as stdout", 2);
 		file_as_stdout(exec);
 	}
 	if (ft_strlen(exec->output[0]) > 0 && ft_strncmp(exec->output[0], "|", 2) == 0)
 	{
-		ft_putendl_fd("pipe as stdout", 2);
+		//ft_putendl_fd("pipe as stdout", 2);
 		pipe_as_stdout(fd_pipe);
 	}
 	close_pipe(fd_pipe);
