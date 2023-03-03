@@ -76,23 +76,23 @@ void free_exec(t_data *data)
 		if(data->execs[i]->args)
 		{
 			ft_free2d(data->execs[i]->args);
-			ft_printf("free_args: %i\n", i);
+			//ft_printf("free_args: %i\n", i);
 		}
 		if(data->execs[i]->input)
 		{
 			ft_free2d(data->execs[i]->input);
-			ft_printf("free_input: %i\n", i);
+			//ft_printf("free_input: %i\n", i);
 		}
 		if(data->execs[i]->output)
 		{
 			ft_free2d(data->execs[i]->output);
-			ft_printf("free_output: %i\n", i);
+			//ft_printf("free_output: %i\n", i);
 		}
 		if (data->execs[i])
 		{
 			free(data->execs[i]);
 			data->execs[i] = NULL;
-			ft_printf("free_execs: %i\n", i);
+			//ft_printf("free_execs: %i\n", i);
 		}
 		i++;
 	}
@@ -100,7 +100,7 @@ void free_exec(t_data *data)
 	{
 		free(data->execs);
 		data->execs = NULL;
-		ft_printf("free_execs**: %i\n", i);
+		//ft_printf("free_execs**: %i\n", i);
 	}
 }
 

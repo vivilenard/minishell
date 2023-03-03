@@ -11,7 +11,7 @@ t_exec **init_exec0(t_exec **exec)
 	exec[0]->command = ft_strdup("/bin/echo");
 	//exec[0]->command = ft_strdup("/usr/bin/grep");
 	exec[0]->args[0] = ft_strdup("echo");
-	exec[0]->args[1] = "hii$USER";
+	exec[0]->args[1] = "$USER";
 	exec[0]->args[2] = NULL;
 	exec[0]->input[0] = ft_strdup("");
 	exec[0]->input[1] = ft_strdup("in.txt");

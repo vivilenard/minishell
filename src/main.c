@@ -53,7 +53,7 @@ int main (int args, char **argv, char **env)
 		if(load_tokens(tokens, data))
 			return(1);
 		parse_tokens(data);
-		//executer(data->execs, env);
+		executer(data->execs, env);
 		//ft_strlen (env[0]); //dont need
 		free_data(data);
 	}

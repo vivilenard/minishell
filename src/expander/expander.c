@@ -62,7 +62,7 @@ char	*take_var(char *s, char **env)
 	i = 0;
 	finalword = NULL;
 	split = ft_split(s, '$');
-	ft_put2dstr_fd(split, 2);
+	//ft_put2dstr_fd(split, 2);
 	declaration = malloc(sizeof(char *) * (ft_2darraylen(split) + 1));
 	while (split[i])
 	{
@@ -70,8 +70,8 @@ char	*take_var(char *s, char **env)
 		i++;
 	}
 	declaration[i] = NULL;
-	printf("declaration:\n");
-	ft_put2dstr_fd(declaration, 2);
+	//printf("declaration:\n");
+	//ft_put2dstr_fd(declaration, 2);
 	i = 0;
 	
 	finalword = declaration[0];
