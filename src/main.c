@@ -46,15 +46,17 @@ int main (int args, char **argv, char **env)
 		init_data(data, args, argv);
 		if (!take_input(&input, promptline, data))
 			return (1);
-		free(promptline);
+		if(promptline)
+			free(promptline);
 		if (ft_strlen(input) > 0)
 			add_history(input);
 		tokens = split_token(input);
-		free(input);
+		if(input)
+			free(input);
 		if(load_tokens(tokens, data))
 			return(1);
 		parse_tokens(data);
-		//executer(data->execs, env);
+		executer(data->execs, env);
 		//ft_strlen (env[0]); //dont need
 		free_data(data);
 	}

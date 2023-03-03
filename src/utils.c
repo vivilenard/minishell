@@ -55,10 +55,14 @@ void free_tokens(t_data *data, t_free_options type)
 		{
 			tmp = current->next;
 			if (type == everything)
+			{
 				free(current->content);
+				current->content = NULL;
+			}
 			free(current);
 			current = tmp;
 		}
+		current = NULL;
 	}
 }
 
@@ -87,6 +91,7 @@ void free_exec(t_data *data)
 		if (data->execs[i])
 		{
 			free(data->execs[i]);
+			data->execs[i] = NULL;
 			ft_printf("free_execs: %i\n", i);
 		}
 		i++;
@@ -94,6 +99,7 @@ void free_exec(t_data *data)
 	if(data->execs)
 	{
 		free(data->execs);
+		data->execs = NULL;
 		ft_printf("free_execs**: %i\n", i);
 	}
 }
@@ -104,7 +110,10 @@ void free_data(t_data *data)
 	if(data->execs)
 		free_exec(data);
 	if(data)
+	{
 		free(data);
+		data = NULL;
+	}
 	/* system("leaks shell"); */
 	exit(EXIT_FAILURE);
 }
