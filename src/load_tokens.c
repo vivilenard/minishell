@@ -12,7 +12,6 @@ t_token	*ft_new_token(char *str)
 	if (str)
 		new_token->content = str;
 	new_token->next = NULL;
-	/* new_token->type = (t_tokentype) malloc(sizeof(t_tokentype)); */
 	new_token->type = content_analyse(new_token);
 	return (new_token);
 }
