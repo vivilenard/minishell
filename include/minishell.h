@@ -23,7 +23,6 @@ typedef enum e_tokentype
 {
 	word,
 	option,
-	variable,
 	redirection,
 	is_pipe,
 	empty,
