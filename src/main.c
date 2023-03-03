@@ -17,6 +17,7 @@ int	take_input(char **input, char *promptline, t_data *data)
 	{
 		ft_putendl_fd("Shell Aborted", 2);
 		//freestrings(*input, promptline, NULL, NULL);  //whats going on here?
+		(void) data;
 		free_data(data);
 		return (0);
 	}
@@ -35,34 +36,27 @@ int main (int args, char **argv, char **env)
 
 	args = 0;
 	argv = NULL;
-	data = malloc(sizeof(t_data));
-	if(!data)
-		return(1);
-	init_data(data, args, argv);
+	(void) env;
 	promptline = prompt();
 	while (1)
 	{
-		printf("\nSTART\n");
+		data = ft_calloc(sizeof(t_data), 1);
+		if(!data)
+			return(free(promptline), exit(EXIT_FAILURE), 1);
+		init_data(data, args, argv);
 		if (!take_input(&input, promptline, data))
-			return (0);
+			return (1);
 		if (ft_strlen(input) > 0)
 			add_history(input);
-		printf("\nLEXER\n");
 		tokens = split_token(input);
-		ft_put2dstr_fd(tokens, 2);
-		printf("load tokens\n");
+		free(input);
 		if(load_tokens(tokens, data))
-			return(freestrings(input, promptline, NULL, NULL),
-				free(tokens), free_data(data), 1);
-		printf("\nPARSER\n");
+			return(1);
 		parse_tokens(data);
-		//printtokens(data->execs);
-		data->execs = expander(data->execs, env);
-		/* print_execs(data); */
-		executer(data->execs, env);
-		/* free_exec(data); */
+		//executer(data->execs, env);
 		//ft_strlen (env[0]); //dont need
+		free_data(data);
 	}
-	freestrings(input, promptline, NULL, NULL);
+	free(promptline);
 	return (0);
 }

@@ -55,6 +55,8 @@ typedef struct s_data
 	t_token			*tokens;
 	t_exec			**execs;
 	int				pipeflag;
+	int				arg_count;
+	int				exec_count;
 }	t_data;
 
 char		*prompt(void);
@@ -74,12 +76,17 @@ void		free_data(t_data *data);
 void		init_data(t_data *data, int args, char **argv);
 void		free_exec(t_data *data);
 
+//Parser
+void init_exec(t_data *data, t_token *current);
+t_token	*write_redirection(t_data *data, t_token *current);
 
 //Utils Parser
 void	print_execs(t_data *data);
 int		get_exec_count(t_token	*current);
 int		get_arg_num(t_token *current);
 char	*get_path(char *command);
+void	write_pipe_in(t_data *data);
+t_token	*write_pipe_out(t_data *data, t_token *current);
 
 
 //Split

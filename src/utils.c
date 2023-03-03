@@ -55,10 +55,14 @@ void free_tokens(t_data *data, t_free_options type)
 		{
 			tmp = current->next;
 			if (type == everything)
+			{
 				free(current->content);
+				current->content = NULL;
+			}
 			free(current);
 			current = tmp;
 		}
+		current = NULL;
 	}
 }
 
@@ -69,23 +73,49 @@ void free_exec(t_data *data)
 	i = 0;
 	while(data->execs[i])
 	{
-		free(data->execs[i]->args);
-		free(data->execs[i]->input);
-		free(data->execs[i]->output);
-		free(data->execs[i]);
+		if(data->execs[i]->args)
+		{
+			ft_free2d(data->execs[i]->args);
+			ft_printf("free_args: %i\n", i);
+		}
+		if(data->execs[i]->input)
+		{
+			ft_free2d(data->execs[i]->input);
+			ft_printf("free_input: %i\n", i);
+		}
+		if(data->execs[i]->output)
+		{
+			ft_free2d(data->execs[i]->output);
+			ft_printf("free_output: %i\n", i);
+		}
+		if (data->execs[i])
+		{
+			free(data->execs[i]);
+			data->execs[i] = NULL;
+			ft_printf("free_execs: %i\n", i);
+		}
 		i++;
 	}
-	free(data->execs);
+	if(data->execs)
+	{
+		free(data->execs);
+		data->execs = NULL;
+		ft_printf("free_execs**: %i\n", i);
+	}
 }
 
 void free_data(t_data *data)
 {
-	free_exec(data);
+	
 	if(data->execs)
-		free(data->execs);
+		free_exec(data);
 	if(data)
+	{
 		free(data);
-	exit(EXIT_FAILURE);
+		data = NULL;
+	}
+	/* system("leaks shell"); */
+	//exit(EXIT_FAILURE);
 }
 
 void	init_data(t_data *data, int args, char **argv)
@@ -93,6 +123,8 @@ void	init_data(t_data *data, int args, char **argv)
 	data->tokens = NULL;
 	data->execs = NULL;
 	data->pipeflag = 0;
+	data->arg_count = 0;
+	data->exec_count = 0;
 	args = 99999;
 	argv = NULL;
 }
