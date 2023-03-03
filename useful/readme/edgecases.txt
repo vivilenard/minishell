@@ -13,3 +13,4 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	TO DO:
 	- quotes entfernen vor executer
 	- ls |cat funktioniert nicht
+	- bei $ bleibts haengen

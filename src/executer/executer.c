@@ -40,7 +40,7 @@ int	executer(t_exec **exec, char **env)
 	i = 0;
 	fd_keep_pipe = 99;
 
-	printtokens(exec);
+	//printtokens(exec);
 	while (exec[i])
 	{
 		//ft_putendl_fd("\nExecuting !\n", 2);

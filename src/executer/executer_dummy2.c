@@ -8,12 +8,12 @@ t_exec **init_exec0(t_exec **exec)
 	exec[0]->input = malloc(sizeof(char *) * 3); 
 	exec[0]->output = malloc(sizeof(char *) * 3); 
 
-	//exec[0]->command = ft_strdup("/bin/echo");
-	exec[0]->command = ft_strdup("/usr/bin/grep");
-	exec[0]->args[0] = ft_strdup("grep");
-	exec[0]->args[1] = "life is";
+	exec[0]->command = ft_strdup("/bin/echo");
+	//exec[0]->command = ft_strdup("/usr/bin/grep");
+	exec[0]->args[0] = ft_strdup("echo");
+	exec[0]->args[1] = "hii$USER";
 	exec[0]->args[2] = NULL;
-	exec[0]->input[0] = ft_strdup("<");
+	exec[0]->input[0] = ft_strdup("");
 	exec[0]->input[1] = ft_strdup("in.txt");
 	exec[0]->input[2] = NULL;
 	exec[0]->output[0] = ft_strdup("");
@@ -114,7 +114,8 @@ int main (int args, char **argv, char **env)
 	// 	printf("%s\n", env[i]);
 	// 	i++;
 	// }
-	//exec = expander(exec, env);
+	printtokens(exec);
+	exec = expander(exec, env);
 	//printf("%zu\n", ft_strlen(exec[2]->input[1]));
 	//ft_strncmp(exec->output[0], "|", 2)
 	executer(exec, env);

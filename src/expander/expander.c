@@ -57,26 +57,31 @@ char	*take_var(char *s, char **env)
 	int		i;
 	char	**split;
 	char	**declaration;
-	char	*endword;
+	char	*finalword;
 
 	i = 0;
-	endword = NULL;
+	finalword = NULL;
 	split = ft_split(s, '$');
+	ft_put2dstr_fd(split, 2);
 	declaration = malloc(sizeof(char *) * (ft_2darraylen(split) + 1));
 	while (split[i])
 	{
 		declaration[i] = search_var_in_env(split[i], env);
 		i++;
 	}
+	declaration[i] = NULL;
+	printf("declaration:\n");
+	ft_put2dstr_fd(declaration, 2);
 	i = 0;
-	endword = declaration[0];
+	
+	finalword = declaration[0];
 	i++;
 	while (declaration[i])
 	{
-		endword = ft_strjoin(endword, declaration[i]);
+		finalword = ft_strjoin(finalword, declaration[i]);
 		i++;
 	}
-	return (endword);
+	return (finalword);
 }
 
 char	*replace_var(char *str, char **env)
@@ -120,7 +125,9 @@ t_exec	**expander(t_exec **exec, char **env)
 	while (exec[i])
 	{
 		if (exec[i]->command != NULL)
+		{
 			exec[i]->command = replace_var(exec[i]->command, env);
+		}
 		search_array(exec[i]->args, env);
 		//printf ("%s\n", exec[i]->args[0]);
 		search_array(exec[i]->input, env);

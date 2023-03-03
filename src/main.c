@@ -57,10 +57,11 @@ int main (int args, char **argv, char **env)
 		printf("\nPARSER\n");
 		parse_tokens(data);
 		//printtokens(data->execs);
+		data->execs = expander(data->execs, env);
 		/* print_execs(data); */
 		executer(data->execs, env);
 		/* free_exec(data); */
-		ft_strlen (env[0]); //dont need
+		//ft_strlen (env[0]); //dont need
 	}
 	freestrings(input, promptline, NULL, NULL);
 	return (0);
