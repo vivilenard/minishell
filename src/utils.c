@@ -115,7 +115,7 @@ void free_data(t_data *data)
 		data = NULL;
 	}
 	/* system("leaks shell"); */
-	exit(EXIT_FAILURE);
+	//exit(EXIT_FAILURE);
 }
 
 void	init_data(t_data *data, int args, char **argv)
