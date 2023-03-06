@@ -19,10 +19,12 @@ int	create_child(t_exec *exec, char **env, int *fd_pipe, int fd_keep_pipe)
 	if (pid == 0)
 	{
 		in_out(exec, fd_pipe, fd_keep_pipe);
-		while (built_in(exec, env) == 0)
-			break ;	
-		if (execve(exec->command, exec->args, env) == -1)
-			perror("execve");
+		if(is_built_in(exec->args[0]))
+			while (built_in(exec, env) == 0)
+				break ;
+		else		
+			if (execve(exec->command, exec->args, env) == -1)
+				perror("execve");
 	}
 	if (close(fd_pipe[1]) == -1)
 		perror ("close pipe[1]");
@@ -40,7 +42,6 @@ int	executer(t_data *data)
 	i = 0;
 	fd_keep_pipe = 99;
 
-	//printtokens(exec);
 	while (data->execs[i])
 	{
 		//ft_putendl_fd("\nExecuting !\n", 2);

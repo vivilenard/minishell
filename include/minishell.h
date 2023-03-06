@@ -54,10 +54,16 @@ typedef struct s_data
 	t_token			*tokens;
 	t_exec			**execs;
 	char			**env;
+	char			**origin_env;
 	int				pipeflag;
 	int				arg_count;
 	int				exec_count;
 }	t_data;
+
+typedef struct s_env
+{
+	char	**env;
+}	t_env;
 
 char		*prompt(void);
 char		**split_token(char *str);
@@ -73,8 +79,9 @@ char		*username(void);
 void		print_tokens(t_token **token);
 void		free_tokens(t_data *data, t_free_options type);
 void		free_data(t_data *data);
-void		init_data(t_data *data, int args, char **argv, char **env);
+void		init_data(t_data *data, int args, char **argv);
 void		free_exec(t_data *data);
+char		**dupclicate_2D(char **str);
 
 //Parser
 void init_exec(t_data *data, t_token *current);

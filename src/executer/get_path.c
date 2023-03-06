@@ -38,6 +38,21 @@ int	is_built_in(char *command)
 	return(0);
 }
 
+int	is_childless_built_in(char *command)
+{
+	if (ft_strncmp(command, "echo", 5) == 0)
+	 	return(1);
+	else if (ft_strncmp(command, "cd", 3) == 0)
+	 	return(1);
+	else if (ft_strncmp(command, "export", 7) == 0)
+	 	return(1);
+	else if (ft_strncmp(command, "unset", 6) == 0)
+	 	return(1);
+	else if (ft_strncmp(command, "exit", 5) == 0)
+		return(1);
+	return(0);
+}
+
 char	*get_path(char *command)
 {
 	char	*env_paths;

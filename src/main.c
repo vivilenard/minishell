@@ -23,6 +23,7 @@ int	take_input(char **input, char *promptline, t_data *data)
 	}
 	return (1);
 }
+
 int main (int args, char **argv, char **env)
 {
 	signal(SIGQUIT, SIG_IGN);
@@ -37,12 +38,13 @@ int main (int args, char **argv, char **env)
 	args = 0;
 	argv = NULL;
 	promptline = prompt();
+	data = ft_calloc(sizeof(t_data), 1);
+	if(!data)
+		return(free(promptline), exit(EXIT_FAILURE), 1);
+	data->env = dupclicate_2D(env);
 	while (1)
 	{
-		data = ft_calloc(sizeof(t_data), 1);
-		if(!data)
-			return(free(promptline), exit(EXIT_FAILURE), 1);
-		init_data(data, args, argv, env);
+		init_data(data, args, argv);
 		if (!take_input(&input, promptline, data))
 			return (1);
 		if (ft_strlen(input) > 0)
@@ -53,9 +55,9 @@ int main (int args, char **argv, char **env)
 			return(1);
 		parse_tokens(data);
 		executer(data);
-		//ft_strlen (env[0]); //dont need
-		free_data(data);
+		free_exec(data);
 	}
+	free(data);
 	free(promptline);
 	return (0);
 }

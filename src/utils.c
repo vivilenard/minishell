@@ -74,25 +74,15 @@ void free_exec(t_data *data)
 	while(data->execs[i])
 	{
 		if(data->execs[i]->args)
-		{
 			ft_free2d(data->execs[i]->args);
-			//ft_printf("free_args: %i\n", i);
-		}
 		if(data->execs[i]->input)
-		{
 			ft_free2d(data->execs[i]->input);
-			//ft_printf("free_input: %i\n", i);
-		}
 		if(data->execs[i]->output)
-		{
 			ft_free2d(data->execs[i]->output);
-			//ft_printf("free_output: %i\n", i);
-		}
 		if (data->execs[i])
 		{
 			free(data->execs[i]);
 			data->execs[i] = NULL;
-			//ft_printf("free_execs: %i\n", i);
 		}
 		i++;
 	}
@@ -100,7 +90,6 @@ void free_exec(t_data *data)
 	{
 		free(data->execs);
 		data->execs = NULL;
-		//ft_printf("free_execs**: %i\n", i);
 	}
 }
 
@@ -109,20 +98,37 @@ void free_data(t_data *data)
 	
 	if(data->execs)
 		free_exec(data);
-	if(data)
-	{
-		free(data);
-		data = NULL;
-	}
-	/* system("leaks shell"); */
-	//exit(EXIT_FAILURE);
 }
 
-void	init_data(t_data *data, int args, char **argv, char **env)
+char **dupclicate_2D(char **str)
+{
+	int	i;
+	int size;
+	char **copy;
+
+	size = 0;
+	i = 0;
+	if (!str || !*str)
+		return (NULL);
+	while(str[size])
+		size++;
+	copy = (char **) malloc(sizeof(char *) * (size + 1));
+	if(!copy)
+		return(NULL);
+	while(str[i])
+	{
+		copy [i] = ft_strdup(str[i]);
+		if(!copy[i])
+			return (NULL);
+		i++;
+	}
+	return(copy);
+}
+
+void	init_data(t_data *data, int args, char **argv)
 {
 	data->tokens = NULL;
 	data->execs = NULL;
-	data->env = env;
 	data->pipeflag = 0;
 	data->arg_count = 0;
 	data->exec_count = 0;
