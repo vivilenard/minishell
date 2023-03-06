@@ -5,4 +5,8 @@ a.out
 .DS_Store
 shell
 dwnlds
+in
+out
+in.txt
+in
 shell.dSYM
