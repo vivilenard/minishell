@@ -54,6 +54,7 @@ int main (int args, char **argv, char **env)
 		parse_tokens(data);
 		expander(data->execs, data->env);
 		executer(data);
+			//system ("leaks shell");
 		//ft_strlen (env[0]); //dont need
 		free_data(data);
 	}

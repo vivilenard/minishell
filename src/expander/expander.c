@@ -34,9 +34,8 @@ char	*take_content(char *declaration)
 	return (NULL);
 }
 
-char	*search_var_in_env(char *s, char **env)
+char	*search_var_in_env(char *var, char **env)
 {
-	//char	*declaration;
 	int		i;
 	int		n;
 	char	*tmp;
@@ -44,16 +43,14 @@ char	*search_var_in_env(char *s, char **env)
 	i = 0;
 	n = 0;
 
-	tmp = ft_strjoin(s, "=");
+	tmp = ft_strjoin(var, "=");
 	while (env[i])
 	{
-		// declaration = ft_haystack((const char *)env[i], (const char *)s);
-		// if (declaration)
-		if (ft_strncmp(s, env[i], ft_strlen(s)) == 0)
+		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0)
 			return(free(tmp), take_content(env[i]));
 		i++;
 	}
-	return (NULL);
+	return (free(tmp), NULL);
 }
 
 char	**if_split_contains_sentence(const char *dollar)
@@ -72,6 +69,7 @@ char	**if_split_contains_sentence(const char *dollar)
 			behind_dollar[n] = ft_substr(dollar, 0, i);
 			n++;
 			behind_dollar[n] = ft_strdup(dollar + i);
+			behind_dollar[n + 1] = NULL;
 			return (behind_dollar);
 		}
 		i++;
@@ -86,11 +84,10 @@ char	*replace_var(char *s, char **env)
 	int		i;
 	char	**dollar;
 	char	**replacement;
-	char	*finalword = "";
+	char	*finalword;
 	char	**behind_dollar;
 	char	flag;
 
-	//finalword = NULL;
 	flag = 0;
 	if (s[0] != '$')
 		flag = 1;
@@ -98,36 +95,38 @@ char	*replace_var(char *s, char **env)
 	replacement = malloc(sizeof(char *) * (ft_2darraylen(dollar) + 1));
 	if (flag == 1)
 	 	finalword = dollar[0];
+	else 
+		finalword = NULL;
 	i = flag;
 	while (dollar[i])
 	{
 		behind_dollar = if_split_contains_sentence(dollar[i]);
 		replacement[i] = search_var_in_env(behind_dollar[0], env);
 		replacement[i] = ft_strjoinandfree(replacement[i], behind_dollar[1]);
-		printf("%s\n", replacement[i]);
 		if (replacement[i])
-			finalword = ft_strjoin(finalword, replacement[i]);
+			finalword = ft_strjoinandfree(finalword, replacement[i]);
+		ft_free2d(behind_dollar);
 		i++;
 	}
-		printf("BD0: %s, BD1: %s, REP: replacement: %s\n", behind_dollar[0], behind_dollar[1], replacement[i]);
-		printf("fw:%s, rep0:%s, rep1:%s\n", finalword, replacement[i], replacement[i]);
 	replacement[i] = NULL;
 	ft_free2d(dollar);
-	ft_free2d(behind_dollar);
-	//ft_free2d(replacement);
-	//free(behind_dollar);
+	ft_free2d(replacement);
 	return (finalword);
 }
 
 char	*look_for_dollar(char *str, char **env)
 {
 	int		i;
+	char	*replaced_str;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
-			return (replace_var(str, env));
+		{	
+			replaced_str = replace_var(str, env);
+			return (free(str), replaced_str);
+		}
 		i++;
 	}
 	return (str);
