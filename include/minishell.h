@@ -114,6 +114,7 @@ int			pipe_as_stdin(int fd_keep_pipe);
 int			pipe_as_stdout(int *fd_pipe);
 void		close_pipe(int *fd_pipe);
 int			built_in(t_exec *exec, char **env);
+int			is_built_in(char *command);
 t_exec		**expander(t_exec **exec, char **env);
 
 #endif
