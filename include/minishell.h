@@ -23,7 +23,6 @@ typedef enum e_tokentype
 {
 	word,
 	option,
-	variable,
 	redirection,
 	is_pipe,
 	empty,
@@ -54,6 +53,7 @@ typedef struct s_data
 {
 	t_token			*tokens;
 	t_exec			**execs;
+	char			**env;
 	int				pipeflag;
 	int				arg_count;
 	int				exec_count;
@@ -73,7 +73,7 @@ char		*username(void);
 void		print_tokens(t_token **token);
 void		free_tokens(t_data *data, t_free_options type);
 void		free_data(t_data *data);
-void		init_data(t_data *data, int args, char **argv);
+void		init_data(t_data *data, int args, char **argv, char **env);
 void		free_exec(t_data *data);
 
 //Parser
@@ -106,7 +106,7 @@ void		switch_flags(int *flag, int quote, int *keep_quote);
 int			handle_quote(char *str, int *i, int *flag, int *keep_quote);
 
 //executer
-int			executer(t_exec **exec, char **env);
+int			executer(t_data *data);
 int			in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe);
 int			file_as_stdin(t_exec *exec);
 int			file_as_stdout(t_exec *exec);

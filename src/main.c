@@ -36,14 +36,13 @@ int main (int args, char **argv, char **env)
 
 	args = 0;
 	argv = NULL;
-	(void) env;
 	promptline = prompt();
 	while (1)
 	{
 		data = ft_calloc(sizeof(t_data), 1);
 		if(!data)
 			return(free(promptline), exit(EXIT_FAILURE), 1);
-		init_data(data, args, argv);
+		init_data(data, args, argv, env);
 		if (!take_input(&input, promptline, data))
 			return (1);
 		if (ft_strlen(input) > 0)
@@ -53,7 +52,7 @@ int main (int args, char **argv, char **env)
 		if(load_tokens(tokens, data))
 			return(1);
 		parse_tokens(data);
-		executer(data->execs, env);
+		executer(data);
 		//ft_strlen (env[0]); //dont need
 		free_data(data);
 	}
