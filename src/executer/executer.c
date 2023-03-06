@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	close_pipe(int *fd_pipe)
 {
@@ -31,7 +31,7 @@ int	create_child(t_exec *exec, char **env, int *fd_pipe, int fd_keep_pipe)
 	return (fd_pipe[0]);
 }
 
-int	executer(t_exec **exec, char **env)
+int	executer(t_data *data)
 {
 	int		i;
 	int		fd_pipe[2];
@@ -41,13 +41,13 @@ int	executer(t_exec **exec, char **env)
 	fd_keep_pipe = 99;
 
 	//printtokens(exec);
-	while (exec[i])
+	while (data->execs[i])
 	{
 		//ft_putendl_fd("\nExecuting !\n", 2);
 		if (pipe(fd_pipe) == -1)
 			perror("create pipe");
 		usleep (3000);  //actually dont need if executer is perfect
-		fd_keep_pipe = create_child(exec[i], env, fd_pipe, fd_keep_pipe);
+		fd_keep_pipe = create_child(data->execs[i], data->env, fd_pipe, fd_keep_pipe);
 		i++;
 	}
 	close(fd_keep_pipe);

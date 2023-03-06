@@ -36,7 +36,7 @@ int main (int args, char **argv, char **env)
 
 	args = 0;
 	argv = NULL;
-	(void) env;
+	data->env = env;
 	promptline = prompt();
 	while (1)
 	{
