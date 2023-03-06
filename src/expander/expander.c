@@ -84,7 +84,7 @@ char	*replace_var(char *s, char **env)
 	int		i;
 	char	**dollar;
 	char	**replacement;
-	char	*finalword;
+	char	*finalword = NULL;
 	char	**behind_dollar;
 	char	flag;
 
@@ -95,8 +95,6 @@ char	*replace_var(char *s, char **env)
 	replacement = malloc(sizeof(char *) * (ft_2darraylen(dollar) + 1));
 	if (flag == 1)
 	 	finalword = dollar[0];
-	else 
-		finalword = NULL;
 	i = flag;
 	while (dollar[i])
 	{
