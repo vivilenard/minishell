@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*need to to:
 	works for: only variables, but what if words in between???
@@ -39,52 +39,49 @@ char	*search_var_in_env(char *s, char **env)
 	//char	*declaration;
 	int		i;
 	int		n;
+	char	*tmp;
 
 	i = 0;
 	n = 0;
 
-	s = ft_strjoinandfree(s, "=");
+	tmp = ft_strjoin(s, "=");
 	while (env[i])
 	{
 		// declaration = ft_haystack((const char *)env[i], (const char *)s);
 		// if (declaration)
 		if (ft_strncmp(s, env[i], ft_strlen(s)) == 0)
-			return(take_content(env[i]));
+			return(free(tmp), take_content(env[i]));
 		i++;
 	}
 	return (NULL);
 }
 
-char	**if_split_contains_sentence(char *dollar)
+char	**if_split_contains_sentence(const char *dollar)
 {
 	char	**behind_dollar;
 	int		i;
 	int		n;
-	int		whitespace;
 
 	i = 0;
 	n = 0;
-	whitespace = 0;
 	behind_dollar = malloc(sizeof(char *) * 3);
 	while (dollar[i])
 	{
 		if (ft_iswhitespace(dollar[i]))
 		{
 			behind_dollar[n] = ft_substr(dollar, 0, i);
-			//printf("BD %s\n", behind_dollar[n]);
 			n++;
 			behind_dollar[n] = ft_strdup(dollar + i);
-			//printf("BD %s\n", behind_dollar[n]);
-			return (free (dollar), behind_dollar);
+			return (behind_dollar);
 		}
 		i++;
 	}
-	behind_dollar[n] = dollar;
+	behind_dollar[n] = ft_strdup(dollar);
 	behind_dollar[n + 1] = NULL;
-	return (free (dollar), behind_dollar);
+	return (behind_dollar);
 }
 
-char	*take_var(char *s, char **env)
+char	*replace_var(char *s, char **env)
 {
 	int		i;
 	char	**dollar;
@@ -98,7 +95,6 @@ char	*take_var(char *s, char **env)
 	if (s[0] != '$')
 		flag = 1;
 	dollar = ft_split(s, '$');
-	ft_put2dstr_fd(dollar, 2);
 	replacement = malloc(sizeof(char *) * (ft_2darraylen(dollar) + 1));
 	if (flag == 1)
 	 	finalword = dollar[0];
@@ -107,37 +103,31 @@ char	*take_var(char *s, char **env)
 	{
 		behind_dollar = if_split_contains_sentence(dollar[i]);
 		replacement[i] = search_var_in_env(behind_dollar[0], env);
-		printf("BD0: %s, BD1: %s, REP: replacement: %s\n", behind_dollar[0], behind_dollar[1], replacement[i]);
-		replacement[i] = ft_strjoin(replacement[i], behind_dollar[1]);
+		replacement[i] = ft_strjoinandfree(replacement[i], behind_dollar[1]);
 		printf("%s\n", replacement[i]);
 		if (replacement[i])
 			finalword = ft_strjoin(finalword, replacement[i]);
-		printf("fw:%s, rep0:%s, rep1:%s\n", finalword, replacement[i], replacement[i]);
-		free(behind_dollar);
 		i++;
 	}
+		printf("BD0: %s, BD1: %s, REP: replacement: %s\n", behind_dollar[0], behind_dollar[1], replacement[i]);
+		printf("fw:%s, rep0:%s, rep1:%s\n", finalword, replacement[i], replacement[i]);
 	replacement[i] = NULL;
-	free(dollar);
+	ft_free2d(dollar);
+	ft_free2d(behind_dollar);
+	//ft_free2d(replacement);
 	//free(behind_dollar);
 	return (finalword);
 }
 
-char	*replace_var(char *str, char **env)
+char	*look_for_dollar(char *str, char **env)
 {
 	int		i;
-	char	*varname;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
-		{
-			varname = take_var(str, env);
-			//printf("%s\n", varname);
-			// if (i > 0)
-			// 	varname = ft_strjoin(ft_substr(str, 0, i - 1), varname);
-			return (varname);
-		}
+			return (replace_var(str, env));
 		i++;
 	}
 	return (str);
@@ -150,7 +140,7 @@ void	search_array(char **arr, char **env)
 	i = 0;
 	while (arr[i] != NULL)
 	{
-		arr[i] = replace_var(arr[i], env);
+		arr[i] = look_for_dollar(arr[i], env);
 		i++;
 	}
 }
@@ -164,13 +154,13 @@ t_exec	**expander(t_exec **exec, char **env)
 	{
 		if (exec[i]->command != NULL)
 		{
-			exec[i]->command = replace_var(exec[i]->command, env);
+			exec[i]->command = look_for_dollar(exec[i]->command, env);
 		}
 		search_array(exec[i]->args, env);
-		//printf ("%s\n", exec[i]->args[0]);
 		search_array(exec[i]->input, env);
 		search_array(exec[i]->output, env);
 		i++;
 	}
+	system ("leaks shell");
 	return (exec);
 }
