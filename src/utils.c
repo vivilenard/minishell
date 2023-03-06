@@ -118,10 +118,11 @@ void free_data(t_data *data)
 	//exit(EXIT_FAILURE);
 }
 
-void	init_data(t_data *data, int args, char **argv)
+void	init_data(t_data *data, int args, char **argv, char **env)
 {
 	data->tokens = NULL;
 	data->execs = NULL;
+	data->env = env;
 	data->pipeflag = 0;
 	data->arg_count = 0;
 	data->exec_count = 0;

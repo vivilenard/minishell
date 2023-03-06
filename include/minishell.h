@@ -73,7 +73,7 @@ char		*username(void);
 void		print_tokens(t_token **token);
 void		free_tokens(t_data *data, t_free_options type);
 void		free_data(t_data *data);
-void		init_data(t_data *data, int args, char **argv);
+void		init_data(t_data *data, int args, char **argv, char **env);
 void		free_exec(t_data *data);
 
 //Parser

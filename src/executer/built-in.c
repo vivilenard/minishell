@@ -14,7 +14,13 @@ void	ftenv(char **env)
 
 void	pwd()
 {
+	char *cwd;
 
+	cwd = getcwd(NULL, 1024);
+
+	//ft_printf("%s\n", cwd);
+	ft_putendl_fd(cwd, 2);
+	free(cwd);
 }
 
 int	built_in(t_exec *exec, char **env)
@@ -25,8 +31,8 @@ int	built_in(t_exec *exec, char **env)
 	// 	echo(exec->args);
 	// else if (ft_strncmp(exec->command, "cd", 3) == 0)
 	// 	cd(exec->args);
-	// if (ft_strncmp(exec->command, "pwd", 4) == 0)
-	// 	pwd(exec->args);
+	if (ft_strncmp(exec->command, "/bin/pwd", 9) == 0)
+	 	pwd();
 	// else if (ft_strncmp(exec->command, "export", 7) == 0)
 	// 	export(exec->args);
 	// else if (ft_strncmp(exec->command, "unset", 6) == 0)
