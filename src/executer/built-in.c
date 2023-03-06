@@ -12,7 +12,7 @@ void	ftenv(char **env)
 	}
 }
 
-void	pwd()
+void	ftpwd()
 {
 	char *cwd;
 
@@ -25,6 +25,13 @@ void	pwd()
 
 int	built_in(t_exec *exec, char **env)
 {
+	printf("in builtin\n");
+	int i = 0;
+	while(env[i])
+		{
+			printf("%s\n", env[i]);
+			i++;
+		}
 	ft_strlen(env[0]);
 	ft_strlen(exec->input[0]);
 	// if (ft_strncmp(exec->command, "echo", 5) == 0)
@@ -32,12 +39,12 @@ int	built_in(t_exec *exec, char **env)
 	// else if (ft_strncmp(exec->command, "cd", 3) == 0)
 	// 	cd(exec->args);
 	if (ft_strncmp(exec->command, "pwd", 4) == 0)
-	 	pwd();
+	 	ftpwd();
 	// else if (ft_strncmp(exec->command, "export", 7) == 0)
 	// 	export(exec->args);
 	// else if (ft_strncmp(exec->command, "unset", 6) == 0)
 	// 	unset(exec->args);
-	if (ft_strncmp(exec->command, "env", 4) == 0)
+	else if (ft_strncmp(exec->command, "env", 4) == 0)
 		ftenv(exec->args);
 	// else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	// 	ftexit(exec->args);
