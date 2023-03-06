@@ -116,4 +116,10 @@ void		close_pipe(int *fd_pipe);
 int			built_in(t_exec *exec, char **env);
 t_exec		**expander(t_exec **exec, char **env);
 
+//expander
+char		*take_content(char *declaration);
+char		*search_var_in_env(char *var, char **env);
+void		search_array(char **arr, char **env);
+char		*look_for_dollar(char *str, char **env);
+
 #endif
