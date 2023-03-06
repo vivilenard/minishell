@@ -10,7 +10,6 @@ void	ft_env(char **env)
 		ft_putendl_fd(env[i], 1);
 		i++;
 	}
-	exit(EXIT_SUCCESS);
 }
 
 void	ft_pwd()
@@ -20,7 +19,6 @@ void	ft_pwd()
 	cwd = getcwd(NULL, 1024);
 	ft_printf("%s\n", cwd);
 	free(cwd);
-	exit(EXIT_SUCCESS);
 }
 
 char *trim_last(char *str, char c)
@@ -81,7 +79,7 @@ void ft_cd(t_exec *exec, char **env)
 	ft_printf("NEW PWD:%s\n", getcwd(NULL, 1024));
 	while(env[i])
 	{
-		if(ft_strncmp(env[i], "PWD=", 5) == 0)
+		if(ft_strncmp(env[i], "PWD=", 4) == 0)
 		{
 			free(env[i]);
 			temp = getcwd(NULL, 1024);
@@ -91,7 +89,6 @@ void ft_cd(t_exec *exec, char **env)
 		}
 		i++;
 	}
-	exit(EXIT_SUCCESS);
 }
 
 int	built_in(t_exec *exec, char **env)
@@ -101,13 +98,19 @@ int	built_in(t_exec *exec, char **env)
 	if (ft_strncmp(exec->command, "cd", 3) == 0)
 		ft_cd(exec, env);
 	if (ft_strncmp(exec->command, "pwd", 4) == 0)
+	{
 	 	ft_pwd();
+		exit(EXIT_SUCCESS);
+	}
 	// else if (ft_strncmp(exec->command, "export", 7) == 0)
 	// 	export(exec->args);
 	// else if (ft_strncmp(exec->command, "unset", 6) == 0)
 	// 	unset(exec->args);
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
+	{
 		ft_env(env);
+		exit(EXIT_SUCCESS);
+	}
 	// else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	// 	ftexit(exec->args);
 	return (0);

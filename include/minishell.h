@@ -83,6 +83,7 @@ void		init_data(t_data *data, int args, char **argv);
 void		free_exec(t_data *data);
 char		**dupclicate_2D(char **str);
 
+
 //Parser
 void init_exec(t_data *data, t_token *current);
 t_token	*write_redirection(t_data *data, t_token *current);
@@ -122,6 +123,7 @@ int			pipe_as_stdout(int *fd_pipe);
 void		close_pipe(int *fd_pipe);
 int			built_in(t_exec *exec, char **env);
 int			is_built_in(char *command);
+int			is_childless_built_in(char *command);
 t_exec		**expander(t_exec **exec, char **env);
 
 #endif

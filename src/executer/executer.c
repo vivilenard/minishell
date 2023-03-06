@@ -42,20 +42,24 @@ int	executer(t_data *data)
 	i = 0;
 	fd_keep_pipe = 99;
 
-	while (data->execs[i])
+	if(is_childless_built_in(data->execs[i]->command))
+		built_in(data->execs[i], data->env);
+	else
 	{
-		//ft_putendl_fd("\nExecuting !\n", 2);
-		if (pipe(fd_pipe) == -1)
-			perror("create pipe");
-		usleep (3000);  //actually dont need if executer is perfect
-		fd_keep_pipe = create_child(data->execs[i], data->env, fd_pipe, fd_keep_pipe);
-		i++;
-	}
-	close(fd_keep_pipe);
-	while (--i >= 0)
-	{
-		//printf("%d\n", i);
-		waitpid(0, NULL, 0);
+		while (data->execs[i])
+		{
+			if(pipe(fd_pipe) == -1)
+				perror("create pipe");
+			usleep (3000);  //actually dont need if executer is perfect
+			fd_keep_pipe = create_child(data->execs[i], data->env, fd_pipe, fd_keep_pipe);
+			i++;
+		}
+		close(fd_keep_pipe);
+		while (--i >= 0)
+		{
+			//printf("%d\n", i);
+			waitpid(0, NULL, 0);
+		}
 	}
 	return (0);
 }
