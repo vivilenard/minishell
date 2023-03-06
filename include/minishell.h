@@ -60,7 +60,6 @@ typedef struct s_data
 }	t_data;
 
 char		*prompt(void);
-char		**split_token(char *str);
 int			load_tokens(char **split_tokens, t_data *data);
 t_tokentype	content_analyse(t_token *token);
 int 		parse_tokens(t_data *data);
@@ -77,25 +76,20 @@ void		init_data(t_data *data, int args, char **argv, char **env);
 void		free_exec(t_data *data);
 
 //Parser
-void init_exec(t_data *data, t_token *current);
-t_token	*write_redirection(t_data *data, t_token *current);
+void		init_exec(t_data *data, t_token *current);
+t_token		*write_redirection(t_data *data, t_token *current);
 
 //Utils Parser
-void	print_execs(t_data *data);
-int		get_exec_count(t_token	*current);
-int		get_arg_num(t_token *current);
-char	*get_path(char *command);
-void	write_pipe_in(t_data *data);
-t_token	*write_pipe_out(t_data *data, t_token *current);
+void		print_execs(t_data *data);
+int			get_exec_count(t_token	*current);
+int			get_arg_num(t_token *current);
+char		*get_path(char *command);
+void		write_pipe_in(t_data *data);
+t_token		*write_pipe_out(t_data *data, t_token *current);
 
-
-//Split
-int	is_delimiter(char c);
-char **makestring(char **split, char *str, int start, int i);
-int jump_delimiters(char *str, int *i);
-int	jump_redir(char *str, int *i);
 
 //Lexer
+char		**lexer(char *str);
 char		**allocate(char **split, int strnumber);
 char		**makestring(char **split, char *str, int start, int i);
 int			is_delimiter(char c);
@@ -104,6 +98,10 @@ int			jump_redir(char *str, int *i);
 int			jump_delimiter_split(char **split, char *str, int *start, int *i);
 void		switch_flags(int *flag, int quote, int *keep_quote);
 int			handle_quote(char *str, int *i, int *flag, int *keep_quote);
+int			is_delimiter(char c);
+char 		**makestring(char **split, char *str, int start, int i);
+int 		jump_delimiters(char *str, int *i);
+int			jump_redir(char *str, int *i);
 
 //executer
 int			executer(t_data *data);
@@ -121,5 +119,9 @@ char		*take_content(char *declaration);
 char		*search_var_in_env(char *var, char **env);
 void		search_array(char **arr, char **env);
 char		*look_for_dollar(char *str, char **env);
+char		**if_split_contains_sentence(const char *dollar);
+char		*take_var(char *s, char **env);
+char		*ft_replace_var(char **env, char *dollar);
+char		*search_var_in_env(char *var, char **env);
 
 #endif

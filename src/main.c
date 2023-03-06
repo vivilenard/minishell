@@ -30,7 +30,6 @@ int main (int args, char **argv, char **env)
 
 	char *input;
 	char *promptline;
-	char **tokens;
 
 	t_data	*data;
 
@@ -47,16 +46,14 @@ int main (int args, char **argv, char **env)
 			return (1);
 		if (ft_strlen(input) > 0)
 			add_history(input);
-		tokens = split_token(input);
-		free(input);
-		if(load_tokens(tokens, data))
+		if(load_tokens(lexer(input), data))
 			return(1);
 		parse_tokens(data);
 		expander(data->execs, data->env);
 		executer(data);
 			//system ("leaks shell");
-		//ft_strlen (env[0]); //dont need
 		free_data(data);
+		free(input);
 	}
 	free(promptline);
 	return (0);

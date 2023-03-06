@@ -51,3 +51,40 @@ char	*search_var_in_env(char *var, char **env)
 	}
 	return (free(tmp), NULL);
 }
+
+char	**if_split_contains_sentence(const char *dollar)
+{
+	char	**behind_dollar;
+	int		i;
+	int		n;
+
+	i = 0;
+	n = 0;
+	behind_dollar = malloc(sizeof(char *) * 3);
+	behind_dollar[2] = NULL;
+	while (dollar[i])
+	{
+		if (ft_iswhitespace(dollar[i]))
+		{
+			behind_dollar[0] = ft_substr(dollar, 0, i);
+			behind_dollar[1] = ft_strdup(dollar + i);
+			return (behind_dollar);
+		}
+		i++;
+	}
+	behind_dollar[n] = ft_strdup(dollar);
+	behind_dollar[n + 1] = NULL;
+	return (behind_dollar);
+}
+
+char	*ft_replace_var(char **env, char *dollar)
+{
+	char	**behind_dollar;
+	char	*value;
+
+	behind_dollar = if_split_contains_sentence(dollar);
+	value = search_var_in_env(behind_dollar[0], env);
+	value = ft_strjoinandfree(value, behind_dollar[1]);
+	ft_free2d(behind_dollar);
+	return (value);
+}
