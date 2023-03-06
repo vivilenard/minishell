@@ -10,7 +10,7 @@ char	*find_correct_path(char **paths, char *command)
 	backslash_command = ft_strjoin("/", command);
 	while (paths[i])
 	{
-		path_command = ft_strjoinwithoutfree(paths[i], backslash_command);
+		path_command = ft_strjoin(paths[i], backslash_command);
 		if (access(path_command, X_OK) == 0)
 			return (free(backslash_command), path_command);
 		free (path_command);

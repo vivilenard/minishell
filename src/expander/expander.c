@@ -36,17 +36,20 @@ char	*take_content(char *declaration)
 
 char	*search_var_in_env(char *s, char **env)
 {
-	char	*declaration;
+	//char	*declaration;
 	int		i;
 	int		n;
 
 	i = 0;
 	n = 0;
+
+	s = ft_strjoinandfree(s, "=");
 	while (env[i])
 	{
-		declaration = ft_haystack((const char *)env[i], (const char *)s);
-		if (declaration)
-			return(take_content(declaration));
+		// declaration = ft_haystack((const char *)env[i], (const char *)s);
+		// if (declaration)
+		if (ft_strncmp(s, env[i], ft_strlen(s)) == 0)
+			return(take_content(env[i]));
 		i++;
 	}
 	return (NULL);
@@ -104,17 +107,18 @@ char	*take_var(char *s, char **env)
 	{
 		behind_dollar = if_split_contains_sentence(dollar[i]);
 		replacement[i] = search_var_in_env(behind_dollar[0], env);
-		printf("BD: %s, REP: replacement: %s\n", behind_dollar[i], replacement[i]);
-		if (behind_dollar[1])
-			replacement[i] = ft_strjoin(replacement[i], behind_dollar[1]);
-		printf("REP %s\n", replacement[i]);
-		finalword = ft_strjoin(finalword, replacement[i]);
-		printf("fw: %s\n", finalword);
-		ft_free2d(behind_dollar);
+		printf("BD0: %s, BD1: %s, REP: replacement: %s\n", behind_dollar[0], behind_dollar[1], replacement[i]);
+		replacement[i] = ft_strjoin(replacement[i], behind_dollar[1]);
+		printf("%s\n", replacement[i]);
+		if (replacement[i])
+			finalword = ft_strjoin(finalword, replacement[i]);
+		printf("fw:%s, rep0:%s, rep1:%s\n", finalword, replacement[i], replacement[i]);
+		free(behind_dollar);
 		i++;
 	}
 	replacement[i] = NULL;
 	free(dollar);
+	//free(behind_dollar);
 	return (finalword);
 }
 

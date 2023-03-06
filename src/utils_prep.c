@@ -11,6 +11,6 @@ char *prompt()
 	char	*prompt;
 	
 	user = username();
-	prompt = ft_strjoinwithoutfree(user, "@minishell♥ ");
+	prompt = ft_strjoin(user, "@minishell\x1B[95m♥ \x1B[37m");
 	return (prompt);
 }
