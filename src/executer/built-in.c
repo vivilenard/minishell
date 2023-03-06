@@ -31,8 +31,9 @@ int	built_in(t_exec *exec, char **env)
 	// 	export(exec->args);
 	// else if (ft_strncmp(exec->command, "unset", 6) == 0)
 	// 	unset(exec->args);
-	if (ft_strncmp(exec->command, "env", 4) == 0)
-		ftenv(exec->args);
+	//printf("%s\n", exec->command);
+	if (ft_strncmp(exec->args[0], "env", 4) == 0)
+		ftenv(env);
 	// else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	// 	ftexit(exec->args);
 	return (0);

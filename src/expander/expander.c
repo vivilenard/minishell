@@ -52,35 +52,69 @@ char	*search_var_in_env(char *s, char **env)
 	return (NULL);
 }
 
+char	**if_split_contains_sentence(char *dollar)
+{
+	char	**behind_dollar;
+	int		i;
+	int		n;
+	int		whitespace;
+
+	i = 0;
+	n = 0;
+	whitespace = 0;
+	behind_dollar = malloc(sizeof(char *) * 3);
+	while (dollar[i])
+	{
+		if (ft_iswhitespace(dollar[i]))
+		{
+			behind_dollar[n] = ft_substr(dollar, 0, i);
+			//printf("BD %s\n", behind_dollar[n]);
+			n++;
+			behind_dollar[n] = ft_strdup(dollar + i);
+			//printf("BD %s\n", behind_dollar[n]);
+			return (free (dollar), behind_dollar);
+		}
+		i++;
+	}
+	behind_dollar[n] = dollar;
+	behind_dollar[n + 1] = NULL;
+	return (free (dollar), behind_dollar);
+}
+
 char	*take_var(char *s, char **env)
 {
 	int		i;
-	char	**split;
-	char	**declaration;
-	char	*finalword;
+	char	**dollar;
+	char	**replacement;
+	char	*finalword = "";
+	char	**behind_dollar;
+	char	flag;
 
-	i = 0;
-	finalword = NULL;
-	split = ft_split(s, '$');
-	//ft_put2dstr_fd(split, 2);
-	declaration = malloc(sizeof(char *) * (ft_2darraylen(split) + 1));
-	while (split[i])
+	//finalword = NULL;
+	flag = 0;
+	if (s[0] != '$')
+		flag = 1;
+	dollar = ft_split(s, '$');
+	ft_put2dstr_fd(dollar, 2);
+	replacement = malloc(sizeof(char *) * (ft_2darraylen(dollar) + 1));
+	if (flag == 1)
+	 	finalword = dollar[0];
+	i = flag;
+	while (dollar[i])
 	{
-		declaration[i] = search_var_in_env(split[i], env);
+		behind_dollar = if_split_contains_sentence(dollar[i]);
+		replacement[i] = search_var_in_env(behind_dollar[0], env);
+		printf("BD: %s, REP: replacement: %s\n", behind_dollar[i], replacement[i]);
+		if (behind_dollar[1])
+			replacement[i] = ft_strjoin(replacement[i], behind_dollar[1]);
+		printf("REP %s\n", replacement[i]);
+		finalword = ft_strjoin(finalword, replacement[i]);
+		printf("fw: %s\n", finalword);
+		ft_free2d(behind_dollar);
 		i++;
 	}
-	declaration[i] = NULL;
-	//printf("declaration:\n");
-	//ft_put2dstr_fd(declaration, 2);
-	i = 0;
-	
-	finalword = declaration[0];
-	i++;
-	while (declaration[i])
-	{
-		finalword = ft_strjoin(finalword, declaration[i]);
-		i++;
-	}
+	replacement[i] = NULL;
+	free(dollar);
 	return (finalword);
 }
 
