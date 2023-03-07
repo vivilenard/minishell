@@ -53,7 +53,6 @@ void get_command(t_data *data)
 
 int parse_tokens(t_data *data)
 {
-	print_tokens(&data->tokens);
 	t_token *current;
 
 	if(data->tokens)
@@ -77,7 +76,7 @@ int parse_tokens(t_data *data)
 		if (current && current->type == is_pipe)
 			current = write_pipe_out(data, current);
 	}
-	print_execs(data);
+	//print_execs(data);
 	free_tokens(data, only_tokens);
 	return(0);
 }

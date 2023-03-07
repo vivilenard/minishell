@@ -117,7 +117,7 @@ char **dupclicate_2D(char **str)
 		return(NULL);
 	while(str[i])
 	{
-		copy [i] = ft_strdup(str[i]);
+		copy[i] = ft_strdup(str[i]);
 		if(!copy[i])
 			return (NULL);
 		i++;

@@ -21,45 +21,61 @@ void	ft_pwd()
 	free(cwd);
 }
 
-char *trim_last(char *str, char c)
+char **add_to_env(char *str, char **env)
 {
-	int		i;
-	char	*new;
+	char **new_env;
+	int	i;
 
-	i = ft_strlen(str);
-	while(str[i] != c)
-		i--;
-	new = ft_calloc(sizeof(char), i + 1);
-	if(!new)
+	i = 0;
+	if(!env || !*env)
 		return(NULL);
-	ft_strlcpy(new, str, i + 1);
-	return(new);
+	new_env = (char **) ft_calloc(sizeof(char *), ft_2darraylen(env) + 1);
+	if (!new_env)
+		return (NULL);
+	while(env[i])
+	{
+		new_env[i] = ft_strdup(env[i]);
+		if(!new_env[i])
+			return(NULL);
+		i++;
+	}
+	new_env[i] = str;
+	new_env[i +1] = NULL;
+	ft_free2d(env);
+	return(new_env);
 }
 
-char	*analyse_path(char *path)
+char **replace_in_env(char *category, char *new_entry, char **env)
+{
+	int		i;
+
+	i = 0;
+	if(!env || !*env)
+		return(NULL);
+	while(env[i])
+	{
+		if(ft_strncmp(env[i], category, ft_strlen(category)) == 0)
+		{
+			free(env[i]);
+			env[i] = ft_strjoin(category, new_entry);
+		}
+		i++;
+	}
+	return(env);
+}
+
+int category_is_in_env(char *category, char **env)
 {
 	int	i;
-	int counter;
 
-	counter = 0;
 	i = 0;
-	while(path[i])
+	while(env[i])
 	{
-		while(path[i] == '.')
-			i++;
-		if(path[i] == '/')
-		{
-			counter++;
-			i++;
-		}
+		if(ft_strncmp(env[i], category, ft_strlen(category)) == 0)
+			return(1);
+		i++;
 	}
-	i = 0;
-	while(i < counter)
-	{
-		trim_last(path, '/');
-		counter--;
-	}
-	return(path);
+	return(0);
 }
 
 void ft_cd(t_exec *exec, char **env)
@@ -70,26 +86,23 @@ void ft_cd(t_exec *exec, char **env)
 
 
 	i = 0;
-	//(void) env;
+	temp = getcwd(NULL, 1024);
+	if(category_is_in_env("OLDPWD=", env))
+		env = replace_in_env("OLDPWD=", temp, env);
+	else
+		env = add_to_env(ft_strjoin("OLDPWD=", temp), env);
+	free(temp);
 	path = exec->args[1]; 
-	ft_printf("CURRENT PWD:%s\n", getcwd(NULL, 1024));
-	ft_printf("CD TO:%s\n", path);
 	if (chdir(path) == -1)
 		return ;
-	ft_printf("NEW PWD:%s\n", getcwd(NULL, 1024));
-	while(env[i])
-	{
-		if(ft_strncmp(env[i], "PWD=", 4) == 0)
-		{
-			free(env[i]);
-			temp = getcwd(NULL, 1024);
-			env[i] = ft_strjoin("PWD=", temp);
-			free(temp);
-			ft_printf("NEW PWD after copy:%s\n", env[i]);
-		}
-		i++;
-	}
+	temp = getcwd(NULL, 1024);
+	if(category_is_in_env("PWD=", env))
+		env = replace_in_env("PWD=", temp, env);
+	else
+		env = add_to_env(ft_strjoin("PWD=", temp), env);
+	free(temp);
 }
+
 
 int	built_in(t_exec *exec, char **env)
 {
@@ -100,7 +113,7 @@ int	built_in(t_exec *exec, char **env)
 	if (ft_strncmp(exec->command, "pwd", 4) == 0)
 	{
 	 	ft_pwd();
-		exit(EXIT_SUCCESS);
+		return(exit(EXIT_SUCCESS), 0);
 	}
 	// else if (ft_strncmp(exec->command, "export", 7) == 0)
 	// 	export(exec->args);
@@ -109,7 +122,7 @@ int	built_in(t_exec *exec, char **env)
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
 	{
 		ft_env(env);
-		exit(EXIT_SUCCESS);
+		return(exit(EXIT_SUCCESS), 0);
 	}
 	// else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	// 	ftexit(exec->args);
