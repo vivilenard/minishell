@@ -80,7 +80,7 @@ int	countstrs(char *str)
 	return (count);
 }
 
-char	**split_token(char *str)
+char	**lexer(char *str)
 {
 	char	**split;
 	int		strnumber;

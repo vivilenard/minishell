@@ -19,12 +19,10 @@ int	create_child(t_exec *exec, char **env, int *fd_pipe, int fd_keep_pipe)
 	if (pid == 0)
 	{
 		in_out(exec, fd_pipe, fd_keep_pipe);
-		if(is_built_in(exec->args[0]))
-			while (built_in(exec, env) == 0)
-				break ;
-		else		
-			if (execve(exec->command, exec->args, env) == -1)
-				perror("execve");
+		while (built_in(exec, env) == 0)
+			break ;
+		if (execve(exec->command, exec->args, env) == -1)
+			perror("execve");
 	}
 	if (close(fd_pipe[1]) == -1)
 		perror ("close pipe[1]");

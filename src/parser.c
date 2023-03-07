@@ -77,6 +77,7 @@ int parse_tokens(t_data *data)
 			current = write_pipe_out(data, current);
 	}
 	//print_execs(data);
+	//print_execs(data);
 	free_tokens(data, only_tokens);
 	return(0);
 }
