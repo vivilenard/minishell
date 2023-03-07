@@ -11,7 +11,7 @@ void	close_pipe(int *fd_pipe)
 	}
 }
 
-int	create_child(t_exec *exec, char **env, int *fd_pipe, int fd_keep_pipe)
+int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 {
 	pid_t	pid;
 
@@ -19,9 +19,9 @@ int	create_child(t_exec *exec, char **env, int *fd_pipe, int fd_keep_pipe)
 	if (pid == 0)
 	{
 		in_out(exec, fd_pipe, fd_keep_pipe);
-		while (built_in(exec, env) == 0)
+		while (built_in(exec, data->env, data) == 0)
 			break ;
-		if (execve(exec->command, exec->args, env) == -1)
+		if (execve(exec->command, exec->args, data->env) == -1)
 			perror("execve");
 	}
 	if (close(fd_pipe[1]) == -1)
@@ -41,7 +41,7 @@ int	executer(t_data *data)
 	fd_keep_pipe = 99;
 
 	if(is_childless_built_in(data->execs[i]->command))
-		built_in(data->execs[i], data->env);
+		built_in(data->execs[i], data->env, data);
 	else
 	{
 		while (data->execs[i])
@@ -49,7 +49,7 @@ int	executer(t_data *data)
 			if(pipe(fd_pipe) == -1)
 				perror("create pipe");
 			usleep (3000);  //actually dont need if executer is perfect
-			fd_keep_pipe = create_child(data->execs[i], data->env, fd_pipe, fd_keep_pipe);
+			fd_keep_pipe = create_child(data->execs[i], data, fd_pipe, fd_keep_pipe);
 			i++;
 		}
 		close(fd_keep_pipe);
