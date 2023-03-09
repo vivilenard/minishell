@@ -44,7 +44,7 @@ char **add_to_env(char *str, char **env)
 	i = 0;
 	if(!env || !*env)
 		return(NULL);
-	new_env = (char **) ft_calloc(sizeof(char *), ft_2darraylen(env) + 1);
+	new_env = (char **) malloc(sizeof(char *) * (ft_2darraylen(env) + 2));
 	if (!new_env)
 		return (ft_printf("Error ALLOC AddToEnv\n"), NULL);
 	while(env[i])
@@ -54,8 +54,8 @@ char **add_to_env(char *str, char **env)
 			return(NULL);
 		i++;
 	}
-	new_env[i] = str;
-	new_env[i +1] = NULL;
+	new_env[i] = ft_strdup(str);
+	new_env[i + 1] = NULL;
 	ft_free2d(env);
 	return(new_env);
 }
@@ -63,34 +63,37 @@ char **add_to_env(char *str, char **env)
 char **replace_in_env(char *category, char *new_entry, char **env)
 {
 	int		i;
-	int category_len;
+	char	*category_and_equal;
+	char	*full_entry;
 
 	i = 0;
-	category_len = ft_strlen(category);
+	category_and_equal = ft_strjoin(category, "=");
+	full_entry = ft_strjoin_free_opt(category_and_equal, new_entry, 0, 0);
 	if(!env || !*env)
 		return(NULL);
 	while(env[i])
 	{
-		if(ft_strncmp(env[i], category, ft_strlen(category)) == 0 && env[i][category_len] == '=')
+		if(ft_strncmp(env[i], category_and_equal, ft_strlen(category_and_equal)) == 0)
 		{
 			free(env[i]);
-			env[i] = ft_strjoin(category, new_entry);
+			env[i] = full_entry;
 		}
 		i++;
 	}
+	free(category_and_equal);
 	return(env);
 }
 
 int category_is_in_env(char *category, char **env)
 {
 	int	i;
-	int category_len;
+	char	*category_and_equal;
 
 	i = 0;
-	category_len = ft_strlen(category);
+	category_and_equal = ft_strjoin(category, "=");
 	while(env[i])
 	{
-		if(ft_strncmp(env[i], category, ft_strlen(category)) == 0 && env[i][category_len] == '=')
+		if(ft_strncmp(env[i], category_and_equal, ft_strlen(category_and_equal)) == 0)
 			return(1);
 		i++;
 	}
@@ -100,25 +103,25 @@ int category_is_in_env(char *category, char **env)
 char	**remove_from_env(char *category, char **env)
 {
 	char	**new_env;
+	char	*category_and_equal;
 	int		i;
 	int		j;
-	int		category_len;
 
 	i = 0;
 	j = 0;
-	new_env = malloc(sizeof(char *) * ft_2darraylen(env));
+	category_and_equal = ft_strjoin(category, "=");
+	new_env = malloc(sizeof(char *) * (ft_2darraylen(env)) + 1);
 	if(!new_env)
-		return( ft_printf("Error\n"), NULL);
-	category_len = ft_strlen(category);
+		return( ft_printf("Error in rm env\n"), NULL);
 	while(env[i])
 	{
-		if((ft_strncmp(env[i], category, category_len) == 0) && env[i][category_len] == '=')
+		if(env[i] && ft_strncmp(env[i], category_and_equal, ft_strlen(category_and_equal)) == 0)
 			i++;
-		new_env[j] = ft_strdup(env[i]);
-		j++;
-		i++;
+		if(env[i])
+			new_env[j++] = ft_strdup(env[i++]);
 	}
 	new_env[j] = NULL;
+	free(category_and_equal);
 	ft_free2d(env);
 	return(new_env);
 }
@@ -128,7 +131,6 @@ void ft_cd(t_exec *exec, char **env)
 	char	*path;
 	char	*temp;
 	int		i;
-
 
 	i = 0;
 	temp = getcwd(NULL, 1024);
@@ -155,12 +157,20 @@ char	**unset(char **args, char **env)
 	return(env);
 }
 
-char **export(t_exec *exec, t_data *data)
+char **ft_export(char **args, char **env)
 {
 	char	*value;
 	char	*category;
 
-	
+	value = string_split(args[1], '=', 1, 0);
+	category = string_split(args[1], '=', 1, 1);
+	if(category_is_in_env(category, env))
+		env = replace_in_env(category, value, env);
+	else
+		env = add_to_env(args[1], env);
+	free(value);
+	free(category);
+	return(env);
 }
 
 int	built_in(t_exec *exec, char **env, t_data *data)
@@ -175,7 +185,7 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 		return(exit(EXIT_SUCCESS), 0);
 	}
 	else if (ft_strncmp(exec->command, "export", 7) == 0)
-		ft_export(exec->args);
+		data->env = ft_export(exec->args, data->env);
 	else if (ft_strncmp(exec->command, "unset", 6) == 0)
 	 	data->env = unset(exec->args, env);
 	else if (ft_strncmp(exec->command, "env", 4) == 0)

@@ -82,6 +82,7 @@ void		init_data(t_data *data, int args, char **argv);
 void		free_exec(t_data *data);
 char		**dupclicate_2D(char **str);
 int			ft_2darraylen(char **array);
+char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
 
 
 //Parser
@@ -134,5 +135,6 @@ char		**if_split_contains_sentence(const char *dollar);
 char		*take_var(char *s, char **env);
 char		*ft_replace_var(char **env, char *dollar);
 char		*search_var_in_env(char *var, char **env);
+char		*string_split(char *str, char c, int at_first, int first);
 
 #endif

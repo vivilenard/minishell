@@ -122,6 +122,7 @@ char **dupclicate_2D(char **str)
 			return (NULL);
 		i++;
 	}
+	copy[i] = NULL;
 	return(copy);
 }
 
