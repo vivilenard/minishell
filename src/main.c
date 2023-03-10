@@ -10,17 +10,11 @@ void	handle_sigint(int sig)
 	rl_redisplay();
 }
 
-int	take_input(char **input, char *promptline, t_data *data)
+int	take_input(char **input, char *promptline)
 {
 	*input = readline(promptline);
 	if(!*input)
-	{
-		ft_putendl_fd("Shell Aborted", 2);
-		//freestrings(*input, promptline, NULL, NULL);  //whats going on here?
-		(void) data;
-		free_data(data);
-		return (0);
-	}
+		return (ft_putendl_fd("Shell Aborted", 2), 0);
 	return (1);
 }
 
@@ -43,13 +37,13 @@ int main (int args, char **argv, char **env)
 	while (1)
 	{
 		init_data(data, args, argv);
-		if (!take_input(&input, data->promptline, data))
-			return (free_data(data), EXIT_FAILURE);
+		if (!take_input(&input, data->promptline))
+			return (free_data(data), EXIT_SUCCESS);
 		if (ft_strlen(input) > 0)
 			add_history(input);
-		if(load_tokens(lexer(input), data))
+		if(!load_tokens(lexer(input), data))
 			return(free_data(data), EXIT_FAILURE);
-		if(parse_tokens(data))
+		if(!parse_tokens(data))
 			return(free_data(data), EXIT_FAILURE);
 		expander(data->execs, data->env);
 		executer(data);

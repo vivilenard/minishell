@@ -59,7 +59,7 @@ int parse_tokens(t_data *data)
 		current = data->tokens;
 	data->execs = ft_calloc(sizeof(t_exec *), get_exec_count(data->tokens) + 1);
 	if (!data->execs)
-		return(1);
+		return(0);
 	while (current)
 	{
 		init_exec(data, current);
@@ -77,5 +77,5 @@ int parse_tokens(t_data *data)
 			current = write_pipe_out(data, current);
 	}
 	free_tokens(data);
-	return(0);
+	return(1);
 }

@@ -61,10 +61,10 @@ int load_tokens(char **split_tokens, t_data *data)
 	while(split_tokens[i])
 	{
 		if(init_token(&data->tokens, split_tokens[i]))
-			return(ft_free2d(split_tokens), 1);
+			return(ft_free2d(split_tokens), 0);
 		i++;
 	}
 	if(split_tokens)
 		ft_free2d(split_tokens);
-	return (0);
+	return (1);
 }

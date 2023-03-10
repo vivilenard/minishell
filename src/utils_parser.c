@@ -74,7 +74,7 @@ void	write_pipe_in(t_data *data)
 
 t_token	*write_pipe_out(t_data *data, t_token *current)
 {
-	data->execs[data->exec_count]->output[0] = current->content;
+	data->execs[data->exec_count]->output[0] = ft_strdup(current->content);
 	data->execs[data->exec_count]->output[1] = NULL;
 	current = current->next;
 	data->pipeflag = 1;

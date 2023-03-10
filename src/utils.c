@@ -94,9 +94,12 @@ void free_exec(t_data *data)
 
 void free_data(t_data *data)
 {
-	ft_free2d(data->env);
-	free(data->promptline);
-	free(data);
+	if(data->env)
+		ft_free2d(data->env);
+	if(data->promptline)
+		free(data->promptline);
+	if(data)
+		free(data);
 }
 
 char **dupclicate_2D(char **str)

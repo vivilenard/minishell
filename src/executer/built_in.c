@@ -152,7 +152,7 @@ void ft_cd(t_exec *exec, char **env)
 	free(temp);
 }
 
-char	**unset(char **args, char **env)
+char	**ft_unset(char **args, char **env)
 {
 	if(category_is_in_env(args[1], env))
 		env = remove_from_env(args[1], env);
@@ -175,9 +175,48 @@ char **ft_export(char **args, char **env)
 	return(env);
 }
 
+char	*ft_strnjoin(char **args, int start, int end)
+{
+	int		i;
+	char	*out;
+	char	*temp;
+
+	i = start;
+	if(!args || !*args)
+		return(NULL);
+	if(!i && !end && args[i])
+		return(args[i]);
+	while(i <= end && args[i])
+	{
+		if(args[i + 1] && i < end)
+		{
+			temp = ft_strdup(args[i]);
+			out = ft_strjoin(args[i], args[i + 1]);
+			if(!out)
+				return(free(temp),NULL);
+			free(temp);
+			i++;
+		}
+	}
+	return(out);
+}
+
+
+void	ft_echo(t_exec *exec)
+{
+	char	*out;
+	int		end;
+
+	end = 0;
+	while(exec->args[end])
+		end++;
+	out = ft_strnjoin(exec->args, 1, end);
+	ft_printf("%s\n", out);
+}
+
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
-	// if (ft_strncmp(exec->command, "echo", 5) == 0)
+	//if (ft_strncmp(exec->command, "echo", 5) == 0)
 	// 	echo(exec->args);
 	if (ft_strncmp(exec->command, "cd", 3) == 0)
 		ft_cd(exec, env);
@@ -189,7 +228,7 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 	else if (ft_strncmp(exec->command, "export", 7) == 0)
 		data->env = ft_export(exec->args, data->env);
 	else if (ft_strncmp(exec->command, "unset", 6) == 0)
-	 	data->env = unset(exec->args, env);
+	 	data->env = ft_unset(exec->args, env);
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
 	{
 		ft_env(env);
