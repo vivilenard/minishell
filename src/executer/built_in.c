@@ -175,30 +175,29 @@ char **ft_export(char **args, char **env)
 	return(env);
 }
 
-char	*ft_strnjoin(char **args, int start, int end)
+char	*ft_strjoin_s_e(char **args, int start, int end)
 {
 	int		i;
 	char	*out;
 	char	*temp;
 
 	i = start;
-	ft_printf("START = %i, END = %i\n", start, end);
 	if(!args || !*args)
-	{
-		ft_printf("in args==NULL condition\n");
 		return(NULL);
-	}
 	if(i == end && args[i])
-	{
-		ft_printf("in i==end condition\n");
 		return(ft_strdup(args[i]));
-	}
-	out = ft_strdup(args[i]);
+	out = ft_calloc(sizeof(char), 1);
 	while(i <= end && args[i])
 	{
+		temp = ft_strjoin(out, args[i]);
+		if(!temp)
+			return(free(out),NULL);
+		free(out);
+		out = ft_strdup(temp);
+		free(temp);
 		if(args[i + 1] && i < end)
 		{
-			temp = ft_strjoin(out, args[i + 1]);
+			temp = ft_strjoin(out, " ");
 			if(!temp)
 				return(free(out),NULL);
 			free(out);
@@ -219,8 +218,16 @@ void	ft_echo(t_exec *exec)
 	end = 0;
 	while(exec->args[end])
 		end++;
-	out = ft_strnjoin(exec->args, 1, end - 1);
-	ft_printf("%s\n", out);
+	if(ft_strncmp(exec->args[1], "-n", 3) == 0)
+	{
+		out = ft_strjoin_s_e(exec->args, 2, end - 1);
+		ft_putstr_fd(out, 1);
+	}
+	else
+	{
+		out = ft_strjoin_s_e(exec->args, 1, end - 1);
+		ft_putendl_fd(out, 1);
+	}
 	free(out);
 }
 
