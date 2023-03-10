@@ -46,6 +46,7 @@ int main (int args, char **argv, char **env)
 		if(!parse_tokens(data))
 			return(free_data(data), EXIT_FAILURE);
 		expander(data->execs, data->env);
+		print_execs(data);
 		executer(data);
 		free_exec(data);
 	}

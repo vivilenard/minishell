@@ -182,21 +182,30 @@ char	*ft_strnjoin(char **args, int start, int end)
 	char	*temp;
 
 	i = start;
+	ft_printf("START = %i, END = %i\n", start, end);
 	if(!args || !*args)
+	{
+		ft_printf("in args==NULL condition\n");
 		return(NULL);
-	if(!i && !end && args[i])
-		return(args[i]);
+	}
+	if(i == end && args[i])
+	{
+		ft_printf("in i==end condition\n");
+		return(ft_strdup(args[i]));
+	}
+	out = ft_strdup(args[i]);
 	while(i <= end && args[i])
 	{
 		if(args[i + 1] && i < end)
 		{
-			temp = ft_strdup(args[i]);
-			out = ft_strjoin(args[i], args[i + 1]);
-			if(!out)
-				return(free(temp),NULL);
+			temp = ft_strjoin(out, args[i + 1]);
+			if(!temp)
+				return(free(out),NULL);
+			free(out);
+			out = ft_strdup(temp);
 			free(temp);
-			i++;
 		}
+		i++;
 	}
 	return(out);
 }
@@ -210,14 +219,15 @@ void	ft_echo(t_exec *exec)
 	end = 0;
 	while(exec->args[end])
 		end++;
-	out = ft_strnjoin(exec->args, 1, end);
+	out = ft_strnjoin(exec->args, 1, end - 1);
 	ft_printf("%s\n", out);
+	free(out);
 }
 
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
-	//if (ft_strncmp(exec->command, "echo", 5) == 0)
-	// 	echo(exec->args);
+	if (ft_strncmp(exec->command, "echo", 5) == 0)
+	 	ft_echo(exec);
 	if (ft_strncmp(exec->command, "cd", 3) == 0)
 		ft_cd(exec, env);
 	else if (ft_strncmp(exec->command, "pwd", 4) == 0)
