@@ -18,7 +18,7 @@ t_token	*write_redirection(t_data *data, t_token *current)
 	{
 		while(j < 2)
 		{
-			data->execs[data->exec_count]->input[j] = current->content;
+			data->execs[data->exec_count]->input[j] = ft_strdup(current->content);
 			current = current->next;
 			j++;
 		}
@@ -27,7 +27,7 @@ t_token	*write_redirection(t_data *data, t_token *current)
 	{
 		while(j < 2)
 		{
-			data->execs[data->exec_count]->output[j] = current->content;
+			data->execs[data->exec_count]->output[j] = ft_strdup(current->content);
 			current = current->next;
 			j++;
 		}
@@ -37,7 +37,7 @@ t_token	*write_redirection(t_data *data, t_token *current)
 
 t_token	*write_args(t_data *data, t_token *current)
 {
-	data->execs[data->exec_count]->args[data->arg_count] = current->content;
+	data->execs[data->exec_count]->args[data->arg_count] = ft_strdup(current->content);
 	data->arg_count++;
 	current = current->next;
 	return(current);
@@ -46,7 +46,7 @@ t_token	*write_args(t_data *data, t_token *current)
 void get_command(t_data *data)
 {
 	if (is_built_in(data->execs[data->exec_count]->args[0]))
-		data->execs[data->exec_count]->command = data->execs[data->exec_count]->args[0];
+		data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
 	else
 		data->execs[data->exec_count]->command = get_path(data->execs[data->exec_count]->args[0]);
 }
@@ -76,8 +76,6 @@ int parse_tokens(t_data *data)
 		if (current && current->type == is_pipe)
 			current = write_pipe_out(data, current);
 	}
-	//print_execs(data);
-	//print_execs(data);
-	free_tokens(data, only_tokens);
+	free_tokens(data);
 	return(0);
 }

@@ -43,7 +43,7 @@ void print_tokens (t_token **token)
 	}
 }
 
-void free_tokens(t_data *data, t_free_options type)
+void free_tokens(t_data *data)
 {
 	t_token	*current;
 	t_token	*tmp;
@@ -54,11 +54,8 @@ void free_tokens(t_data *data, t_free_options type)
 		while(current)
 		{
 			tmp = current->next;
-			if (type == everything)
-			{
-				free(current->content);
-				current->content = NULL;
-			}
+			free(current->content);
+			current->content = NULL;
 			free(current);
 			current = tmp;
 		}
@@ -73,6 +70,8 @@ void free_exec(t_data *data)
 	i = 0;
 	while(data->execs[i])
 	{
+		if(data->execs[i]->command)
+			free(data->execs[i]->command);
 		if(data->execs[i]->args)
 			ft_free2d(data->execs[i]->args);
 		if(data->execs[i]->input)
@@ -95,9 +94,9 @@ void free_exec(t_data *data)
 
 void free_data(t_data *data)
 {
-	
-	if(data->execs)
-		free_exec(data);
+	ft_free2d(data->env);
+	free(data->promptline);
+	free(data);
 }
 
 char **dupclicate_2D(char **str)

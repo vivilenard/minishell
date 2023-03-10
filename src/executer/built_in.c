@@ -57,6 +57,7 @@ char **add_to_env(char *str, char **env)
 	new_env[i] = ft_strdup(str);
 	new_env[i + 1] = NULL;
 	ft_free2d(env);
+	free(str);
 	return(new_env);
 }
 
@@ -94,9 +95,10 @@ int category_is_in_env(char *category, char **env)
 	while(env[i])
 	{
 		if(ft_strncmp(env[i], category_and_equal, ft_strlen(category_and_equal)) == 0)
-			return(1);
+			return(free(category_and_equal), 1);
 		i++;
 	}
+	free(category_and_equal);
 	return(0);
 }
 
@@ -167,7 +169,7 @@ char **ft_export(char **args, char **env)
 	if(category_is_in_env(category, env))
 		env = replace_in_env(category, value, env);
 	else
-		env = add_to_env(args[1], env);
+		env = add_to_env(ft_strdup(args[1]), env);
 	free(value);
 	free(category);
 	return(env);

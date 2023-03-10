@@ -30,32 +30,32 @@ int main (int args, char **argv, char **env)
 	signal(SIGINT, &handle_sigint);
 
 	char *input;
-	char *promptline;
 
 	t_data	*data;
 
 	args = 0;
 	argv = NULL;
-	promptline = prompt();
 	data = ft_calloc(sizeof(t_data), 1);
 	if(!data)
-		return(free(promptline), exit(EXIT_FAILURE), 1);
+		return(free(data->promptline), exit(EXIT_FAILURE), 1);
+	data->promptline = prompt();
 	data->env = dupclicate_2D(env);
 	while (1)
 	{
 		init_data(data, args, argv);
-		if (!take_input(&input, promptline, data))
-			return (1);
+		if (!take_input(&input, data->promptline, data))
+			return (free_data(data), EXIT_FAILURE);
 		if (ft_strlen(input) > 0)
 			add_history(input);
 		if(load_tokens(lexer(input), data))
-			return(1);
-		parse_tokens(data);
+			return(free_data(data), EXIT_FAILURE);
+		if(parse_tokens(data))
+			return(free_data(data), EXIT_FAILURE);
 		expander(data->execs, data->env);
 		executer(data);
 		free_exec(data);
 	}
-	free(data);
-	free(promptline);
+	free_exec(data);
+	free_data(data);
 	return (0);
 }

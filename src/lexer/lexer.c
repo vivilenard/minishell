@@ -91,7 +91,5 @@ char	**lexer(char *str)
 	split = allocate(split, strnumber);
 	create_strings(split, str);
 	split[strnumber] = NULL;
-	//printf("%d\n", strnumber);
-	//ft_put2dstr_fd(split, 0);
 	return (split);
 }

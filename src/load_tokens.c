@@ -10,7 +10,7 @@ t_token	*ft_new_token(char *str)
 		return (NULL);
 	new_token->content = NULL;
 	if (str)
-		new_token->content = str;
+		new_token->content = ft_strdup(str);
 	new_token->next = NULL;
 	new_token->type = content_analyse(new_token);
 	return (new_token);
@@ -61,10 +61,10 @@ int load_tokens(char **split_tokens, t_data *data)
 	while(split_tokens[i])
 	{
 		if(init_token(&data->tokens, split_tokens[i]))
-			return(1);
+			return(ft_free2d(split_tokens), 1);
 		i++;
 	}
 	if(split_tokens)
-		free(split_tokens);
+		ft_free2d(split_tokens);
 	return (0);
 }
