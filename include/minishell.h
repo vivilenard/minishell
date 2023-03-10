@@ -96,6 +96,8 @@ int			get_arg_num(t_token *current);
 char		*get_path(char *command);
 void		write_pipe_in(t_data *data);
 t_token		*write_pipe_out(t_data *data, t_token *current);
+int			char_is_in_str(char *str, char c);
+
 
 
 //Lexer
@@ -125,6 +127,21 @@ int			built_in(t_exec *exec, char **env, t_data *data);
 int			is_built_in(char *command);
 int			is_childless_built_in(char *command);
 t_exec		**expander(t_exec **exec, char **env);
+
+//builtins
+int			built_in(t_exec *exec, char **env, t_data *data);
+void		ft_echo(t_exec *exec);
+char		**ft_export(char **args, char **env);
+char		**ft_unset(char **args, char **env);
+void		ft_cd(t_exec *exec, char **env);
+void		ft_pwd();
+
+//env
+void		ft_env(char **env);
+int			category_is_in_env(char *category, char **env);
+char		**add_to_env(char *str, char **env);
+char		**remove_from_env(char *category, char **env);
+char		**replace_in_env(char *category, char *new_entry, char **env);
 
 //expander
 char		*take_content(char *declaration);

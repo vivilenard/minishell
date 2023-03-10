@@ -6,8 +6,9 @@ SRCPATH = src/
 LIBFTPATH = ./libft
 SRC = 	$(addprefix $(SRCPATH),  main.c utils_prep.c utils.c load_tokens.c content_analyse.c\
 		lexer/lexer.c lexer/lexer_utils1.c lexer/lexer_utils2.c parser.c utils_parser.c \
-		executer/executer.c executer/executer_redirections.c executer/built_in.c executer/built_in_utils.c expander/expander.c \
-		expander/expander_utils.c executer/get_path.c)
+		executer/executer.c executer/executer_redirections.c expander/expander.c \
+		expander/expander_utils.c executer/get_path.c /executer/builtins/built_in.c executer/builtins/built_in_utils.c \
+		executer/builtins/env.c )  
 #SRC = $(addprefix $(SRCPATH), executer/executer_dummy2.c executer/executer.c executer/executer_redirections.c executer/built-in.c expander/expander.c utils.c)
 OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 #OBJ = $(SRC:.c=.o)
