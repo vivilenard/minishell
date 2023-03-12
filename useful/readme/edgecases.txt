@@ -11,6 +11,17 @@ COMMANDSTRINGS MIT LEERZEICHEN
 
 
 	TO DO:
-	- quotes entfernen vor executer
-	- ls |cat funktioniert nicht
-	- bei $ bleibts haengen
+	- echo muss quotes handeln
+
+	Parser:
+	- bei keinem gueltigen command segment fault
+	- mehrere input/outputfiles -> oeffne alle genannten
+	- quotes entfernen vor executer (z.B fuer grep oder echo)
+
+	Lexer:
+	- handle / und : --> nicht beachten
+
+	Executer:
+	- heredoc
+	- << str mit leerzeichen am ende --> trimmen
+

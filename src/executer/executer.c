@@ -19,8 +19,8 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 	if (pid == 0)
 	{
 		in_out(exec, fd_pipe, fd_keep_pipe);
-		while (built_in(exec, data->env, data) == 0)
-			break ;
+		// while (built_in(exec, data->env, data) == 0)
+		// 	break ;
 		if (execve(exec->command, exec->args, data->env) == -1)
 			perror("execve");
 	}
@@ -40,6 +40,7 @@ int	executer(t_data *data)
 	i = 0;
 	fd_keep_pipe = 99;
 
+			printtokens(data->execs);
 	if(is_childless_built_in(data->execs[i]->command))
 		built_in(data->execs[i], data->env, data);
 	else
