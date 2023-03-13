@@ -94,6 +94,8 @@ void free_exec(t_data *data)
 
 void free_data(t_data *data)
 {
+	if(data->execs)
+		free_exec(data);
 	if(data->env)
 		ft_free2d(data->env);
 	if(data->promptline)

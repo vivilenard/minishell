@@ -24,7 +24,10 @@ void	ft_cd(t_exec *exec, char **env)
 	free(temp);
 	path = exec->args[1]; 
 	if (chdir(path) == -1)
+	{
+		ft_putendl_fd("minishell: cd: test: No such file or directory", 1);
 		return ;
+	}
 	temp = getcwd(NULL, 1024);
 	if(category_is_in_env("PWD", env))
 		env = replace_in_env("PWD", temp, env);

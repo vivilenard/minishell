@@ -45,7 +45,6 @@ int main (int args, char **argv, char **env)
 		executer(data);
 		free_exec(data);
 	}
-	free_exec(data);
 	free_data(data);
 	return (0);
 }
