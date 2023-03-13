@@ -48,7 +48,12 @@ void get_command(t_data *data)
 	if (is_built_in(data->execs[data->exec_count]->args[0]))
 		data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
 	else
+	{
 		data->execs[data->exec_count]->command = get_path(data->execs[data->exec_count]->args[0]);
+		if(!data->execs[data->exec_count]->command)
+			data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
+	}
+
 }
 
 int parse_tokens(t_data *data)

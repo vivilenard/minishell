@@ -2,7 +2,7 @@
 
 int is_outer(char *str, char c)
 {
-	if (str[0] == c && str[ft_strlen(str)] == c)
+	if (str[0] == c && str[ft_strlen(str) - 1] == c)
 		return (1);
 	return (0);
 }
