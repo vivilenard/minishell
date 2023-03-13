@@ -34,12 +34,18 @@ int	file_as_stdin(t_exec *exec)
 {
 	int	fd;
 
-	fd = open (exec->input[1], O_RDONLY);
-	if (fd == -1)
-		perror("open inputfile");
-	if (dup2(fd, 0) == -1)
-		perror("file as stdin");
-	return (close(fd), 0);
+	if (ft_strncmp(exec->input[0], "<<", 3) == 0)
+		heredoc(exec);
+	else
+	{
+		fd = open (exec->input[1], O_RDONLY);
+		if (fd == -1)
+			perror("open inputfile");
+		if (dup2(fd, 0) == -1)
+			perror("file as stdin");
+		close(fd);
+	}
+	return (0);
 }
 
 int	file_as_stdout(t_exec *exec)
@@ -62,7 +68,8 @@ int	pipe_as_stdin(int fd_keep_pipe)
 {
 	if (dup2(fd_keep_pipe, 0) == -1)
 		perror("pipe as stdin");
-	close(fd_keep_pipe);
+	if (close(fd_keep_pipe) == -1)
+		perror("close pipe as stdin");
 	return (0);
 }
 

@@ -126,6 +126,7 @@ void		close_pipe(int *fd_pipe);
 int			built_in(t_exec *exec, char **env, t_data *data);
 int			is_built_in(char *command);
 int			is_childless_built_in(char *command);
+int			heredoc(t_exec *exec);
 t_exec		**expander(t_exec **exec, char **env);
 
 //builtins

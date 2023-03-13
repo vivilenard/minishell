@@ -49,7 +49,7 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 	// 	(*i)++;
 	// 	return (1);
 	// }
-	if ((str[*i] == '<' || str[*i] == '>' || str[*i + 1] == '|') && *flag == 4)
+	if ((str[*i] == '<' || str[*i] == '>' || str[*i] == '|') && *flag == 4)
 		*flag = 0;
 	if (is_char(str[*i], '\"'))
 	{
@@ -65,7 +65,7 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 		(*i)++;
 		return (1);
 	}
-	if (!ft_strncmp(str + *i, "echo", 4))
+ 	if (!ft_strncmp(str + *i, "echo", 4))
 	{
 		quote = 3;
 		switch_flags(flag, quote, keep_quote);
