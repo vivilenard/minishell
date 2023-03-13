@@ -9,6 +9,18 @@ void	ft_pwd()
 	free(cwd);
 }
 
+char *create_cd_error(char *path)
+{
+	char	*out;
+	char	*temp;
+
+	out = NULL;
+	temp = NULL;
+	temp = ft_strjoin_free_opt("minishell: cd: ", path, 0, 0);
+	out = ft_strjoin_free_opt(temp, ": No such file or directory", 1, 0);
+	return (out);
+}
+
 void	ft_cd(t_exec *exec, char **env)
 {
 	char	*path;
@@ -25,7 +37,7 @@ void	ft_cd(t_exec *exec, char **env)
 	path = exec->args[1]; 
 	if (chdir(path) == -1)
 	{
-		ft_putendl_fd("minishell: cd: test: No such file or directory", 1);
+		ft_putendl_fd(create_cd_error(path), 1);
 		return ;
 	}
 	temp = getcwd(NULL, 1024);
