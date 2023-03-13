@@ -65,7 +65,7 @@ typedef struct s_env
 	char	**env;
 }	t_env;
 
-char		*prompt(void);
+char		*prompt(t_data *data);
 int			load_tokens(char **split_tokens, t_data *data);
 t_tokentype	content_analyse(t_token *token);
 int 		parse_tokens(t_data *data);
@@ -78,7 +78,8 @@ char		*username(void);
 void		print_tokens(t_token **token);
 void		free_tokens(t_data *data);
 void		free_data(t_data *data);
-void		init_data(t_data *data, int args, char **argv);
+void		init_data(t_data *data, char **env);
+void		reset_data(t_data *data, int args, char **argv);
 void		free_exec(t_data *data);
 char		**dupclicate_2D(char **str);
 int			ft_2darraylen(char **array);

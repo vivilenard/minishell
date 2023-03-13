@@ -63,31 +63,31 @@ char	*ft_strjoin_s_e(char **args, int start, int end)
 	char	*temp;
 
 	i = start;
-	if(!args || !*args)
-		return(NULL);
-	if(i == end && args[i])
-		return(ft_strdup(args[i]));
+	if (!args || !*args)
+		return (NULL);
+	if (i == end && args[i])
+		return (ft_strdup(args[i]));
 	out = ft_calloc(sizeof(char), 1);
-	while(i <= end && args[i])
+	while (i <= end && args[i])
 	{
 		temp = ft_strjoin(out, args[i]);
-		if(!temp)
-			return(free(out),NULL);
+		if (!temp)
+			return (free(out),NULL);
 		free(out);
 		out = ft_strdup(temp);
 		free(temp);
-		if(args[i + 1] && i < end)
+		if (args[i + 1] && i < end)
 		{
 			temp = ft_strjoin(out, " ");
-			if(!temp)
-				return(free(out),NULL);
+			if (!temp)
+				return (free(out),NULL);
 			free(out);
 			out = ft_strdup(temp);
 			free(temp);
 		}
 		i++;
 	}
-	return(out);
+	return (out);
 }
 
 void	ft_echo(t_exec *exec)

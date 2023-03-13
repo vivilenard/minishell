@@ -128,8 +128,15 @@ char **dupclicate_2D(char **str)
 	return(copy);
 }
 
-void	init_data(t_data *data, int args, char **argv)
+void	init_data(t_data *data, char **env)
 {
+	data->env = dupclicate_2D(env);
+	data->promptline = prompt(data);
+}
+
+void	reset_data(t_data *data, int args, char **argv)
+{
+	data->promptline = prompt(data);
 	data->tokens = NULL;
 	data->execs = NULL;
 	data->pipeflag = 0;
