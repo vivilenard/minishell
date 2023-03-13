@@ -84,6 +84,7 @@ void		free_exec(t_data *data);
 char		**dupclicate_2D(char **str);
 int			ft_2darraylen(char **array);
 char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
+char		*ft_strjoin_s_e(char **args, int start, int end);
 
 
 //Parser
@@ -98,8 +99,6 @@ char		*get_path(char *command);
 void		write_pipe_in(t_data *data);
 t_token		*write_pipe_out(t_data *data, t_token *current);
 int			char_is_in_str(char *str, char c);
-
-
 
 //Lexer
 char		**lexer(char *str);

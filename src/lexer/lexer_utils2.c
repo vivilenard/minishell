@@ -65,12 +65,12 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 		(*i)++;
 		return (1);
 	}
-/* 	if (!ft_strncmp(str + *i, "echo", 4))
+	if (!ft_strncmp(str + *i, "echo", 4))
 	{
 		quote = 3;
 		switch_flags(flag, quote, keep_quote);
 		(*i)++;
 		return (1);
-	} */
+	}
 	return (0);
 }
