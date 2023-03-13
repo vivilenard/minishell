@@ -93,27 +93,6 @@ char	*ft_strjoin_s_e(char **args, int start, int end)
 	return (out);
 }
 
-void	ft_echo(t_exec *exec)
-{
-	char	*out;
-	int		end;
-
-	end = 0;
-	while(exec->args[end])
-		end++;
-	if(ft_strncmp(exec->args[1], "-n", 3) == 0)
-	{
-		out = ft_strjoin_s_e(exec->args, 2, end - 1);
-		ft_putstr_fd(out, 1);
-	}
-	else
-	{
-		out = ft_strjoin_s_e(exec->args, 1, end - 1);
-		ft_putendl_fd(out, 1);
-	}
-	free(out);
-}
-
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
 	if (ft_strncmp(exec->command, "echo", 5) == 0)
