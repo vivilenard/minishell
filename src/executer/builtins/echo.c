@@ -16,6 +16,7 @@ char *quote_cutter(char *str)
 	temp = NULL;
 	if(is_outer(str, '\"') || is_outer(str, '\''))
 	{
+		ft_printf("IN CONDITION\n");
 		if(is_outer(str, '\"'))
 			temp = ft_split(str, '\"');
 		else if(is_outer(str, '\''))
@@ -38,12 +39,14 @@ void	ft_echo(t_exec *exec)
 	if (ft_strncmp(exec->args[1], "-n", 3) == 0)
 	{
 		out = ft_strjoin_s_e(exec->args, 2, end - 1);
+		ft_printf("%s\n", out);
 		out = quote_cutter(out);
 		ft_putstr_fd(out, 1);
 	}
 	else
 	{
 		out = ft_strjoin_s_e(exec->args, 1, end - 1);
+		ft_printf("%s\n", out);
 		out = quote_cutter(out);
 		ft_putendl_fd(out, 1);
 	}
