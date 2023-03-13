@@ -25,3 +25,6 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	- heredoc
 	- << str mit leerzeichen am ende --> trimmen
 
+	Free:
+	- clear history
+

@@ -40,7 +40,7 @@ char	**create_strings(char **split, char *str)
 			is_split = do_shit(split, str, &i, &start);
 		if (is_split && flag == 3)
 			flag = 4;
-		if (!handle_quote(str, &i, &flag, &keep_quote))
+		if (str[i] && !handle_quote(str, &i, &flag, &keep_quote))
 			i++;
 	}
 	split = makestring(split, str, start, i);
@@ -74,7 +74,7 @@ int	countstrs(char *str)
 				i--;
 			}
 		}
-		if (!handle_quote(str, &i, &flag, &keep_quote))
+		if (str[i] && !handle_quote(str, &i, &flag, &keep_quote))
 			i++;
 	}
 	return (count);
@@ -91,5 +91,6 @@ char	**lexer(char *str)
 	split = allocate(split, strnumber);
 	create_strings(split, str);
 	split[strnumber] = NULL;
+	free(str);
 	return (split);
 }
