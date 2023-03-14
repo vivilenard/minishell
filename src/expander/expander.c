@@ -26,7 +26,7 @@ char	*replace_string(char *s, char **env)
 		i++;
 	}
 	ft_free2d(split_dollar);
-	return (finalword);
+	return (minimize_whitespace(finalword));
 }
 
 char	*look_for_dollar(char *str, char **env)
