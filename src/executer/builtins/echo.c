@@ -22,7 +22,7 @@ char *quote_cutter(char *str)
 		else if(is_outer(str, '\''))
 			temp = ft_split(str, '\'');
 		out = NULL;
-		out = ft_strjoin_s_e(temp, 0, ft_2darraylen(temp));
+		out = ft_strjoin_s_e(temp, 0, ft_2darraylen(temp), "");
 		return (out);
 	}
 	return (str);
@@ -38,15 +38,13 @@ void	ft_echo(t_exec *exec)
 		end++;
 	if (ft_strncmp(exec->args[1], "-n", 3) == 0)
 	{
-		out = ft_strjoin_s_e(exec->args, 2, end - 1);
-		ft_printf("%s\n", out);
+		out = ft_strjoin_s_e(exec->args, 2, end - 1, " ");
 		out = quote_cutter(out);
 		ft_putstr_fd(out, 1);
 	}
 	else
 	{
-		out = ft_strjoin_s_e(exec->args, 1, end - 1);
-		ft_printf("%s\n", out);
+		out = ft_strjoin_s_e(exec->args, 1, end - 1, " ");
 		out = quote_cutter(out);
 		ft_putendl_fd(out, 1);
 	}

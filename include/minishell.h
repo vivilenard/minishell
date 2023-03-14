@@ -84,7 +84,7 @@ void		free_exec(t_data *data);
 char		**dupclicate_2D(char **str);
 int			ft_2darraylen(char **array);
 char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
-char		*ft_strjoin_s_e(char **args, int start, int end);
+char		*ft_strjoin_s_e(char **args, int start, int end, char* c);
 
 
 //Parser

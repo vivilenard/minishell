@@ -69,7 +69,7 @@ char	**ft_export(char **args, char **env)
 	return(env);
 }
 
-char	*ft_strjoin_s_e(char **args, int start, int end)
+char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 {
 	int		i;
 	char	*out;
@@ -91,7 +91,7 @@ char	*ft_strjoin_s_e(char **args, int start, int end)
 		free(temp);
 		if (args[i + 1] && i < end)
 		{
-			temp = ft_strjoin(out, " ");
+			temp = ft_strjoin(out, c);
 			if (!temp)
 				return (free(out),NULL);
 			free(out);
