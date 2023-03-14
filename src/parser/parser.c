@@ -18,6 +18,8 @@ t_token	*write_redirection(t_data *data, t_token *current)
 	{
 		while(j < 2)
 		{
+			if(!current)
+				exit(2);
 			data->execs[data->exec_count]->input[j] = ft_strdup(current->content);
 			current = current->next;
 			j++;
@@ -27,6 +29,8 @@ t_token	*write_redirection(t_data *data, t_token *current)
 	{
 		while(j < 2)
 		{
+			if(!current)
+				exit(2);
 			data->execs[data->exec_count]->output[j] = ft_strdup(current->content);
 			current = current->next;
 			j++;
