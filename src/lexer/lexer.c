@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	do_shit(char **split, char *str, int *i, int *start)
 {

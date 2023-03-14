@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 
 t_exec **init_exec0(t_exec **exec)
