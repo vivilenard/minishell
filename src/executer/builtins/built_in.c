@@ -53,17 +53,51 @@ char	**ft_unset(char **args, char **env)
 	return(env);
 }
 
+int is_outer(char *str, char c)
+{
+	if (str[0] == c && str[ft_strlen(str) - 1] == c)
+		return (1);
+	return (0);
+}
+
+char *quote_cutter(char *str)
+{
+	char	**temp;
+	char	*out;
+
+	temp = NULL;
+	if(is_outer(str, '\"') || is_outer(str, '\''))
+	{
+		ft_printf("IN CONDITION\n");
+		if(is_outer(str, '\"'))
+			temp = ft_split(str, '\"');
+		else if(is_outer(str, '\''))
+			temp = ft_split(str, '\'');
+		out = NULL;
+		out = ft_strjoin_s_e(temp, 0, ft_2darraylen(temp), "");
+		free(temp);
+		free(str);
+		return (out);
+	}
+	return (str);
+}
+
 char	**ft_export(char **args, char **env)
 {
 	char	*value;
 	char	*category;
+	char	*temp;
 
 	value = string_split(args[1], '=', 1, 0);
+	value = quote_cutter(value);
 	category = string_split(args[1], '=', 1, 1);
 	if(category_is_in_env(category, env))
 		env = replace_in_env(category, value, env);
 	else
-		env = add_to_env(ft_strdup(args[1]), env);
+	{
+		temp = ft_strjoin(category, "=");
+		env = add_to_env(ft_strjoin_free_opt(temp, value, 1, 0), env);
+	}
 	free(value);
 	free(category);
 	return(env);

@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*find_correct_path(char **paths, char *command)
 {

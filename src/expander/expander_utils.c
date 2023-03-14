@@ -12,6 +12,17 @@ void	search_array(char **arr, char **env)
 	}
 }
 
+char	*minimize_whitespace(char *str)
+{
+	char	**split;
+	char	*out;
+
+	split = ft_split(str, ' ');
+	out = ft_strjoin_s_e(split, 0, ft_2darraylen(split), " ");
+	ft_free2d(split);
+	return(out);
+}
+
 char	*take_content(char *declaration)
 {
 	int		i;

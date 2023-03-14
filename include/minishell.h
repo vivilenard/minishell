@@ -154,5 +154,6 @@ char		*take_var(char *s, char **env);
 char		*ft_replace_var(char **env, char *dollar);
 char		*search_var_in_env(char *var, char **env);
 char		*string_split(char *str, char c, int at_first, int first);
+char		*minimize_whitespace(char *str);
 
 #endif
