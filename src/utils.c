@@ -98,8 +98,8 @@ void free_data(t_data *data)
 		free_exec(data);
 	if(data->env)
 		ft_free2d(data->env);
-	if(data->promptline)
-		free(data->promptline);
+	//if(data->promptline)
+	free(data->promptline);
 	if(data)
 		free(data);
 }
@@ -133,19 +133,18 @@ char **dupclicate_2D(char **str)
 void	init_data(t_data *data, char **env)
 {
 	data->env = dupclicate_2D(env);
-	data->promptline = prompt(data);
+	//data->promptline = prompt(data);
 }
 
-void	reset_data(t_data *data, int args, char **argv)
+void	reset_data(t_data *data)
 {
+	free(data->promptline);
 	data->promptline = prompt(data);
 	data->tokens = NULL;
 	data->execs = NULL;
 	data->pipeflag = 0;
 	data->arg_count = 0;
 	data->exec_count = 0;
-	args = 99999;
-	argv = NULL;
 }
 
 void	printtokens(t_exec **exec)

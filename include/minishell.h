@@ -79,7 +79,7 @@ void		print_tokens(t_token **token);
 void		free_tokens(t_data *data);
 void		free_data(t_data *data);
 void		init_data(t_data *data, char **env);
-void		reset_data(t_data *data, int args, char **argv);
+void		reset_data(t_data *data);
 void		free_exec(t_data *data);
 char		**dupclicate_2D(char **str);
 int			ft_2darraylen(char **array);

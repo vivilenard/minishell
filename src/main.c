@@ -24,15 +24,16 @@ int main (int args, char **argv, char **env)
 
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &handle_sigint);
-	args = 0;
-	argv = NULL;
+	(void)args;
+	(void)argv;
 	data = ft_calloc(sizeof(t_data), 1);
 	if(!data)
 		return (free(data->promptline), exit(EXIT_FAILURE), 1);
 	init_data(data, env);
+	data->promptline = prompt(data);
 	while (1)
 	{
-		reset_data(data, args, argv);
+		reset_data(data);
 		if (!take_input(&input, data->promptline))
 			return (free_data(data), system ("leaks shell"), EXIT_SUCCESS);
 		if (ft_strlen(input) > 0)
@@ -45,6 +46,7 @@ int main (int args, char **argv, char **env)
 		//	printtokens(data->execs);
 		executer(data);
 		free_exec(data);
+		free(input);
 	}
 	free_data(data);
 	return (0);

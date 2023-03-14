@@ -66,7 +66,7 @@ char	*get_path(char *command)
 	if(!correct_path)
 		return (command);
 	ft_free2d(paths);
-		system ("leaks shell");
+		/* system ("leaks shell"); */
 	return (correct_path);
 }
 
