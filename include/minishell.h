@@ -17,6 +17,8 @@
 (one prompt could be piped into another). Every Prompt is divided into tokens.
 Every token has a tokentype */
 
+int	global = 0;
+
 typedef struct s_token 	t_token;
 
 typedef enum e_tokentype
