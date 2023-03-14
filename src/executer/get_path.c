@@ -40,8 +40,8 @@ int	is_built_in(char *command)
 
 int	is_childless_built_in(char *command)
 {
-	ft_printf("%s\n", command);
-	if (ft_strncmp(command, "echo", 5) == 0)
+	//ft_printf("%s\n", command);
+	if (ft_strncmp(command, "pwd", 5) == 0)
 	 	return(1);
 	else if (ft_strncmp(command, "cd", 3) == 0)
 	 	return(1);
@@ -64,8 +64,9 @@ char	*get_path(char *command)
 	paths = ft_split(env_paths, ':');
 	correct_path = find_correct_path(paths, command);
 	if(!correct_path)
-
+		return (command);
 	ft_free2d(paths);
+		system ("leaks shell");
 	return (correct_path);
 }
 

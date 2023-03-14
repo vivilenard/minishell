@@ -21,6 +21,9 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	Lexer:
 	- handle / und : --> nicht beachten
 
+	Expander:
+	- echo $hi "hallo"
+
 	Executer:
 	- heredoc
 	- << str mit leerzeichen am ende --> trimmen

@@ -106,17 +106,25 @@ char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
 	if (ft_strncmp(exec->command, "echo", 5) == 0)
-	 	ft_echo(exec);
-	if (ft_strncmp(exec->command, "cd", 3) == 0)
-		ft_cd(exec, env);
+	{
+	 	return (ft_echo(exec), 1);
+	}
+	else if (ft_strncmp(exec->command, "cd", 3) == 0)
+		return(ft_cd(exec, env), 1);
 	else if (ft_strncmp(exec->command, "pwd", 4) == 0)
-		return(ft_pwd(), exit(EXIT_SUCCESS), 0);
+		return(ft_pwd(), exit(EXIT_SUCCESS), 1);
 	else if (ft_strncmp(exec->command, "export", 7) == 0)
+	{
 		data->env = ft_export(exec->args, data->env);
+		return (1);
+	}
 	else if (ft_strncmp(exec->command, "unset", 6) == 0)
-	 	data->env = ft_unset(exec->args, env);
+	{
+		data->env = ft_unset(exec->args, env);
+		return (1);
+	}
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
-		return(ft_env(env), exit(EXIT_SUCCESS), 0);
+		return(ft_env(env), exit(EXIT_SUCCESS), 1);
 	// else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	// 	ftexit(exec->args);
 	return (0);
