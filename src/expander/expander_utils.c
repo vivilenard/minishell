@@ -95,7 +95,7 @@ char	*ft_replace_var(char **env, char *dollar)
 
 	behind_dollar = if_split_contains_sentence(dollar);
 	value = search_var_in_env(behind_dollar[0], env);
-	value = ft_strjoinandfree(value, behind_dollar[1]);
+	value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
 	ft_free2d(behind_dollar);
 	return (value);
 }

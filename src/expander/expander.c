@@ -18,9 +18,7 @@ char	*replace_string(char *s, char **env)
 	while (split_dollar[i])
 	{
 		value = ft_replace_var(env, split_dollar[i]);
-		//printf("val %s\n", value);
-		finalword = ft_strjoinandfree(finalword, value);
-		//printf("final %s\n", finalword);
+		finalword = ft_strjoin_free_opt(finalword, value, 1, 0);
 		if (value)
 			free(value);
 		i++;
@@ -39,9 +37,7 @@ char	*look_for_dollar(char *str, char **env)
 	{
 		if (str[i] == '$')
 		{	
-			//printf("str %s\n", str);
 			replaced_str = replace_string(str, env);
-			//printf("replaced %s\n", replaced_str);
 			return (free(str), replaced_str);
 		}
 		i++;
