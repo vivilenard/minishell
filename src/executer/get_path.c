@@ -16,6 +16,7 @@ char	*find_correct_path(char **paths, char *command)
 		free (path_command);
 		i++;
 	}
+	free (backslash_command);
 	return (NULL);
 }
 
@@ -64,10 +65,9 @@ char	*get_path(char *command)
 	paths = ft_split(env_paths, ':');
 	correct_path = find_correct_path(paths, command);
 	if(!correct_path)
-		return (command);
-	ft_free2d(paths);
-		system ("leaks shell");
-	return (correct_path);
+		return (ft_free2d(paths), command);
+		//system ("leaks shell");
+	return (ft_free2d(paths), correct_path);
 }
 
 // int main ()
