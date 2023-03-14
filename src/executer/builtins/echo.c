@@ -4,6 +4,7 @@ void	ft_echo(t_exec *exec)
 {
 	char	*out;
 	int		end;
+	//char	*temp;
 
 	end = 0;
 	while (exec->args[end])

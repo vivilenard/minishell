@@ -20,6 +20,7 @@ char	*minimize_whitespace(char *str)
 	split = ft_split(str, ' ');
 	out = ft_strjoin_s_e(split, 0, ft_2darraylen(split), " ");
 	ft_free2d(split);
+	free(str);
 	return(out);
 }
 
