@@ -1,0 +1,51 @@
+> OK
+
+< OK
+
+<< OK
+
+>>>>> OK
+
+> > > > > OK
+
+>> >> >> >> OK
+
+<<<<<< OK
+
+< < < < < < OK
+
+/bin/cat ><
+
+/bin/cat <Makefile >
+
+cat 42 42
+
+echo > OK
+
+echo > < OK
+
+.
+
+..
+
+EechoE
+
+.echo.
+
+>echo>
+
+<echo<
+
+>>echo>>
+
+|echo| OK
+
+trying to destroy your minishell
+
+| OK
+
+| test OK
+
+| | | OK
+
+| | | | test OK

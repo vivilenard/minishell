@@ -69,7 +69,7 @@ int	get_arg_num(t_token *current)
 void	write_pipe_in(t_data *data)
 {
 	data->execs[data->exec_count]->input[0] = ft_strdup(data->execs[data->exec_count - 1]->output[0]);
-	//data->execs[data->exec_count]->input[1] = NULL;
+	data->pipeflag = 0;
 }
 
 t_token	*write_pipe_out(t_data *data, t_token *current)
