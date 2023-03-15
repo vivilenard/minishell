@@ -17,9 +17,7 @@
 (one prompt could be piped into another). Every Prompt is divided into tokens.
 Every token has a tokentype */
 
-int	global = 0;
-
-typedef struct s_token 	t_token;
+//int	global = 0;
 
 typedef enum e_tokentype
 {
@@ -87,6 +85,7 @@ char		**dupclicate_2D(char **str);
 int			ft_2darraylen(char **array);
 char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
 char		*ft_strjoin_s_e(char **args, int start, int end, char* c);
+int			check_syntax(t_data *data);
 
 
 //Parser
@@ -157,5 +156,6 @@ char		*ft_replace_var(char **env, char *dollar);
 char		*search_var_in_env(char *var, char **env);
 char		*string_split(char *str, char c, int at_first, int first);
 char		*minimize_whitespace(char *str);
+char		*quote_cutter(char *str);
 
 #endif

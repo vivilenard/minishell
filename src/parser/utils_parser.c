@@ -46,6 +46,8 @@ int	get_exec_count(t_token	*current)
 		return (exec_count);
 }
 
+int get_input_num
+
 int	get_arg_num(t_token *current)
 {
 	t_token	*tmp;
