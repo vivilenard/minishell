@@ -17,7 +17,7 @@ int	take_input(char **input, char *promptline)
 	return (1);
 }
 
-int	errno = 99;
+int	errno = 0;
 
 int main (int args, char **argv, char **env)
 {

@@ -1,5 +1,18 @@
 #include "../../include/minishell.h"
 
+int	error_codes(int	err)
+{
+	if (WIFEXITED(err))
+	{
+		err = WEXITSTATUS(err);
+		if (err == 1)
+			errno = 1;
+		if (err == 2)
+			errno = 127;
+	}
+	return (0);
+}
+
 void	close_pipe(int *fd_pipe)
 {
 	if (fd_pipe[0])
@@ -21,14 +34,13 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 		if (in_out(exec, fd_pipe, fd_keep_pipe) == -1)
 			exit (1);
 		if (built_in(exec, data->env, data))
-			exit (1);
+			exit (0);
 		if (execve(exec->command, exec->args, data->env) == -1)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(exec->command, 2);
 			ft_putstr_fd(": command not found\n", 2);
-			errno = 127;
-			exit (127);
+			exit (2);
 		}
 	}
 	if (close(fd_pipe[1]) == -1)
@@ -43,6 +55,7 @@ int	executer(t_data *data)
 	int		i;
 	int		fd_pipe[2];
 	int		fd_keep_pipe;
+	int		err = 0;
 
 	i = 0;
 	fd_keep_pipe = 99;
@@ -63,10 +76,10 @@ int	executer(t_data *data)
 			perror ("close keep_pipe");
 		while (i >= 0)
 		{
-			//printf("%d\n", i);
-			waitpid(0, NULL, 0);
+			waitpid(0, &err, 0);
 			i--;
 		}
 	}
+	error_codes(err);
 	return (0);
 }
