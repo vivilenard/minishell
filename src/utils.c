@@ -151,7 +151,7 @@ void	printtokens(t_exec **exec)
 {
 	int	i = 0;
 	int	n = 0;
-	while (exec[i])
+	while (exec && exec[i])
 	{
 		printf("\nEXEC[%d]\n", i);
 		printf("---------------------------------------------\n");
