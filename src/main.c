@@ -17,7 +17,6 @@ int	take_input(char **input, char *promptline)
 	return (1);
 }
 
-//int	errno = 9999;
 
 int main (int args, char **argv, char **env)
 {
@@ -35,10 +34,9 @@ int main (int args, char **argv, char **env)
 	data->promptline = prompt(data);
 	while (1)
 	{
-		printf("%d\n", errno);
 		reset_data(data);
 		if (!take_input(&input, data->promptline))
-			return (free_data(data), system ("leaks shell"), EXIT_SUCCESS);
+			return (free_data(data), EXIT_SUCCESS);
 		if (ft_strlen(input) > 0)
 			add_history(input);
 		if (!load_tokens(lexer(input), data))

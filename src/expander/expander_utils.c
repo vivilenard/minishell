@@ -20,8 +20,8 @@ char	*minimize_whitespace(char *str)
 	split = ft_split(str, ' ');
 	out = ft_strjoin_s_e(split, 0, ft_2darraylen(split), " ");
 	ft_free2d(split);
-	free(str);
-	return(out);
+	free (str);
+	return (out);
 }
 
 char	*take_content(char *declaration)
@@ -87,28 +87,4 @@ char	**if_split_contains_sentence(const char *dollar)
 	behind_dollar[n] = ft_strdup(dollar);
 	behind_dollar[n + 1] = NULL;
 	return (behind_dollar);
-}
-
-char *ft_replacestr(char *s1, char *s2)
-{
-	free (s1);
-	return (s2);
-}
-
-char	*ft_replace_var(char **env, char *dollar)
-{
-	char	**behind_dollar;
-	char	*value;
-
-	behind_dollar = if_split_contains_sentence(dollar);
-	printf("bd0 %s\n", behind_dollar[0]);
-	if (ft_strncmp(behind_dollar[0], "?", 1) == 0)
-		value = ft_strdup(ft_itoa(errno));
-	else
-		value = search_var_in_env(behind_dollar[0], env);
-	printf("afer %s\n", value);
-	value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
-	printf ("value afterwards %s\n", value);
-	ft_free2d(behind_dollar);
-	return (value);
 }

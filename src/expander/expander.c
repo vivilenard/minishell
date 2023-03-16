@@ -1,5 +1,26 @@
 #include "../../include/minishell.h"
 
+char	*ft_replace_var(char **env, char *dollar)
+{
+	char	**behind_dollar;
+	char	*value;
+
+	behind_dollar = if_split_contains_sentence(dollar);
+	if (ft_strncmp(behind_dollar[0], "?", 1) == 0)
+	{
+		value = ft_itoa(errno);
+		if (ft_strlen(behind_dollar[0]) > 1)
+			value = ft_strjoin_free_opt(value, behind_dollar[0] + 1, 1, 0);
+	}
+	else
+	{
+		value = search_var_in_env(behind_dollar[0], env);
+	}
+		value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
+	ft_free2d(behind_dollar);
+	return (value);
+}
+
 char	*replace_string(char *s, char **env)
 {
 	int		i;
@@ -38,6 +59,8 @@ char	*look_for_dollar(char *str, char **env)
 		if (str[i] == '$')
 		{	
 			replaced_str = replace_string(str, env);
+			if (!replaced_str)
+				replaced_str = ft_strdup(" ");
 			return (free(str), replaced_str);
 		}
 		i++;
