@@ -2,32 +2,35 @@
 
 int	in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe)
 {
+	int	err;
+
+	err = 0;
 	if (ft_strlen(exec->input[0]) > 0
 		&& ft_strncmp(exec->input[0], "|", 2) != 0)
 	{
 		//ft_putendl_fd("file as stdin", 2);
-		file_as_stdin(exec);
+		err = file_as_stdin(exec);
 	}
 	else if (ft_strlen(exec->input[0]) > 0
 		&& ft_strncmp(exec->input[0], "|", 2) == 0)
 	{
 		//ft_putendl_fd("pipe as stdin", 2);
-		pipe_as_stdin(fd_keep_pipe);
+		err = pipe_as_stdin(fd_keep_pipe);
 	}
 	if (ft_strlen(exec->output[0]) > 0
 		&& ft_strncmp(exec->output[0], "|", 2) != 0)
 	{
 		//ft_putendl_fd("file as stdout", 2);
-		file_as_stdout(exec);
+		err = file_as_stdout(exec);
 	}
 	if (ft_strlen(exec->output[0]) > 0
 		&& ft_strncmp(exec->output[0], "|", 2) == 0)
 	{
 		//ft_putendl_fd("pipe as stdout", 2);
-		pipe_as_stdout(fd_pipe);
+		err = pipe_as_stdout(fd_pipe);
 	}
 	close_pipe(fd_pipe);
-	return (0);
+	return (err);
 }
 
 int	file_as_stdin(t_exec *exec)
@@ -40,9 +43,16 @@ int	file_as_stdin(t_exec *exec)
 	{
 		fd = open (exec->input[1], O_RDONLY);
 		if (fd == -1)
+		{
 			perror("open inputfile");
+			errno = 1;
+			return (-1);
+		}
 		if (dup2(fd, 0) == -1)
+		{
 			perror("file as stdin");
+			return (-1);
+		}
 		close(fd);
 	}
 	return (0);

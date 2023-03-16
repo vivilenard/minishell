@@ -18,15 +18,17 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 	pid = fork();
 	if (pid == 0)
 	{
-		in_out(exec, fd_pipe, fd_keep_pipe);
+		if (in_out(exec, fd_pipe, fd_keep_pipe) == -1)
+			exit (1);
 		if (built_in(exec, data->env, data))
-			exit (0);
+			exit (1);
 		if (execve(exec->command, exec->args, data->env) == -1)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(exec->command, 2);
 			ft_putstr_fd(": command not found\n", 2);
-			exit (0);
+			errno = 127;
+			exit (127);
 		}
 	}
 	if (close(fd_pipe[1]) == -1)

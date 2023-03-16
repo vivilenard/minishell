@@ -12,11 +12,13 @@
 # include <signal.h>
 # include <unistd.h>
 # include <termios.h>
-# include <errno.h>
+//# include <errno.h>
 
 /* Data contains all the data of one input. This input is divided by prompts
 (one prompt could be piped into another). Every Prompt is divided into tokens.
 Every token has a tokentype */
+
+int	errno;
 
 typedef struct s_token 	t_token;
 

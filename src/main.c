@@ -17,6 +17,7 @@ int	take_input(char **input, char *promptline)
 	return (1);
 }
 
+int	errno = 99;
 
 int main (int args, char **argv, char **env)
 {
@@ -47,7 +48,7 @@ int main (int args, char **argv, char **env)
 		//	printtokens(data->execs);
 		executer(data);
 		free (input);
-		free_exec(data);
+		//free_exec(data);
 	}
 	free_data(data);
 	return (0);
