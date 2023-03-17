@@ -47,6 +47,13 @@ typedef struct s_exec
 	char			**args;
 	char			**input;											
 	char			**output;
+	int				input_num;
+	int				output_num;
+	int				pipe_num;
+	int				arg_num;
+	int				output_written;
+	int				input_written;
+
 }				t_exec;
 
 typedef struct s_data
@@ -101,7 +108,7 @@ void		write_pipe_in(t_data *data);
 t_token		*write_pipe_out(t_data *data, t_token *current);
 int			char_is_in_str(char *str, char c);
 int			get_output_num(t_token *current);
-int			get_input_num(t_token *current)
+int			get_input_num(t_token *current);
 int			exec_has_pipe(t_token *current);
 
 //Lexer

@@ -35,7 +35,7 @@ int main (int args, char **argv, char **env)
 	{
 		reset_data(data);
 		if (!take_input(&input, data->promptline))
-			return (free_data(data), system ("leaks shell"), EXIT_SUCCESS);
+			return (free_data(data), /* system ("leaks shell"), */ EXIT_SUCCESS);
 		if (ft_strlen(input) > 0)
 			add_history(input);
 		if (!load_tokens(lexer(input), data))
