@@ -70,11 +70,6 @@ typedef struct s_data
 	int				exec_count;
 }	t_data;
 
-typedef struct s_env
-{
-	char	**env;
-}	t_env;
-
 char		*prompt(t_data *data);
 int			load_tokens(char **split_tokens, t_data *data);
 t_tokentype	content_analyse(t_token *token);
