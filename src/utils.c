@@ -63,7 +63,7 @@ void free_tokens(t_data *data)
 	}
 }
 
-void free_exec(t_data *data)
+void free_exec(t_data *data, char *input)
 {
 	int	i;
 
@@ -90,12 +90,14 @@ void free_exec(t_data *data)
 		free(data->execs);
 		data->execs = NULL;
 	}
+	if (input)
+		free (input);
 }
 
 void free_data(t_data *data)
 {
 	if(data->execs)
-		free_exec(data);
+		free_exec(data, NULL);
 	if(data->env)
 		ft_free2d(data->env);
 	//if(data->promptline)
@@ -130,10 +132,19 @@ char **dupclicate_2D(char **str)
 	return(copy);
 }
 
-void	init_data(t_data *data, char **env)
+t_data	*init_data(char **env, int args, char **argv)
 {
+	t_data	*data;
+
+	(void)args;
+	(void)argv;
+	data = ft_calloc(sizeof(t_data), 1);
+	if(!data)
+		return (free(data->promptline), exit(EXIT_FAILURE), NULL);
+	data->promptline = prompt(data);
 	data->env = dupclicate_2D(env);
 	//data->promptline = prompt(data);
+	return (data);
 }
 
 void	reset_data(t_data *data)

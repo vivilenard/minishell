@@ -68,7 +68,6 @@ char *quote_cutter(char *str)
 	temp = NULL;
 	if(is_outer(str, '\"') || is_outer(str, '\''))
 	{
-		ft_printf("IN CONDITION\n");
 		if(is_outer(str, '\"'))
 			temp = ft_split(str, '\"');
 		else if(is_outer(str, '\''))

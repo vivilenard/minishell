@@ -24,6 +24,12 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	Executer:
 	- heredoc kann mehrfach wiederholt werden
 
+	Echo:
+	- quotes entfernen
+
+	Signal:
+	- signal ctrl + \
+
 	Error:
 	- Errorcodes fuer signals
 	- error wenn ungerade zahl an quotes

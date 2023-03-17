@@ -45,7 +45,7 @@ int	file_as_stdin(t_exec *exec)
 		if (fd == -1)
 		{
 			perror("open inputfile");
-			errno = 1;
+			g_errno = 1;
 			return (-1);
 		}
 		if (dup2(fd, 0) == -1)

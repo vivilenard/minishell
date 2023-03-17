@@ -18,7 +18,7 @@
 (one prompt could be piped into another). Every Prompt is divided into tokens.
 Every token has a tokentype */
 
-int	errno;
+int	g_errno;
 
 typedef struct s_token 	t_token;
 
@@ -81,9 +81,9 @@ char		*username(void);
 void		print_tokens(t_token **token);
 void		free_tokens(t_data *data);
 void		free_data(t_data *data);
-void		init_data(t_data *data, char **env);
+t_data		*init_data(char **env, int args, char **argv);
 void		reset_data(t_data *data);
-void		free_exec(t_data *data);
+void		free_exec(t_data *data, char *input);
 char		**dupclicate_2D(char **str);
 int			ft_2darraylen(char **array);
 char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
@@ -104,7 +104,7 @@ t_token		*write_pipe_out(t_data *data, t_token *current);
 int			char_is_in_str(char *str, char c);
 
 //Lexer
-char		**lexer(char *str);
+int			lexer(char *str, t_data *data);
 char		**allocate(char **split, int strnumber);
 char		**makestring(char **split, char *str, int start, int i);
 int			is_delimiter(char c);

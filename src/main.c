@@ -7,6 +7,13 @@ void	handle_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_errno = 130;
+}
+
+void	signals(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &handle_sigint);
 }
 
 int	take_input(char **input, char *promptline)
@@ -14,41 +21,32 @@ int	take_input(char **input, char *promptline)
 	*input = readline(promptline);
 	if (!*input)
 		return (ft_putendl_fd("Shell Aborted", 2), 0);
+	if (ft_strlen(*input) > 0)
+		add_history(*input);
 	return (1);
 }
 
-int	errno = 0;
+int	g_errno = 0;
 
-int main (int args, char **argv, char **env)
+int	main(int args, char **argv, char **env)
 {
 	char	*input;
 	t_data	*data;
 
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &handle_sigint);
-	(void)args;
-	(void)argv;
-	data = ft_calloc(sizeof(t_data), 1);
-	if(!data)
-		return (free(data->promptline), exit(EXIT_FAILURE), 1);
-	init_data(data, env);
-	data->promptline = prompt(data);
+	signals();
+	data = init_data(env, args, argv);
 	while (1)
 	{
 		reset_data(data);
 		if (!take_input(&input, data->promptline))
-			return (free_data(data), EXIT_SUCCESS);
-		if (ft_strlen(input) > 0)
-			add_history(input);
-		if (!load_tokens(lexer(input), data))
-			return (free_data(data), EXIT_FAILURE);
+			break ;
+		lexer(input, data);
 		//print_tokens(&data->tokens);
 		if (!parse_tokens(data))
-			return (free_data(data), EXIT_FAILURE);
+			break ;
 		expander(data->execs, data->env);
 		executer(data);
-		free (input);
-		free_exec(data);
+		free_exec(data, input);
 	}
 	free_data(data);
 	return (0);

@@ -8,7 +8,7 @@ char	*ft_replace_var(char **env, char *dollar)
 	behind_dollar = if_split_contains_sentence(dollar);
 	if (ft_strncmp(behind_dollar[0], "?", 1) == 0)
 	{
-		value = ft_itoa(errno);
+		value = ft_itoa(g_errno);
 		if (ft_strlen(behind_dollar[0]) > 1)
 			value = ft_strjoin_free_opt(value, behind_dollar[0] + 1, 1, 0);
 	}

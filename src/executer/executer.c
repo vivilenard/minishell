@@ -6,9 +6,9 @@ int	error_codes(int	err)
 	{
 		err = WEXITSTATUS(err);
 		if (err == 1)
-			errno = 1;
+			g_errno = 1;
 		if (err == 2)
-			errno = 127;
+			g_errno = 127;
 	}
 	return (0);
 }

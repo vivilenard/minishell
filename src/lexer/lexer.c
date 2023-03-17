@@ -80,7 +80,7 @@ int	countstrs(char *str)
 	return (count);
 }
 
-char	**lexer(char *str)
+int	lexer(char *str, t_data *data)
 {
 	char	**split;
 	int		strnumber;
@@ -92,5 +92,7 @@ char	**lexer(char *str)
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
-	return (split);
+	if (!load_tokens(split, data))
+		return (free_data(data), EXIT_FAILURE);
+	return (1);
 }
