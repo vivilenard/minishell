@@ -143,7 +143,7 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 {
 	if (ft_strncmp(exec->command, "echo", 5) == 0)
 	{
-	 	return (ft_echo(exec), 1);
+	 	return (ft_echo(exec, data), 1);
 	}
 	else if (ft_strncmp(exec->command, "cd", 3) == 0)
 		return(ft_cd(exec, env), 1);

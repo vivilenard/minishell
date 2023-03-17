@@ -31,6 +31,7 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (in_out(exec, fd_pipe, fd_keep_pipe) == -1)
 			exit (1);
 		if (built_in(exec, data->env, data))
