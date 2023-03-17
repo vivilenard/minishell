@@ -50,6 +50,13 @@ typedef struct s_exec
 	char			**args;
 	char			**input;
 	char			**output;
+	int				input_num;
+	int				output_num;
+	int				pipe_num;
+	int				arg_num;
+	int				output_written;
+	int				input_written;
+
 }				t_exec;
 
 typedef struct s_data
@@ -88,6 +95,7 @@ char		**dupclicate_2D(char **str);
 int			ft_2darraylen(char **array);
 char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
 char		*ft_strjoin_s_e(char **args, int start, int end, char* c);
+int			check_syntax(t_data *data);
 
 
 //Parser
@@ -102,6 +110,9 @@ char		*get_path(char *command);
 void		write_pipe_in(t_data *data);
 t_token		*write_pipe_out(t_data *data, t_token *current);
 int			char_is_in_str(char *str, char c);
+int			get_output_num(t_token *current);
+int			get_input_num(t_token *current);
+int			exec_has_pipe(t_token *current);
 
 //Lexer
 int			lexer(char *str, t_data *data);
@@ -158,5 +169,6 @@ char		*ft_replace_var(char **env, char *dollar);
 char		*search_var_in_env(char *var, char **env);
 char		*string_split(char *str, char c, int at_first, int first);
 char		*minimize_whitespace(char *str);
+char		*quote_cutter(char *str);
 
 #endif

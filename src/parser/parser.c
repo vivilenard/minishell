@@ -3,20 +3,35 @@
 void init_exec(t_data *data, t_token *current)
 {
 	data->execs[data->exec_count] = ft_calloc(sizeof(t_exec) + 1, 1);
+	data->execs[data->exec_count]->pipe_num = exec_has_pipe(current);
+	data->execs[data->exec_count]->input_num = get_input_num(current) * 2 + data->pipeflag;
+	data->execs[data->exec_count]->output_num = get_output_num(current) * 2 + data->execs[data->exec_count]->pipe_num;
+	data->execs[data->exec_count]->arg_num = get_arg_num(current);
+	data->execs[data->exec_count]->input_written = 0;
+	data->execs[data->exec_count]->output_written = 0;
+
+/* 	ft_printf("INPUT: %i\n", data->execs[data->exec_count]->input_num);
+	ft_printf("OUTPUT: %i\n", data->execs[data->exec_count]->output_num);
+	ft_printf("PIPE: %i\n", data->execs[data->exec_count]->pipe_num);
+	ft_printf("ARGS: %i\n", data->execs[data->exec_count]->arg_num); */
+
 	data->execs[data->exec_count]->command = NULL;
-	data->execs[data->exec_count]->args = (char **) ft_calloc(sizeof(char *), get_arg_num(current) + 1);
-	data->execs[data->exec_count]->input = (char **) ft_calloc((sizeof(char *) * 2) + 1, 1);
-	data->execs[data->exec_count]->output = (char **) ft_calloc((sizeof(char *) * 2) + 1, 1);
+	data->execs[data->exec_count]->args = (char **) ft_calloc(sizeof(char *),
+	 data->execs[data->exec_count]->arg_num + 1);
+	data->execs[data->exec_count]->input = (char **) ft_calloc(sizeof(char *),
+	 data->execs[data->exec_count]->input_num + data->pipeflag + 1);
+	data->execs[data->exec_count]->output = (char **) ft_calloc(sizeof(char *),
+	 data->execs[data->exec_count]->output_num + 1);
 }
 
 t_token	*write_redirection(t_data *data, t_token *current)
 {
 	int	j;
 
-	j = 0;
 	if(current->content[0] == '<')
 	{
-		while(j < 2)
+		j = data->execs[data->exec_count]->input_written;
+		while(j < (data->execs[data->exec_count]->input_written + 2))
 		{
 			if(!current)
 				exit(2);
@@ -24,10 +39,12 @@ t_token	*write_redirection(t_data *data, t_token *current)
 			current = current->next;
 			j++;
 		}
+		data->execs[data->exec_count]->input_written += 2;
 	}
 	else
 	{
-		while(j < 2)
+		j = data->execs[data->exec_count]->output_written;
+		while(j < (data->execs[data->exec_count]->output_written + 2))
 		{
 			if(!current)
 				exit(2);
@@ -35,6 +52,7 @@ t_token	*write_redirection(t_data *data, t_token *current)
 			current = current->next;
 			j++;
 		}
+		data->execs[data->exec_count]->output_written += 2;
 	}
 	return (current);
 }
@@ -57,7 +75,6 @@ void get_command(t_data *data)
 		if(!data->execs[data->exec_count]->command)
 			data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
 	}
-
 }
 
 int check_syntax(t_data *data)
@@ -79,6 +96,8 @@ int check_syntax(t_data *data)
 			exit(2);
 		if(!ft_strncmp(current->content, "echo", 5) && current->next->type == is_pipe)
 			exit(2);
+		if(current->type == is_pipe && current->next->type != word)
+			exit(2);
 		current = current->next;
 	}
 	return(0);
@@ -93,7 +112,6 @@ int parse_tokens(t_data *data)
 	data->execs = ft_calloc(sizeof(t_exec *), get_exec_count(data->tokens) + 1);
 	if (!data->execs)
 		return(0);
-	check_syntax(data);
 	while (current)
 	{
 		init_exec(data, current);
@@ -101,9 +119,9 @@ int parse_tokens(t_data *data)
 			write_pipe_in(data);
 		while (current && current->type != is_pipe)
 		{
-			if (current->type == redirection)
+			if (current && current->type == redirection)
 				current = write_redirection(data, current);
-			else if (current && (current->type == word || current->type == option))
+			else if (current && current->type == word)
 				current = write_args(data, current);
 		}
 		get_command(data);
