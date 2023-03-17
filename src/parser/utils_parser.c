@@ -55,37 +55,43 @@ int get_output_num(t_token *current)
 	count = 0;
 	flag = 0;
 	tmp = current;
-	while(current && current->type != is_pipe && current->content != '>')
-		current = current->next;
-	while(current && current->type != is_pipe)
+	while(tmp && tmp->type != is_pipe)
 	{
-		if(current->type == redirection)
+		if(tmp->type == redirection && tmp->content[0] == '>')
 			count++;
-		current = current->next;
+		tmp = tmp->next;
 	}
+	return(count);
 }
 
 int get_input_num(t_token *current)
 {
 	t_token *tmp;
 	int		count;
-	int		flag;
 
 	count = 0;
-	flag = 0;
 	tmp = current;
-	while(current && current->type != is_pipe && flag < 2 && current->content[0] != '>')
+	while(tmp && tmp->type != is_pipe)
 	{
-		if(current->type == word)
-			flag++;
-		if(current->type == redirection)
-		{
+		if(tmp->type == redirection && tmp->content[0] == '<')
 			count++;
-			flag--;
-		}
-		current = current->next;
+		tmp = tmp->next;
 	}
 	return(count);
+}
+
+int exec_has_pipe(t_token *current)
+{
+	t_token *tmp;
+
+	tmp = current;
+	while (tmp)
+	{
+		if (tmp->type == is_pipe)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 int	get_arg_num(t_token *current)

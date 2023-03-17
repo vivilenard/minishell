@@ -2,11 +2,21 @@
 
 void init_exec(t_data *data, t_token *current)
 {
+	int	input_num;
+	int	output_num;
+	int	pipe_num;
+	int arg_num;
+
+	input_num = get_input_num(current);
+	output_num = get_output_num(current);
+	pipe_num = exec_has_pipe(current);
+	arg_num = get_arg_num(current);
+
 	data->execs[data->exec_count] = ft_calloc(sizeof(t_exec) + 1, 1);
 	data->execs[data->exec_count]->command = NULL;
-	data->execs[data->exec_count]->args = (char **) ft_calloc(sizeof(char *), get_arg_num(current) + 1);
-	data->execs[data->exec_count]->input = (char **) ft_calloc((sizeof(char *) * 2) + 1, 1);
-	data->execs[data->exec_count]->output = (char **) ft_calloc((sizeof(char *) * 2) + 1, 1);
+	data->execs[data->exec_count]->args = (char **) ft_calloc(sizeof(char *), arg_num + 1);
+	data->execs[data->exec_count]->input = (char **) ft_calloc((sizeof(char *) * input_num + data->pipeflag) + 1, 1);
+	data->execs[data->exec_count]->output = (char **) ft_calloc((sizeof(char *) * output_num + pipe_num) + 1, 1);
 }
 
 t_token	*write_redirection(t_data *data, t_token *current)
