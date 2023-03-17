@@ -20,6 +20,7 @@ COMMANDSTRINGS MIT LEERZEICHEN
 
 	Expander:
 	- echo $hi "hallo"
+	- wenn echo so bleibt entferne behind dollar funkion
 
 	Executer:
 	- heredoc kann mehrfach wiederholt werden

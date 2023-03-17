@@ -170,5 +170,6 @@ char		*search_var_in_env(char *var, char **env);
 char		*string_split(char *str, char c, int at_first, int first);
 char		*minimize_whitespace(char *str);
 char		*quote_cutter(char *str);
+t_exec		*expand(t_exec *exec, char **env);
 
 #endif

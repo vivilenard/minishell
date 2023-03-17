@@ -75,12 +75,19 @@ t_exec	**expander(t_exec **exec, char **env)
 	i = 0;
 	while (exec[i])
 	{
-		if (exec[i]->command != NULL)
-			exec[i]->command = look_for_dollar(exec[i]->command, env);
-		search_array(exec[i]->args, env);
-		search_array(exec[i]->input, env);
-		search_array(exec[i]->output, env);
+		if (ft_strncmp(exec[i]->command, "echo", 4) != 0)
+			expand(exec[i], env);
 		i++;
 	}
+	return (exec);
+}
+
+t_exec	*expand(t_exec *exec, char **env)
+{
+	if (exec->command != NULL)
+		exec->command = look_for_dollar(exec->command, env);
+	search_array(exec->args, env);
+	search_array(exec->input, env);
+	search_array(exec->output, env);
 	return (exec);
 }
