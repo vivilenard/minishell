@@ -112,6 +112,7 @@ int parse_tokens(t_data *data)
 	data->execs = ft_calloc(sizeof(t_exec *), get_exec_count(data->tokens) + 1);
 	if (!data->execs)
 		return(0);
+	check_syntax(data);
 	while (current)
 	{
 		init_exec(data, current);
