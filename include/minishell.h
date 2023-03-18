@@ -140,7 +140,7 @@ t_exec		**expander(t_exec **exec, char **env);
 
 //builtins
 int			built_in(t_exec *exec, char **env, t_data *data);
-void		ft_echo(t_exec *exec);
+void		ft_echo(t_exec *exec, t_data *data);
 char		**ft_export(char **args, char **env);
 char		**ft_unset(char **args, char **env);
 void		ft_cd(t_exec *exec, char **env);

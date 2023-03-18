@@ -9,6 +9,8 @@ int	error_codes(int	err)
 			g_errno = 1;
 		if (err == 2)
 			g_errno = 127;
+		if (err == 3)
+			g_errno = 3;
 	}
 	return (0);
 }
@@ -23,6 +25,11 @@ void	close_pipe(int *fd_pipe)
 			perror("close fd_pipe[1]");
 	}
 }
+void	handle_sigquit(int sig)
+{
+	(void) sig;
+	exit(3);
+}
 
 int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 {
@@ -31,6 +38,7 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGQUIT, handle_sigquit);
 		if (in_out(exec, fd_pipe, fd_keep_pipe) == -1)
 			exit (1);
 		if (built_in(exec, data->env, data))
