@@ -18,6 +18,7 @@ int	open_infile(t_exec *exec, int *fd, int i)
 	return (0);
 }
 
+
 void	heredoc_as_in(t_exec *exec, int *fd_pipe, int i)
 {
 	if (ft_strncmp(exec->input[i - 2], "<<", 3) == 0)

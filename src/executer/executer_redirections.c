@@ -94,3 +94,4 @@ int	pipe_as_stdout(int *fd_pipe)
 		perror("pipe as stout");
 	return (0);
 }
+
