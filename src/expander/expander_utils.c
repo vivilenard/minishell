@@ -76,7 +76,7 @@ char	**if_split_contains_sentence(const char *dollar)
 	behind_dollar[2] = NULL;
 	while (dollar[i])
 	{
-		if (ft_iswhitespace(dollar[i]))
+		if ((ft_iswhitespace(dollar[i])) || dollar[i] == '\"' || dollar[i] == '\'')
 		{
 			behind_dollar[0] = ft_substr(dollar, 0, i);
 			behind_dollar[1] = ft_strdup(dollar + i);

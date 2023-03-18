@@ -21,13 +21,6 @@ int is_char(char place, char c)
 	return (0);
 }
 
-void switch_flag(int *flag)
-{
-	if (*flag == 0)
-		*flag = 1;
-	else if (*flag == 1)
-		*flag = 0;
-}
 
 void print_tokens (t_token **token)
 {

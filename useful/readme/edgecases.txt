@@ -29,7 +29,7 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	- quotes entfernen
 
 	Signal:
-	- signal ctrl + \
+	- signal ctrl + \ --> history funktioniert nicht mehr, ctrl d auch nicht
 
 	Error:
 	- Errorcodes fuer signals
