@@ -50,8 +50,11 @@ int	file_as_stdin(t_exec *exec)
 			return (-1);
 		i = i + 2;
 	}
+		if (dup2(fd_file, 0) == -1)
+		return (perror("file as stdin"), -1);
 	if (here_doc == 1)
 		heredoc_as_in(exec, fd_pipe, i);
+	close(fd_file);
 	return (0);
 }
 

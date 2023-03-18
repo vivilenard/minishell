@@ -11,9 +11,6 @@ int	open_infile(t_exec *exec, int *fd, int i)
 			g_errno = 1;
 			return (-1);
 		}
-		if (dup2(*fd, 0) == -1)
-			return (perror("file as stdin"), -1);
-		close(*fd);
 	}
 	return (0);
 }
