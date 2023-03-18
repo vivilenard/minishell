@@ -25,6 +25,7 @@ void	close_pipe(int *fd_pipe)
 			perror("close fd_pipe[1]");
 	}
 }
+
 void	handle_sigquit(int sig)
 {
 	(void) sig;

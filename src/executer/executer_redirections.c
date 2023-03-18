@@ -35,28 +35,23 @@ int	in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe)
 
 int	file_as_stdin(t_exec *exec)
 {
-	int	fd;
+	int	i;
+	int	fd_pipe[2];
+	int	fd_file;
+	int	here_doc;
 
-	if (ft_strncmp(exec->input[0], "<<", 3) == 0)
+	i = 0;
+	fd_file = 0;
+	here_doc = init_heredoc_pipe(exec, fd_pipe);
+	while (exec->input[i])
 	{
-		heredoc(exec);
-	}
-	else
-	{
-		fd = open (exec->input[1], O_RDONLY);
-		if (fd == -1)
-		{
-			perror("open inputfile");
-			g_errno = 1;
+		if (open_infile(exec, &fd_file, i) == -1
+			|| heredoc(exec, fd_pipe, i) == -1)
 			return (-1);
-		}
-		if (dup2(fd, 0) == -1)
-		{
-			perror("file as stdin");
-			return (-1);
-		}
-		close(fd);
+		i = i + 2;
 	}
+	if (here_doc == 1)
+		heredoc_as_in(exec, fd_pipe, i);
 	return (0);
 }
 

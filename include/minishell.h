@@ -135,8 +135,12 @@ void		close_pipe(int *fd_pipe);
 int			built_in(t_exec *exec, char **env, t_data *data);
 int			is_built_in(char *command);
 int			is_childless_built_in(char *command);
-int			heredoc(t_exec *exec);
+int			heredoc(t_exec *exec, int *fd, int i);
+int			write_heredoc(t_exec *exec, int *fd, int i);
 t_exec		**expander(t_exec **exec, char **env);
+void		heredoc_as_in(t_exec *exec, int *fd_pipe, int i);
+int			init_heredoc_pipe(t_exec *exec, int *fd);
+int			open_infile(t_exec *exec, int *fd, int i);
 
 //builtins
 int			built_in(t_exec *exec, char **env, t_data *data);

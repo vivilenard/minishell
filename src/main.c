@@ -50,6 +50,6 @@ int	main(int args, char **argv, char **env)
 		free_exec(data, input);
 	}
 	free_data(data);
-	system ("leaks shell");
+	//system ("leaks shell");
 	return (0);
 }
