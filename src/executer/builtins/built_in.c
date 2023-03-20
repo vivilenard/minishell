@@ -77,9 +77,10 @@ char	**ft_export(char **args, char **env)
 	i = 1;
 	while(args[i])
 	{
-		while(!char_is_in_str(args[i], '='))
-			i++;
-		if(args[i])
+		if(!char_is_in_str(args[i], '='))
+			add_to_env(args[i], env)
+		}
+		else(args[i])
 		{
 			value = string_split(args[i], '=', 1, 0);
 			value = quote_cutter(value);
@@ -95,8 +96,8 @@ char	**ft_export(char **args, char **env)
 			}
 			free(value);
 			free(category);
-			i++;
 		}
+		i++;
 	}
 	return(env);
 }
@@ -140,7 +141,7 @@ char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
-	if (ft_strncmp(exec->command, "echo", 5) == 0)
+	if (ft_strncmp(exec->command, "echo", 5) == 0 || ft_strncmp(exec->command, "/bin/echo", 10) == 0)
 	 	return (ft_echo(exec, data), 1);
 	else if (ft_strncmp(exec->command, "cd", 3) == 0)
 		return(ft_cd(exec, env), 1);
