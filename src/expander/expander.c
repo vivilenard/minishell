@@ -53,8 +53,14 @@ char	*replace_string(char *s, char **env)
 	if (!split_dollar[0])
 		return (s);
 	i = 0;
-	if (s[i++] != '$')
+	if (s[i] != '$')
+	{
 		finalword = ft_strdup(split_dollar[0]);
+		i++;
+	}
+	// printf("string %s\n", s);
+	// printf("finalword %s\n", finalword);
+	// printf("split %s, %d\n", split_dollar[0], flag);
 	while (split_dollar[i])
 	{
 		look_for_singlequote(finalword, &flag);
@@ -67,6 +73,7 @@ char	*replace_string(char *s, char **env)
 	}
 	ft_free2d(split_dollar);
 	return (minimize_whitespace(finalword));
+	//return (finalword);
 }
 
 char	*look_for_dollar(char *str, char **env)
@@ -80,6 +87,7 @@ char	*look_for_dollar(char *str, char **env)
 		if (str[i] == '$' && ft_strlen(str) > 1)
 		{	
 			replaced_str = replace_string(str, env);
+			//printf("hi\n");
 			if (!replaced_str)
 				replaced_str = ft_strdup(" ");
 			return (free(str), replaced_str);
@@ -96,7 +104,7 @@ t_exec	**expander(t_exec **exec, char **env)
 	i = 0;
 	while (exec[i])
 	{
-		// if (ft_strncmp(exec[i]->command, "echo", 4) != 0)
+		if (ft_strncmp(exec[i]->command, "echo", 4) != 0)
 			expand(exec[i], env);
 		i++;
 	}
@@ -105,6 +113,7 @@ t_exec	**expander(t_exec **exec, char **env)
 
 t_exec	*expand(t_exec *exec, char **env)
 {
+	//printf("EXPANDER\n");
 	if (exec->command != NULL)
 		exec->command = look_for_dollar(exec->command, env);
 	search_array(exec->args, env);

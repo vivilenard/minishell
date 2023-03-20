@@ -16,7 +16,7 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	- handle / und : --> nicht beachten
 
 	Parser:
-	- mehrere input/outputfiles -> uebergebe alle an executer
+	- quotecutten in input/output
 
 	Expander:
 	- echo $hi "hallo"

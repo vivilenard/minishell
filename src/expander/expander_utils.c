@@ -16,7 +16,9 @@ char	*minimize_whitespace(char *str)
 {
 	char	**split;
 	char	*out;
-
+	
+	if (!str)
+		return (NULL);
 	split = ft_split(str, ' ');
 	out = ft_strjoin_s_e(split, 0, ft_2darraylen(split), " ");
 	ft_free2d(split);
