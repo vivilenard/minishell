@@ -69,25 +69,31 @@ char *replace_string(char *s, char **env)
 	char	*finalstring;
 	char	*substr;
 	int		i;
+	int		flag;
 
 	i = 0;
+	flag = 0;
 	finalstring = NULL;
 	(void)env;
 	while(s[i] && s[i] != '$')
 		i++;
 	finalstring = ft_substr(s, 0, i);
+	//look_for_singlequote(finalstring, &flag);
 	while (s[i])
 	{
 		if (s[i] == '$')
 		{
-			substr = ft_substr(s, i, ft_length_dollar(s + i, '$'));
-			//printf("substr %s\n", substr);
-			substr = ft_replace_var(env, substr + 1);
-			finalstring = ft_strjoin_free_opt(finalstring, substr, 1, 1);
+				substr = ft_substr(s, i, ft_length_dollar(s + i, '$'));
+				look_for_singlequote(finalstring, &flag);
+				//printf("substr %s\n", substr);
+				//printf("flag %d\n", flag);
+				if (flag == 0)
+					substr = ft_replace_var(env, substr + 1);
+				finalstring = ft_strjoin_free_opt(finalstring, substr, 1, 1);
 		}
 		i++;
 	}
-	printf("finalstr %s\n", finalstring);
+	//printf("finalstr %s\n", finalstring);
 	return (minimize_whitespace(finalstring));
 }
 
@@ -118,7 +124,7 @@ t_exec	**expander(t_exec **exec, char **env)
 	i = 0;
 	while (exec[i])
 	{
-		if (ft_strncmp(exec[i]->command, "echo", 4) != 0)
+		//if (ft_strncmp(exec[i]->command, "echo", 4) != 0)
 			expand(exec[i], env);
 		i++;
 	}

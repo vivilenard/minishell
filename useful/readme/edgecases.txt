@@ -26,7 +26,7 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	- heredoc kann mehrfach wiederholt werden
 
 	Echo:
-	- quotes entfernen
+	- geht mit /bin/echo nicht in built in sindern execve
 
 	Signal:
 	- signal ctrl + \ --> history funktioniert nicht mehr, ctrl d auch nicht

@@ -86,6 +86,7 @@ void	ft_echo(t_exec *exec, t_data *data)
 	{
 		out = ft_strjoin_s_e(exec->args, 1, end - 1, " ");
 		out = look_for_dollar(out, data->env);
+		//printf ("out %s\n", out);
 		out = quote_cutter(out);
 		ft_putendl_fd(out, 1);
 	}
