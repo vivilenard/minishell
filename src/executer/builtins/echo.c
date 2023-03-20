@@ -1,38 +1,76 @@
 #include "../../../include/minishell.h"
 
-int is_outer(char *str, char c)
+int count_rm_quotes(char *str)
 {
-	if (str[0] == c && str[ft_strlen(str) - 1] == c)
-		return (1);
-	return (0);
+	int		i;
+	int		count;
+	int		in_quote;
+	char	current_quote;
+
+	i = 0;
+	count = 0;
+	in_quote = 0;
+	current_quote = '\0';
+	if(!str)
+		return(0);
+	while(str[i])
+	{
+		if((str[i] == '\"' || str[i] == '\'') && !in_quote)
+		{
+			in_quote = 1;
+			current_quote = str[i];
+			count++;
+		}
+		else if(str[i] == current_quote && in_quote)
+		{
+			in_quote = 0;
+			current_quote = '\0';
+			count ++;
+		}
+		i++;
+	}
+	return (count);
 }
 
 char *quote_cutter(char *str)
 {
-	char	**temp;
 	char	*out;
+	int		i;
+	int		j;
+	int		in_quote;
+	char	current_quote;
 
-	temp = NULL;
-	if(is_outer(str, '\"') || is_outer(str, '\''))
+	i = 0;
+	j = 0;
+	in_quote = 0;
+	current_quote = '\0';
+	out = (char *)malloc((ft_strlen(str) - count_rm_quotes(str) + 1) * sizeof(char));
+	if (!out)
+		return(NULL);
+	while(str[i])
 	{
-		if(is_outer(str, '\"'))
-			temp = ft_split(str, '\"');
-		else if(is_outer(str, '\''))
-			temp = ft_split(str, '\'');
-		out = NULL;
-		out = ft_strjoin_s_e(temp, 0, ft_2darraylen(temp), "");
-		free(temp);
-		free(str);
-		return (out);
+		if((str[i] == '\"' || str[i] == '\'') && !in_quote)
+		{
+			in_quote = 1;
+			current_quote = str[i];
+		}
+		else if(str[i] == current_quote && in_quote)
+		{
+			in_quote = 0;
+			current_quote = '\0';
+		}
+		else
+			out[j++] = str[i];
+		i++;
 	}
-	return (str);
+	out[j] = '\0';
+	return(free(str), out);
 }
 
 void	ft_echo(t_exec *exec, t_data *data)
 {
 	char	*out;
 	int		end;
-	//char	*temp;
 
 	end = 0;
 	while (exec->args[end])
