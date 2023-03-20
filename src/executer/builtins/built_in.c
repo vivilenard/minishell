@@ -26,9 +26,7 @@ void	ft_cd(t_exec *exec, char **env)
 {
 	char	*path;
 	char	*temp;
-	int		i;
 
-	i = 0;
 	temp = getcwd(NULL, 1024);
 	if(category_is_in_env("OLDPWD", env))
 		env = replace_in_env("OLDPWD", temp, env);

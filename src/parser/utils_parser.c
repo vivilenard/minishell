@@ -58,10 +58,8 @@ int get_output_num(t_token *current)
 {
 	t_token *tmp;
 	int		count;
-	int		flag;
 
 	count = 0;
-	flag = 0;
 	tmp = current;
 	while(tmp && tmp->type != is_pipe)
 	{

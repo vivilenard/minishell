@@ -31,10 +31,10 @@ char	**makestring(char **split, char *str, int start, int i)
 
 int	jump_delimiters(char *str, int *i)
 {
-	int	start;
+	//int	start;
 	int	redir;
 
-	start = *i;
+	//start = *i;
 	if (ft_iswhitespace(str[*i]))
 	{
 		while (ft_iswhitespace(str[*i]))

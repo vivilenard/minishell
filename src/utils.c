@@ -167,7 +167,7 @@ void	printtokens(t_exec **exec)
 			n++;
 		}
 		if (exec[i]->input[0] == NULL)
-			printf("%s\n", NULL);
+			printf("%s\n", (char *)NULL);
 		n = 0;
 		printf("Arguments:	\n");
 		while (exec[i]->args[n])
@@ -183,7 +183,7 @@ void	printtokens(t_exec **exec)
 			n++;
 		}
 		if (exec[i]->output[0] == NULL)
-			printf("%s\n", NULL);
+			printf("%s\n", (char *)NULL);
 		i++;
 		printf("---------------------------------------------\n");
 	}

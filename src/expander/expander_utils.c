@@ -49,11 +49,9 @@ char	*take_content(char *declaration)
 char	*search_var_in_env(char *var, char **env)
 {
 	int		i;
-	int		n;
 	char	*tmp;
 
 	i = 0;
-	n = 0;
 	tmp = ft_strjoin(var, "=");
 	while (env[i])
 	{
