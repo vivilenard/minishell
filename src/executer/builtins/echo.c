@@ -1,5 +1,33 @@
 #include "../../../include/minishell.h"
 
+int is_outer(char *str, char c)
+{
+	if (str[0] == c && str[ft_strlen(str) - 1] == c)
+		return (1);
+	return (0);
+}
+
+char *quote_cutter(char *str)
+{
+	char	**temp;
+	char	*out;
+
+	temp = NULL;
+	if(is_outer(str, '\"') || is_outer(str, '\''))
+	{
+		if(is_outer(str, '\"'))
+			temp = ft_split(str, '\"');
+		else if(is_outer(str, '\''))
+			temp = ft_split(str, '\'');
+		out = NULL;
+		out = ft_strjoin_s_e(temp, 0, ft_2darraylen(temp), "");
+		free(temp);
+		free(str);
+		return (out);
+	}
+	return (str);
+}
+
 void	ft_echo(t_exec *exec, t_data *data)
 {
 	char	*out;
