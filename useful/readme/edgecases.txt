@@ -32,6 +32,7 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	- signal ctrl + \ --> history funktioniert nicht mehr, ctrl d auch nicht
 
 	Error:
+	- ungerade anzahl an quotes --> error
 	- Errorcodes fuer signals
 	- error wenn ungerade zahl an quotes
 	- error wenn anfang oder ende pipe
