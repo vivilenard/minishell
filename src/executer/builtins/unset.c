@@ -18,7 +18,7 @@ int	check_unset(char *str)
 	int		error;
 
 	error = 0;
-	i = 1;
+	i = 0;
 	if(!ft_isalpha(str[i]) && str[i] != '_')
 		error = 1;
 	i++;
@@ -40,7 +40,7 @@ int	ft_unset(char **args, char ***env)
 	int	error;
 
 	error = 0;
-	i = 0;
+	i = 1;
 	while(args[i])
 	{
 		if(!check_unset(args[i]))
