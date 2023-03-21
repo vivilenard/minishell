@@ -21,6 +21,9 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	Expander:
 	- echo $hi "hallo"
 	- wenn echo so bleibt entferne behind dollar funkion
+	- echo "$bla hello" (bla ist unknown variable) ergibt
+	"hello", original bash printet " hello"
+	- echo $bla printet im original bash eine newline
 
 	Executer:
 	- heredoc kann mehrfach wiederholt werden

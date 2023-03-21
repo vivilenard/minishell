@@ -20,6 +20,7 @@ void	create_cd_error(char *path)
 	out = ft_strjoin_free_opt(temp, ": No such file or directory", 1, 0);
 	ft_putendl_fd(out, 1);
 	free(out);
+	g_errno = 2;
 }
 
 void	ft_cd(t_exec *exec, char **env)
@@ -48,27 +49,6 @@ char	**ft_unset(char **args, char **env)
 {
 	if(category_is_in_env(args[1], env))
 		env = remove_from_env(args[1], env);
-	return(env);
-}
-
-char	**ft_export(char **args, char **env)
-{
-	char	*value;
-	char	*category;
-	char	*temp;
-
-	value = string_split(args[1], '=', 1, 0);
-	value = quote_cutter(value);
-	category = string_split(args[1], '=', 1, 1);
-	if(category_is_in_env(category, env))
-		env = replace_in_env(category, value, env);
-	else
-	{
-		temp = ft_strjoin(category, "=");
-		env = add_to_env(ft_strjoin_free_opt(temp, value, 1, 0), env);
-	}
-	free(value);
-	free(category);
 	return(env);
 }
 
@@ -111,7 +91,7 @@ char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
-	if (ft_strncmp(exec->command, "echo", 5) == 0)
+	if (ft_strncmp(exec->command, "echo", 5) == 0 || ft_strncmp(exec->command, "/bin/echo", 10) == 0)
 	 	return (ft_echo(exec, data), 1);
 	else if (ft_strncmp(exec->command, "cd", 3) == 0)
 		return(ft_cd(exec, env), 1);

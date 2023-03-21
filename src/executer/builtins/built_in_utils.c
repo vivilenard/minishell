@@ -71,6 +71,8 @@ char *string_split(char *str, char c, int at_first, int first)
 	len = 0;
     if (!str || !c)
 		return NULL;
+	if(!char_is_in_str(str, c))
+		return(str);
     while (str[len] && str[len] != c)
         len++;
     if (!at_first) // find the last occurrence of the delimiter

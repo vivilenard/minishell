@@ -92,7 +92,6 @@ char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
 char		*ft_strjoin_s_e(char **args, int start, int end, char* c);
 int			check_syntax(t_data *data);
 
-
 //Parser
 void		init_exec(t_data *data, t_token *current);
 t_token		*write_redirection(t_data *data, t_token *current);
@@ -149,6 +148,12 @@ char		**ft_export(char **args, char **env);
 char		**ft_unset(char **args, char **env);
 void		ft_cd(t_exec *exec, char **env);
 void		ft_pwd();
+
+//export
+
+char		**ft_export(char **args, char **env);
+int			check_export(char *str, char *value);
+void		write_export_err_message(char *str, char *value);
 
 //env
 void		ft_env(char **env);
