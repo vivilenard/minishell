@@ -46,6 +46,42 @@ char	*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2)
 	return (str);
 }
 
+char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
+{
+	int		i;
+	char	*out;
+	char	*temp;
+
+	i = start;
+	if (!args || !*args)
+		return (NULL);
+	if (i == end && args[i])
+		return (ft_strdup(args[i]));
+	out = ft_calloc(sizeof(char), 1);
+	while (i <= end && args[i])
+	{
+		temp = ft_strjoin(out, args[i]);
+		if (!temp)
+			return (free(out),NULL);
+		free(out);
+		out = ft_strdup(temp);
+		free(temp);
+		if (args[i + 1] && i < end)
+		{
+			if(args[i][0] != ' ')
+			{
+				temp = ft_strjoin(out, c);
+				if (!temp)
+					return (free(out),NULL);
+				free(out);
+				out = ft_strdup(temp);
+				free(temp);
+			}
+		}
+		i++;
+	}
+	return (out);
+}
 
 char *last_occurence(char *str, char c)
 {
@@ -61,9 +97,6 @@ char *last_occurence(char *str, char c)
 
 char *string_split(char *str, char c, int at_first, int first)
 {
-    // splits string at first or last occurrence of a char and returns
-    // either first or last part of the string.
-
     char *out;
 	char *p;
     int len;
@@ -75,7 +108,7 @@ char *string_split(char *str, char c, int at_first, int first)
 		return(str);
     while (str[len] && str[len] != c)
         len++;
-    if (!at_first) // find the last occurrence of the delimiter
+    if (!at_first)
 	{
         p = last_occurence(str, c);
         if (p)

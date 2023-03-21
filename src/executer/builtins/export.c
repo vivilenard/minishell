@@ -36,6 +36,21 @@ int	check_export(char *str, char *value)
 		return(1);
 }
 
+void	export_dclr_message(char **env)
+{
+	int		i;
+	char	*out;
+
+	i = 0;
+	while(env[i])
+	{
+		out = ft_strjoin_free_opt("declare -x ", env[i], 0, 0);
+		ft_putendl_fd(out, 2);
+		free(out);
+		i++;
+	}
+}
+
 char	**ft_export(char **args, char **env)
 {
 	char	*value;
@@ -45,6 +60,8 @@ char	**ft_export(char **args, char **env)
 	int		error;
 
 	i = 1;
+	if(!args[i])
+		export_dclr_message(env);
 	while(args[i])
 	{
 		error = 0;

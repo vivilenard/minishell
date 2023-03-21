@@ -52,43 +52,6 @@ char	**ft_unset(char **args, char **env)
 	return(env);
 }
 
-char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
-{
-	int		i;
-	char	*out;
-	char	*temp;
-
-	i = start;
-	if (!args || !*args)
-		return (NULL);
-	if (i == end && args[i])
-		return (ft_strdup(args[i]));
-	out = ft_calloc(sizeof(char), 1);
-	while (i <= end && args[i])
-	{
-		temp = ft_strjoin(out, args[i]);
-		if (!temp)
-			return (free(out),NULL);
-		free(out);
-		out = ft_strdup(temp);
-		free(temp);
-		if (args[i + 1] && i < end)
-		{
-			if(args[i][0] != ' ')
-			{
-				temp = ft_strjoin(out, c);
-				if (!temp)
-					return (free(out),NULL);
-				free(out);
-				out = ft_strdup(temp);
-				free(temp);
-			}
-		}
-		i++;
-	}
-	return (out);
-}
-
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
 	if (ft_strncmp(exec->command, "echo", 5) == 0 || ft_strncmp(exec->command, "/bin/echo", 10) == 0)
