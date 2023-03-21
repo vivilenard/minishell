@@ -20,6 +20,7 @@ void	create_cd_error(char *path)
 	out = ft_strjoin_free_opt(temp, ": No such file or directory", 1, 0);
 	ft_putendl_fd(out, 1);
 	free(out);
+	g_errno = 2;
 }
 
 void	ft_cd(t_exec *exec, char **env)
@@ -48,57 +49,6 @@ char	**ft_unset(char **args, char **env)
 {
 	if(category_is_in_env(args[1], env))
 		env = remove_from_env(args[1], env);
-	return(env);
-}
-
-int	check_export(char *str)
-{
-	int	i;
-
-	i = 0;
-	if(!ft_isalpha(str[i]) && str[i] != '_')
-		return(0);
-	i++;
-	while(str[i])
-	{
-		if(!ft_isdigit(str[i]) && !ft_isalpha(str[i]) && str[i] != '_')
-			return(0)
-		i++;
-	}
-	return(0);
-}
-char	**ft_export(char **args, char **env)
-{
-	char	*value;
-	char	*category;
-	char	*temp;
-	int		i;
-
-	i = 1;
-	while(args[i])
-	{
-		if(!char_is_in_str(args[i], '='))
-			add_to_env(args[i], env)
-		}
-		else(args[i])
-		{
-			value = string_split(args[i], '=', 1, 0);
-			value = quote_cutter(value);
-			category = string_split(args[i], '=', 1, 1);
-			if(!check_export(category))
-				return(free(value), free(category), NULL);
-			if(category_is_in_env(category, env))
-				env = replace_in_env(category, value, env);
-			else
-			{
-				temp = ft_strjoin(category, "=");
-				env = add_to_env(ft_strjoin_free_opt(temp, value, 1, 0), env);
-			}
-			free(value);
-			free(category);
-		}
-		i++;
-	}
 	return(env);
 }
 

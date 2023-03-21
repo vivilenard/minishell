@@ -8,7 +8,7 @@ SRC = 	$(addprefix $(SRCPATH),  main.c parser/utils_prep.c utils.c parser/load_t
 		lexer/lexer.c lexer/lexer_utils1.c lexer/lexer_utils2.c parser/parser.c parser/utils_parser.c \
 		executer/executer.c executer/executer_redirections.c executer/input_handling.c expander/expander.c \
 		expander/expander_utils.c parser/get_path.c /executer/builtins/built_in.c executer/builtins/built_in_utils.c \
-		executer/builtins/env.c executer/builtins/echo.c)  
+		executer/builtins/env.c executer/builtins/echo.c executer/builtins/export.c)  
 #SRC = $(addprefix $(SRCPATH), executer/executer_dummy2.c executer/executer.c executer/executer_redirections.c executer/built-in.c expander/expander.c utils.c)
 OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 #OBJ = $(SRC:.c=.o)
