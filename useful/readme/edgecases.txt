@@ -20,6 +20,9 @@ COMMANDSTRINGS MIT LEERZEICHEN
 
 	Builtins:
 	- return values der builtins = errorcodes
+	unset OK
+	export OK
+	cd OK
 
 	Expander:
 	- echo $hi "hallo"
