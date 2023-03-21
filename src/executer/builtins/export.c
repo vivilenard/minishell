@@ -51,7 +51,7 @@ void	export_dclr_message(char **env)
 	}
 }
 
-char	**ft_export(char **args, char **env)
+int	ft_export(char **args, char **env)
 {
 	char	*value;
 	char	*category;
@@ -60,6 +60,7 @@ char	**ft_export(char **args, char **env)
 	int		error;
 
 	i = 1;
+	error = 0;
 	if(!args[i])
 		export_dclr_message(env);
 	while(args[i])
@@ -87,5 +88,5 @@ char	**ft_export(char **args, char **env)
 		}
 		i++;
 	}
-	return(env);
+	return(error);
 }

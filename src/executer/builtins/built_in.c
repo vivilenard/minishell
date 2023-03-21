@@ -61,10 +61,7 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 	else if (ft_strncmp(exec->command, "pwd", 4) == 0)
 		return(ft_pwd(), exit(EXIT_SUCCESS), 1);
 	else if (ft_strncmp(exec->command, "export", 7) == 0)
-	{
-		data->env = ft_export(exec->args, data->env);
-		return (1);
-	}
+		return (g_errno = ft_export(exec->args, data->env), 1);
 	else if (ft_strncmp(exec->command, "unset", 6) == 0)
 	{
 		data->env = ft_unset(exec->args, env);

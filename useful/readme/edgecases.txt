@@ -18,6 +18,9 @@ COMMANDSTRINGS MIT LEERZEICHEN
 	Parser:
 	- quotecutten in input/output
 
+	Builtins:
+	- return values der builtins = errorcodes
+
 	Expander:
 	- echo $hi "hallo"
 	- wenn echo so bleibt entferne behind dollar funkion
