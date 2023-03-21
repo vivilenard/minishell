@@ -28,6 +28,7 @@ COMMANDSTRINGS MIT LEERZEICHEN
 		"hello", original bash printet " hello"
 	- echo $bla printet im original bash eine newline
 		unseres crasht im expander
+	- beim unsetten crasht der expander, wenn man eine unbekannte var unsetten möchte
 
 	Executer:
 	- heredoc kann mehrfach wiederholt werden

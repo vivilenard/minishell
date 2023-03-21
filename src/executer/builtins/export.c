@@ -51,7 +51,7 @@ void	export_dclr_message(char **env)
 	}
 }
 
-int	ft_export(char **args, char **env)
+int	ft_export(char **args, char ***env)
 {
 	char	*value;
 	char	*category;
@@ -62,7 +62,7 @@ int	ft_export(char **args, char **env)
 	i = 1;
 	error = 0;
 	if(!args[i])
-		export_dclr_message(env);
+		export_dclr_message(*env);
 	while(args[i])
 	{
 		error = 0;
@@ -75,12 +75,12 @@ int	ft_export(char **args, char **env)
 				error = 1;
 			if(!error)
 			{
-				if(category_is_in_env(category, env))
-					env = replace_in_env(category, value, env);
+				if(category_is_in_env(category, *env))
+					*env = replace_in_env(category, value, *env);
 				else
 				{
 					temp = ft_strjoin(category, "=");
-					env = add_to_env(ft_strjoin_free_opt(temp, value, 1, 0), env);
+					*env = add_to_env(ft_strjoin_free_opt(temp, value, 1, 0), *env);
 				}
 			}
 			free(value);

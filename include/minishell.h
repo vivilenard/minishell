@@ -144,14 +144,16 @@ int			open_infile(t_exec *exec, int *fd, int i);
 //builtins
 int			built_in(t_exec *exec, char **env, t_data *data);
 void		ft_echo(t_exec *exec, t_data *data);
-char		**ft_export(char **args, char **env);
-char		**ft_unset(char **args, char **env);
 void		ft_cd(t_exec *exec, char **env);
 void		ft_pwd();
 
-//export
+//unset
+int			ft_unset(char **args, char ***env);
+int			check_unset(char *str);
+void		write_unset_err_message(char *str);
 
-char		**ft_export(char **args, char **env);
+//export
+int			ft_export(char **args, char ***env);
 int			check_export(char *str, char *value);
 void		write_export_err_message(char *str, char *value);
 

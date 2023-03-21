@@ -45,13 +45,6 @@ void	ft_cd(t_exec *exec, char **env)
 	free(temp);
 }
 
-char	**ft_unset(char **args, char **env)
-{
-	if(category_is_in_env(args[1], env))
-		env = remove_from_env(args[1], env);
-	return(env);
-}
-
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
 	if (ft_strncmp(exec->command, "echo", 5) == 0 || ft_strncmp(exec->command, "/bin/echo", 10) == 0)
@@ -61,14 +54,11 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 	else if (ft_strncmp(exec->command, "pwd", 4) == 0)
 		return(ft_pwd(), exit(EXIT_SUCCESS), 1);
 	else if (ft_strncmp(exec->command, "export", 7) == 0)
-		return (g_errno = ft_export(exec->args, data->env), 1);
+		return (g_errno = ft_export(exec->args, &data->env), 1);
 	else if (ft_strncmp(exec->command, "unset", 6) == 0)
-	{
-		data->env = ft_unset(exec->args, env);
-		return (1);
-	}
+		return (g_errno = ft_unset(exec->args, &data->env), 1);
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
-		return(ft_env(env), exit(EXIT_SUCCESS), 1);
+		return(ft_env(data->env), exit(EXIT_SUCCESS), 1);
 	// else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	// 	ftexit(exec->args);
 	return (0);
