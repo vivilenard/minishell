@@ -45,6 +45,44 @@ int	ft_cd(t_exec *exec, char **env)
 	return(0);
 }
 
+int is_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(!ft_isdigit(str[i]))
+			return(0);
+		i++;
+	}
+	return(1);
+}
+void ft_exit(char **args)
+{
+	long	exit_num;
+	
+	if(!args[1])
+		exit(g_errno);
+	if(args[2])
+	{
+		ft_putendl_fd("exit", 2);
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		return ;
+	}
+	if(!is_num(args[1]))
+	{
+		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putendl_fd(": numeric argument required", 2);
+		exit(255);
+	}
+	exit_num = ft_atoi(args[1]);
+	if(exit_num < 0 || exit_num > 255)
+		exit_num = exit_num % 256;
+	exit(exit_num);
+}
+
 int	built_in(t_exec *exec, char **env, t_data *data)
 {
 	if (ft_strncmp(exec->command, "echo", 5) == 0 || ft_strncmp(exec->command, "/bin/echo", 10) == 0)
@@ -59,8 +97,8 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 		return (g_errno = ft_unset(exec->args, &data->env), 1);
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
 		return(ft_env(data->env), exit(EXIT_SUCCESS), 1);
-	// else if (ft_strncmp(exec->command, "exit", 5) == 0)
-	// 	ftexit(exec->args);
+	else if (ft_strncmp(exec->command, "exit", 5) == 0)
+	 	return(ft_exit(exec->args), 1);
 	return (0);
 }
  
