@@ -21,7 +21,7 @@ void	create_cd_error(char *path)
 	temp = NULL;
 	temp = ft_strjoin_free_opt("minishell: cd: ", path, 0, 0);
 	out = ft_strjoin_free_opt(temp, ": No such file or directory", 1, 0);
-	ft_putendl_fd(out, 1);
+	ft_putendl_fd(out, 2);
 	free(out);
 }
 
@@ -100,7 +100,7 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 	else if (ft_strncmp(exec->command, "unset", 6) == 0)
 		return (g_errno = ft_unset(exec->args, &data->env), 1);
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
-		return(g_errno = ft_env(data->env), exit(g_errno), 1);
+		return(ft_env(data->env), exit(g_errno), 1);
 	else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	 	return(ft_exit(exec->args), 1);
 	return (0);
