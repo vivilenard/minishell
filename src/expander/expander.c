@@ -89,7 +89,9 @@ char *replace_string(char *s, char **env)
 				//printf("flag %d\n", flag);
 				if (flag == 0)
 					substr = ft_replace_var(env, substr + 1);
+				//printf("substr %s\n", substr);
 				finalstring = ft_strjoin_free_opt(finalstring, substr, 1, 1);
+				//printf("substr %s\n", substr);
 		}
 		i++;
 	}
@@ -108,6 +110,7 @@ char	*look_for_dollar(char *str, char **env)
 		if (str[i] == '$')
 		{
 			replaced_str = replace_string(str, env);
+			//printf("rep %s\n", replaced_str);
 			if (!replaced_str)
 				replaced_str = ft_strdup(" ");
 			return (free(str), replaced_str);

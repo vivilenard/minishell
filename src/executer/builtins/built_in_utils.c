@@ -43,6 +43,8 @@ char	*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2)
 		free (s1);
 	if (free_s2 && s2 != NULL)
 		free (s2);
+	if (ft_strlen(str) == 0)
+		return (free(str), NULL);
 	return (str);
 }
 

@@ -16,7 +16,8 @@ char	*minimize_whitespace(char *str)
 {
 	char	**split;
 	char	*out;
-	
+
+	//printf("%s", str);
 	if (!str)
 		return (NULL);
 	split = ft_split(str, ' ');

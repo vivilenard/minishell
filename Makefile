@@ -1,6 +1,6 @@
 NAME = shell
 CC = cc
-CFLAGS = -g -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -g -Wall -Werror -Wextra #-fsanitize=address
 
 SRCPATH = src/
 LIBFTPATH = ./libft
