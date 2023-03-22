@@ -82,13 +82,13 @@ int	countstrs(char *str)
 	return (count);
 }
 
-void	count_quote(char *str, int i, int *singlequote, int *doublequote)
-{
-	if (str[i] == '\'')
-		(*singlequote)++;
-	if (str[i] == '\"')
-		(*doublequote)++;
-}
+// void	count_quote(char *str, int i, int *singlequote, int *doublequote)
+// {
+// 	if (str[i] == '\'')
+// 		(*singlequote)++;
+// 	if (str[i] == '\"')
+// 		(*doublequote)++;
+// }
 
 int	quote_is_unbalanced(int singlequote, int doublequote)
 {
@@ -138,7 +138,7 @@ int	lexer(char *str, t_data *data)
 	char	**split;
 	int		strnumber;
 
-	if (quote_is_unbalanced(recognize_quote(str, '\"'), recognize_quote(str, '\'')) == -1)
+	if (quote_is_unbalanced(recognize_quote(str, '\''), recognize_quote(str, '\"')) == -1)
 		return (0);
 	str = ft_strtrim(str, "\n\t\v\f\r ");
 	strnumber = countstrs(str) + 1;

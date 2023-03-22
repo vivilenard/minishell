@@ -1,6 +1,37 @@
 
 #include "../../include/minishell.h"
 
+int	is_outer(char *str, char c)
+{
+	if(str[0] == c && str[ft_strlen(str) - 1] == c)
+		return (1);
+	return (0);
+}
+
+char *cut_outer_quotes(char *str)
+{
+	char	*out;
+	char	*tmp;
+	char	c;
+
+	c = '\0';
+	tmp = str;
+	out = str;
+	if(!is_outer(str, '\'') && !is_outer(str, '\"'))
+		return(str);
+	if(is_outer(str, '\''))
+		c = '\'';
+	else if(is_outer(str, '\"'))
+		c = '\"';
+	while(is_outer(out, c))
+	{
+		out = ft_substr(tmp, 1, ft_strlen(tmp) - 2);
+		free(tmp);
+		tmp = out;
+	}
+	return(out);
+}
+
 t_token	*ft_new_token(char *str)
 {
 	t_token	*new_token;
@@ -13,6 +44,8 @@ t_token	*ft_new_token(char *str)
 		new_token->content = ft_strdup(str);
 	new_token->next = NULL;
 	new_token->type = content_analyse(new_token);
+	if(new_token->type == word)
+		new_token->content = cut_outer_quotes(new_token->content);
 	return (new_token);
 }
 
