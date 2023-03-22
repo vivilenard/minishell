@@ -42,7 +42,7 @@ int	ft_cd(t_exec *exec, char **env)
 	else
 		env = add_to_env(ft_strjoin("PWD", temp), env);
 	free(temp);
-	return(0)
+	return(0);
 }
 
 int	built_in(t_exec *exec, char **env, t_data *data)
