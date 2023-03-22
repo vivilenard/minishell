@@ -42,13 +42,6 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 
 	quote = 0;
 	//printf("%c, 	flag: %d\n", str[*i], *flag);
-	// if (!ft_strncmp(str + *i, "echo", 4))
-	// {
-	// 	quote = 3;
-	// 	switch_flags(flag, quote, keep_quote);
-	// 	(*i)++;
-	// 	return (1);
-	// }
 	if ((str[*i] == '<' || str[*i] == '>' || str[*i] == '|') && *flag == 4)
 		*flag = 0;
 	if (is_char(str[*i], '\"'))
@@ -61,6 +54,13 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 	if (is_char(str[*i], '\''))
 	{
 		quote = 2;
+		switch_flags(flag, quote, keep_quote);
+		(*i)++;
+		return (1);
+	}
+	if (!ft_strncmp(str + *i, "echo", 4))
+	{
+		quote = 3;
 		switch_flags(flag, quote, keep_quote);
 		(*i)++;
 		return (1);
