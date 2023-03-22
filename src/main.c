@@ -48,7 +48,7 @@ int	main(int args, char **argv, char **env)
 		//print_execs(data);
 		expander(data->execs, data->env);
 		executer(data);
-		//free_exec(data, input);
+		free_exec(data, input);
 
 	}
 	free_data(data);
