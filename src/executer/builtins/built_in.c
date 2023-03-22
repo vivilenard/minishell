@@ -60,7 +60,7 @@ int is_num(char *str)
 }
 void ft_exit(char **args)
 {
-	int	exit_num;
+	long	exit_num;
 	
 	if(!args[1])
 		exit(g_errno);
