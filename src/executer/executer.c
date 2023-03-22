@@ -83,7 +83,7 @@ int	executer(t_data *data)
 			waitpid(0, &err, 0);
 			i--;
 		}
+		error_codes(err);
 	}
-	error_codes(err);
 	return (0);
 }

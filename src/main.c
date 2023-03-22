@@ -49,6 +49,7 @@ int	main(int args, char **argv, char **env)
 		expander(data->execs, data->env);
 		executer(data);
 		//free_exec(data, input);
+
 	}
 	free_data(data);
 	//system ("leaks shell");
