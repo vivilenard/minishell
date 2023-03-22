@@ -41,14 +41,16 @@ int	main(int args, char **argv, char **env)
 		if (!take_input(&input, data->promptline))
 			break ;
 		if (!lexer(input, data))
-			break ;
+			continue ;
 		//printtokens(data->execs);
 		if (!parse_tokens(data))
-			break ;
+			continue ;
 		//print_execs(data);
-		expander(data->execs, data->env);
-		executer(data);
-		//free_exec(data, input);
+		if (!expander(data->execs, data->env))
+			continue ;
+		if (!executer(data))
+			continue ;
+		free_exec(data, input);
 
 	}
 	free_data(data);
