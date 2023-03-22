@@ -136,8 +136,8 @@ int	lexer(char *str, t_data *data)
 	char	**split;
 	int		strnumber;
 
-	if (quote_counter(str) == -1)
-		return (0);
+	/* if (quote_counter(str) == -1)
+		return (0); */
 	str = ft_strtrim(str, "\n\t\v\f\r ");
 	strnumber = countstrs(str) + 1;
 	split = NULL;

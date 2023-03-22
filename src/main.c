@@ -44,7 +44,7 @@ int	main(int args, char **argv, char **env)
 			break ;
 		if (!lexer(input, data))
 			continue ;
-		//printtokens(data->execs);
+		//print_tokens(&data->tokens);
 		if (!parse_tokens(data))
 			continue ;
 		//print_execs(data);
