@@ -5,12 +5,7 @@ int	error_codes(int	err)
 	if (WIFEXITED(err))
 	{
 		err = WEXITSTATUS(err);
-		if (err == 1)
-			g_errno = 1;
-		if (err == 2)
-			g_errno = 127;
-		if (err == 3)
-			g_errno = 3;
+		g_errno = err;
 	}
 	return (0);
 }
@@ -49,7 +44,7 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(exec->command, 2);
 			ft_putstr_fd(": command not found\n", 2);
-			exit (2);
+			exit (127);
 		}
 	}
 	if (close(fd_pipe[1]) == -1)

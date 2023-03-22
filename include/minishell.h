@@ -145,7 +145,7 @@ int			open_infile(t_exec *exec, int *fd, int i);
 int			built_in(t_exec *exec, char **env, t_data *data);
 void		ft_echo(t_exec *exec, t_data *data);
 int			ft_cd(t_exec *exec, char **env);
-void		ft_pwd();
+int			ft_pwd(void);
 
 //unset
 int			ft_unset(char **args, char ***env);
@@ -158,7 +158,7 @@ int			check_export(char *str, char *value);
 void		write_export_err_message(char *str, char *value);
 
 //env
-void		ft_env(char **env);
+int			ft_env(char **env);
 int			category_is_in_env(char *category, char **env);
 char		**add_to_env(char *str, char **env);
 char		**remove_from_env(char *category, char **env);
