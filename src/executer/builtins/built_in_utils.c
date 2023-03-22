@@ -70,15 +70,15 @@ char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 		free(temp);
 		if (args[i + 1] && i < end)
 		{
-			if(args[i][0] != ' ')
-			{
+/* 			if(args[i][0] != ' ')
+			{ */
 				temp = ft_strjoin(out, c);
 				if (!temp)
 					return (free(out),NULL);
 				free(out);
 				out = ft_strdup(temp);
 				free(temp);
-			}
+/* 			} */
 		}
 		i++;
 	}
