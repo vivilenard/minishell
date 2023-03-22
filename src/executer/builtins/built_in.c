@@ -1,12 +1,15 @@
 #include "../../../include/minishell.h"
 
-void	ft_pwd()
+int	ft_pwd(void)
 {
 	char *cwd;
 
 	cwd = getcwd(NULL, 1024);
+	if(!cwd)
+		return (EXIT_FAILURE);
 	ft_printf("%s\n", cwd);
 	free(cwd);
+	return (EXIT_SUCCESS);
 }
 
 void	create_cd_error(char *path)
@@ -58,6 +61,7 @@ int is_num(char *str)
 	}
 	return(1);
 }
+
 void ft_exit(char **args)
 {
 	long	exit_num;

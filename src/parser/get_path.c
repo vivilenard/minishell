@@ -41,9 +41,9 @@ int	is_built_in(char *command)
 
 int	is_childless_built_in(char *command)
 {
-	if (ft_strncmp(command, "pwd", 5) == 0)
-	 	return(1);
-	else if (ft_strncmp(command, "cd", 3) == 0)
+/* 	if (ft_strncmp(command, "pwd", 5) == 0)
+	 	return(1); */
+	if (ft_strncmp(command, "cd", 3) == 0)
 	 	return(1);
 	else if (ft_strncmp(command, "export", 7) == 0)
 	 	return(1);
