@@ -12,6 +12,8 @@ void	handle_sigint(int sig)
 
 void	signals(void)
 {
+	rl_catch_signals = 0;
+    rl_clear_signals();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &handle_sigint);
 }
