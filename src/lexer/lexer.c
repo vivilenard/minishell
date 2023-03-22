@@ -145,7 +145,7 @@ int	lexer(char *str, t_data *data)
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
-	//ft_put2dstr_fd(split, 2);
+	ft_put2dstr_fd(split, 2);
 	if (!load_tokens(split, data))
 		return (free_data(data), EXIT_FAILURE);
 	return (1);

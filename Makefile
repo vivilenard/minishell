@@ -1,4 +1,4 @@
-NAME = shell
+NAME = minishell
 CC = cc
 CFLAGS = -g -Wall -Werror -Wextra -fsanitize=address
 

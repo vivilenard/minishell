@@ -36,7 +36,9 @@ int	ft_cd(t_exec *exec, char **env)
 	else
 		env = add_to_env(ft_strjoin("OLDPWD", temp), env);
 	free(temp);
-	path = exec->args[1]; 
+	if(!exec->args[1])
+		
+	path = exec->args[1];
 	if (chdir(path) == -1)
 		return (create_cd_error(path), 1);
 	temp = getcwd(NULL, 1024);
