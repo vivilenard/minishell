@@ -105,38 +105,40 @@ int	quote_is_unbalanced(int singlequote, int doublequote)
 	return (0);
 }
 
-int	quote_counter(char *str)
+
+int recognize_quote(char *str, char c)
 {
 	int	i;
-	int	sq;
-	int	dq;
+	int keep_quote;
+	int	count;
 	int	flag;
+	int	flagbegin;
 
-	i = 0;
-	sq = 0;
-	dq = 0;
+	keep_quote = 0;
+	count = 0;
 	flag = 0;
-	while (str && str[i])
+	i = 0;
+	while (str[i])
 	{
-		if (ft_strncmp(str + i, "echo ", 5) == 0)
-		{
-			flag = 4;
-			i += 4;
-		}
-		if (flag == 0)
-			count_quote(str, i, &sq, &dq);
-		if (str[i] == '|')
-			flag = 0;
+		flagbegin = flag;
+		if (is_char(str[i], '\"'))
+			switch_flags(&flag, 1, &keep_quote);
+		else if (is_char(str[i], '\''))
+			switch_flags(&flag, 2, &keep_quote);
+		if (flag - flagbegin != 0 && str[i] == c)
+			count++;
 		i++;
 	}
-	return (quote_is_unbalanced(sq, dq));
+	//printf("count %d\n", count);
+	return (count);
 }
+
 int	lexer(char *str, t_data *data)
 {
 	char	**split;
 	int		strnumber;
 
-	if (quote_counter(str) == -1)
+	if (quote_is_unbalanced(recognize_quote(str, '\"'), recognize_quote(str, '\'')) == -1)
 		return (0);
 	str = ft_strtrim(str, "\n\t\v\f\r ");
 	strnumber = countstrs(str) + 1;
@@ -151,7 +153,33 @@ int	lexer(char *str, t_data *data)
 	return (1);
 }
 
-// int	quote_counter(char *str)
+// int	unequal_quotes(char *str)
+// {
+// 	int	i;
+// 	int	sq;
+// 	int	dq;
+// 	int	flag;
+
+// 	i = 0;
+// 	sq = 0;
+// 	dq = 0;
+// 	flag = 0;
+// 	while (str && str[i])
+// 	{
+// 		if (ft_strncmp(str + i, "echo ", 5) == 0)
+// 		{
+// 			flag = 4;
+// 			i += 4;
+// 		}
+// 		if (str[i] == '|' || (str[i] == '\"' && !str[i + 1]))
+// 			flag = 0;
+// 		if (flag == 0)
+// 			count_quote(str, i, &sq, &dq);
+// 		i++;
+// 	}
+// 	return (quote_is_unbalanced(sq, dq));
+// }
+// int	unequal_quotes(char *str)
 // {
 // 	int	i;
 // 	int	flag;
@@ -174,7 +202,9 @@ int	lexer(char *str, t_data *data)
 // 		}
 // 		if (flag != 4)
 // 			count_quote(str, i, &singlequote, &doublequote);
-// 		//printf("%d, %d\n", flag, doublequote);
+// 		if (str[i] == '|')
+// 			flag = 0;
+// 		printf("%d, %d\n", flag, doublequote);
 // 		i++;
 // 	}
 // 	return (quote_is_unbalanced(singlequote, doublequote));

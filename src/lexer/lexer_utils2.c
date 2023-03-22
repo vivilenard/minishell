@@ -20,7 +20,7 @@ int	jump_delimiter_split(char **split, char *str, int *start, int *i)
 	return (0);
 }
 
-void	switch_flags(int *flag, int quote, int *keep_quote)
+int	switch_flags(int *flag, int quote, int *keep_quote)
 {
 	if (*flag == 0)
 	{
@@ -29,11 +29,14 @@ void	switch_flags(int *flag, int quote, int *keep_quote)
 		else
 			*flag = 1;
 		*keep_quote = quote;
+		return (1);
 	}
 	else if (*flag == 1 && quote == *keep_quote)
 	{
 		*flag = 0;
+		return (1);
 	}
+	return (0);
 }
 
 int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
@@ -58,13 +61,13 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 		(*i)++;
 		return (1);
 	}
-	if (!ft_strncmp(str + *i, "echo", 4))
-	{
-		quote = 3;
-		switch_flags(flag, quote, keep_quote);
-		(*i)++;
-		return (1);
-	}
+	// if (!ft_strncmp(str + *i, "echo", 4))
+	// {
+	// 	quote = 3;
+	// 	switch_flags(flag, quote, keep_quote);
+	// 	(*i)++;
+	// 	return (1);
+	// }
 /*  	if (!ft_strncmp(str + *i, "echo", 4))
 	{
 		quote = 3;
