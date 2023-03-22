@@ -100,7 +100,7 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 	else if (ft_strncmp(exec->command, "unset", 6) == 0)
 		return (g_errno = ft_unset(exec->args, &data->env), 1);
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
-		return(ft_env(data->env), exit(EXIT_SUCCESS), 1);
+		return(g_errno = ft_env(data->env), exit(g_errno), 1);
 	else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	 	return(ft_exit(exec->args), 1);
 	return (0);

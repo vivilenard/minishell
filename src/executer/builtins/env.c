@@ -92,15 +92,18 @@ char	**remove_from_env(char *category, char **env)
 	return(new_env);
 }
 
-void	ft_env(char **env)
+int	ft_env(char **env)
 {
 	int	i;
 
 	i = 0;
+	if(!env || !*env)
+		return(EXIT_FAILURE);
 	while (env[i])
 	{
 		if(char_is_in_str(env[i], '='))
 			ft_putendl_fd(env[i], 1);
 		i++;
 	}
+	return(EXIT_SUCCESS);
 }

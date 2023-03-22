@@ -158,7 +158,7 @@ int			check_export(char *str, char *value);
 void		write_export_err_message(char *str, char *value);
 
 //env
-void		ft_env(char **env);
+int			ft_env(char **env);
 int			category_is_in_env(char *category, char **env);
 char		**add_to_env(char *str, char **env);
 char		**remove_from_env(char *category, char **env);
