@@ -143,7 +143,7 @@ int			open_infile(t_exec *exec, int *fd, int i);
 
 //builtins
 int			built_in(t_exec *exec, char **env, t_data *data);
-void		ft_echo(t_exec *exec, t_data *data);
+int			ft_echo(t_exec *exec, t_data *data);
 int			ft_cd(t_exec *exec, char **env);
 int			ft_pwd(void);
 

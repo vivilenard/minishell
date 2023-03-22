@@ -67,7 +67,7 @@ char *quote_cutter(char *str)
 	return(free(str), out);
 }
 
-void	ft_echo(t_exec *exec, t_data *data)
+int	ft_echo(t_exec *exec, t_data *data)
 {
 	char	*out;
 	int		end;
@@ -81,6 +81,7 @@ void	ft_echo(t_exec *exec, t_data *data)
 		out = look_for_dollar(out, data->env);
 		out = quote_cutter(out);
 		ft_putstr_fd(out, 1);
+		return(EXIT_SUCCESS);
 	}
 	else
 	{
@@ -88,6 +89,8 @@ void	ft_echo(t_exec *exec, t_data *data)
 		out = look_for_dollar(out, data->env);
 		out = quote_cutter(out);
 		ft_putendl_fd(out, 1);
+		return(EXIT_SUCCESS);
 	}
 	free(out);
+	return(EXIT_SUCCESS);
 }
