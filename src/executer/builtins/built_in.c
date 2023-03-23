@@ -37,8 +37,9 @@ int	ft_cd(t_exec *exec, char **env)
 		env = add_to_env(ft_strjoin("OLDPWD", temp), env);
 	free(temp);
 	if(!exec->args[1])
-		
-	path = exec->args[1];
+		path = getenv("HOME");
+	else
+		path = exec->args[1];
 	if (chdir(path) == -1)
 		return (create_cd_error(path), 1);
 	temp = getcwd(NULL, 1024);
@@ -102,7 +103,7 @@ int	built_in(t_exec *exec, char **env, t_data *data)
 	else if (ft_strncmp(exec->command, "unset", 6) == 0)
 		return (g_errno = ft_unset(exec->args, &data->env), 1);
 	else if (ft_strncmp(exec->command, "env", 4) == 0)
-		return(g_errno = ft_env(data->env), exit(g_errno), 1);
+		return(g_errno = ft_env(data->env), 1);
 	else if (ft_strncmp(exec->command, "exit", 5) == 0)
 	 	return(g_errno = ft_exit(exec->args), 1);
 	return (0);
