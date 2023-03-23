@@ -67,6 +67,20 @@ char *quote_cutter(char *str)
 	return(free(str), out);
 }
 
+int option_detect(char **args)
+{
+	int	i;
+
+	i = 1;
+	while(args[i])
+	{
+		if(ft_strncmp(args[i], "-n", 3) != 0)
+			return(i);
+		i++;
+	}
+	return(i);
+}
+
 int	ft_echo(t_exec *exec, t_data *data)
 {
 	char	*out;
@@ -79,7 +93,9 @@ int	ft_echo(t_exec *exec, t_data *data)
 	{
 		if (ft_strncmp(exec->args[1], "-n", 3) == 0)
 		{
-			out = ft_strjoin_s_e(exec->args, 2, end - 1, " ");
+			if(!exec->args[option_detect(exec->args)])
+				return(ft_putstr_fd("", 1), EXIT_SUCCESS);
+			out = ft_strjoin_s_e(exec->args, option_detect(exec->args), end - 1, " ");
 			out = look_for_dollar(out, data->env);
 			out = quote_cutter(out);
 			ft_putstr_fd(out, 1);
@@ -87,6 +103,8 @@ int	ft_echo(t_exec *exec, t_data *data)
 		}
 		else
 		{
+			if(!exec->args[2])
+				return(ft_putendl_fd("\n", 1), EXIT_SUCCESS);
 			out = ft_strjoin_s_e(exec->args, 1, end - 1, " ");
 			out = look_for_dollar(out, data->env);
 			out = quote_cutter(out);
