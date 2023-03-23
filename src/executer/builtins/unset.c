@@ -44,9 +44,10 @@ int	ft_unset(char **args, char ***env)
 	while(args[i])
 	{
 		if(!check_unset(args[i]))
+		{
 			error = 1;
-		if(category_is_in_env(args[1], *env))
 			*env = remove_from_env(args[1], *env);
+		}
 		i++;
 	}
 	return(error);

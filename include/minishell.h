@@ -131,7 +131,6 @@ int			file_as_stdout(t_exec *exec);
 int			pipe_as_stdin(int fd_keep_pipe);
 int			pipe_as_stdout(int *fd_pipe);
 void		close_pipe(int *fd_pipe);
-int			built_in(t_exec *exec, char **env, t_data *data);
 int			is_built_in(char *command);
 int			is_childless_built_in(char *command);
 int			heredoc(t_exec *exec, int *fd, int i);
@@ -142,9 +141,10 @@ int			init_heredoc_pipe(t_exec *exec, int *fd);
 int			open_infile(t_exec *exec, int *fd, int i);
 
 //builtins
-int			built_in(t_exec *exec, char **env, t_data *data);
+int			built_in(t_exec *exec, char ***env, t_data *data);
+int			built_in_child(t_exec *exec, char ***env, t_data *data);
 int			ft_echo(t_exec *exec, t_data *data);
-int			ft_cd(t_exec *exec, char **env);
+int			ft_cd(t_exec *exec, char ***env);
 int			ft_pwd(void);
 
 //unset
@@ -159,10 +159,9 @@ void		write_export_err_message(char *str, char *value);
 
 //env
 int			ft_env(char **env);
-int			category_is_in_env(char *category, char **env);
-char		**add_to_env(char *str, char **env);
+int			update_env(char ***env, char *var, char *value);
+char		**add_to_env(char **env, char *var, char *value);
 char		**remove_from_env(char *category, char **env);
-char		**replace_in_env(char *category, char *new_entry, char **env);
 
 //expander
 char		*take_content(char *declaration);
