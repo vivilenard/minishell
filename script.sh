@@ -1,1 +1,0 @@
-$"US"ER, vlenard, $USER

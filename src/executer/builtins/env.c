@@ -127,7 +127,7 @@ int	ft_env(char **env)
 		return(EXIT_FAILURE);
 	while (env[i])
 	{
-		if(char_is_in_str(env[i], '='))
+		/* if(char_is_in_str(env[i], '=')) */
 			ft_putendl_fd(env[i], 1);
 		i++;
 	}

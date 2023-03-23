@@ -24,11 +24,14 @@ int	check_export(char *str, char *value)
 	if(!ft_isalpha(str[i]) && str[i] != '_')
 		error = 1;
 	i++;
-	while(str[i])
+	if(!error && str[i])
 	{
-		if(!ft_isdigit(str[i]) && !ft_isalpha(str[i]) && str[i] != '_')
-			error = 1;
-		i++;
+		while(str[i])
+		{
+			if(!ft_isdigit(str[i]) && !ft_isalpha(str[i]) && str[i] != '_')
+				error = 1;
+			i++;
+		}
 	}
 	if(error)
 		return(write_export_err_message(str, value), 0);
@@ -55,7 +58,6 @@ int	ft_export(char **args, char ***env)
 {
 	char	*value;
 	char	*category;
-	//char	*temp;
 	int		i;
 	int		error;
 
