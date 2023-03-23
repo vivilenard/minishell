@@ -75,22 +75,27 @@ int	ft_echo(t_exec *exec, t_data *data)
 	end = 0;
 	while (exec->args[end])
 		end++;
-	if (ft_strncmp(exec->args[1], "-n", 3) == 0)
+	if(exec->args[1])
 	{
-		out = ft_strjoin_s_e(exec->args, 2, end - 1, " ");
-		out = look_for_dollar(out, data->env);
-		out = quote_cutter(out);
-		ft_putstr_fd(out, 1);
-		return(EXIT_SUCCESS);
+		if (ft_strncmp(exec->args[1], "-n", 3) == 0)
+		{
+			out = ft_strjoin_s_e(exec->args, 2, end - 1, " ");
+			out = look_for_dollar(out, data->env);
+			out = quote_cutter(out);
+			ft_putstr_fd(out, 1);
+			return(EXIT_SUCCESS);
+		}
+		else
+		{
+			out = ft_strjoin_s_e(exec->args, 1, end - 1, " ");
+			out = look_for_dollar(out, data->env);
+			out = quote_cutter(out);
+			ft_putendl_fd(out, 1);
+			return(EXIT_SUCCESS);
+		}
+		free(out);
 	}
 	else
-	{
-		out = ft_strjoin_s_e(exec->args, 1, end - 1, " ");
-		out = look_for_dollar(out, data->env);
-		out = quote_cutter(out);
-		ft_putendl_fd(out, 1);
-		return(EXIT_SUCCESS);
-	}
-	free(out);
+		ft_putstr_fd("\n", 1);
 	return(EXIT_SUCCESS);
 }

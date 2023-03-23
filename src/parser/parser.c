@@ -59,7 +59,8 @@ t_token	*write_redirection(t_data *data, t_token *current)
 
 t_token	*write_args(t_data *data, t_token *current)
 {
-	data->execs[data->exec_count]->args[data->arg_count] = ft_strdup(current->content);
+	if(current->content)
+		data->execs[data->exec_count]->args[data->arg_count] = ft_strdup(current->content);
 	data->arg_count++;
 	current = current->next;
 	return(current);
@@ -92,11 +93,11 @@ int check_syntax(t_data *data)
 			exit(2);
 		if(current->type == redirection && ft_strlen(current->content) > 2)
 			exit(2);
-		if(!ft_strncmp(current->content, "echo", 5) && current->next->type == redirection)
+		if(!ft_strncmp(current->content, "echo", 5) && current->next && current->next->type == redirection)
 			exit(2);
-		if(!ft_strncmp(current->content, "echo", 5) && current->next->type == is_pipe)
+		if(!ft_strncmp(current->content, "echo", 5) && current->next && current->next->type == is_pipe)
 			exit(2);
-		if(current->type == is_pipe && current->next->type != word)
+		if(current->type == is_pipe && current->next && current->next->type != word)
 			exit(2);
 		current = current->next;
 	}

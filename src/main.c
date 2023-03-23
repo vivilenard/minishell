@@ -20,9 +20,12 @@ void	signals(void)
 
 int	take_input(char **input, char *promptline)
 {
-	*input = readline(promptline);
+	if (isatty(0))
+		*input = readline(promptline);
+	else 
+		*input = get_next_line(0);
 	if (!*input)
-		return (ft_putendl_fd("Shell Aborted", 2), 0);
+		return (/* ft_putendl_fd("Shell Aborted", 2), */ 0);
 	if (ft_strlen(*input) > 0)
 		add_history(*input);
 	return (1);

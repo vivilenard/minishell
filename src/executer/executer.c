@@ -66,8 +66,10 @@ int	executer(t_data *data)
 	i = 0;
 	fd_keep_pipe = 99;
 
-	if(is_childless_built_in(data->execs[i]->command))
+	if(!data->execs[1])
 		built_in(data->execs[i], data->env, data);
+	/* if(is_childless_built_in(data->execs[i]->command))
+		built_in(data->execs[i], data->env, data); */
 	else
 	{
 		while (data->execs[i])
