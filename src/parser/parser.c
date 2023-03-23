@@ -72,7 +72,10 @@ void get_command(t_data *data)
 
 	i = 0;
 	while(data->execs[data->exec_count]->args[0][i])
-		ft_tolower(data->execs[data->exec_count]->args[0][i++]);
+	{
+		data->execs[data->exec_count]->args[0][i] = ft_tolower(data->execs[data->exec_count]->args[0][i]);
+		i++;
+	}
 	if (is_built_in(data->execs[data->exec_count]->args[0]))
 		data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
 	else

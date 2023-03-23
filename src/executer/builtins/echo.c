@@ -103,8 +103,8 @@ int	ft_echo(t_exec *exec, t_data *data)
 		}
 		else
 		{
-			if(!exec->args[2])
-				return(ft_putendl_fd("\n", 1), EXIT_SUCCESS);
+			if(!exec->args[1])
+				return(ft_putendl_fd("", 1), EXIT_SUCCESS);
 			out = ft_strjoin_s_e(exec->args, 1, end - 1, " ");
 			out = look_for_dollar(out, data->env);
 			out = quote_cutter(out);
