@@ -16,12 +16,12 @@ void init_exec(t_data *data, t_token *current)
 	ft_printf("ARGS: %i\n", data->execs[data->exec_count]->arg_num); */
 
 	data->execs[data->exec_count]->command = NULL;
-	data->execs[data->exec_count]->args = (char **) ft_calloc(sizeof(char *),
-	 data->execs[data->exec_count]->arg_num + 1);
-	data->execs[data->exec_count]->input = (char **) ft_calloc(sizeof(char *),
-	 data->execs[data->exec_count]->input_num + data->pipeflag + 1);
-	data->execs[data->exec_count]->output = (char **) ft_calloc(sizeof(char *),
-	 data->execs[data->exec_count]->output_num + 1);
+	data->execs[data->exec_count]->args = (char **) malloc(sizeof(char *) * (data->execs[data->exec_count]->arg_num + 1));
+	data->execs[data->exec_count]->args[data->execs[data->exec_count]->arg_num] = NULL;
+	data->execs[data->exec_count]->input = (char **) malloc(sizeof(char *) * (data->execs[data->exec_count]->input_num + data->pipeflag + 1));
+	data->execs[data->exec_count]->input[data->execs[data->exec_count]->input_num] = NULL;
+	data->execs[data->exec_count]->output = (char **) malloc(sizeof(char *) * (data->execs[data->exec_count]->output_num + 1));
+	data->execs[data->exec_count]->output[data->execs[data->exec_count]->output_num] = NULL;
 }
 
 t_token	*write_redirection(t_data *data, t_token *current)
@@ -31,7 +31,7 @@ t_token	*write_redirection(t_data *data, t_token *current)
 	if(current->content[0] == '<')
 	{
 		j = data->execs[data->exec_count]->input_written;
-		while(j < (data->execs[data->exec_count]->input_written + 2))
+		while(current && j < (data->execs[data->exec_count]->input_written + 2))
 		{
 			if(!current)
 				exit(2);
@@ -44,10 +44,11 @@ t_token	*write_redirection(t_data *data, t_token *current)
 	else
 	{
 		j = data->execs[data->exec_count]->output_written;
-		while(j < (data->execs[data->exec_count]->output_written + 2))
+		while(current && j < (data->execs[data->exec_count]->output_written + 2))
 		{
 			if(!current)
 				exit(2);
+			//ft_printf("current content is %s\n", current->content);
 			data->execs[data->exec_count]->output[j] = ft_strdup(current->content);
 			current = current->next;
 			j++;
