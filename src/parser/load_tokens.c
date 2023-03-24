@@ -10,26 +10,24 @@ int	is_outer(char *str, char c)
 
 char *cut_outer_quotes(char *str)
 {
-	char	*out;
 	char	*tmp;
 	char	c;
 
 	c = '\0';
 	tmp = str;
-	out = str;
 	if(!is_outer(str, '\'') && !is_outer(str, '\"'))
 		return(str);
 	if(is_outer(str, '\''))
 		c = '\'';
 	else if(is_outer(str, '\"'))
 		c = '\"';
-	while(is_outer(out, c))
+	while(is_outer(str, c))
 	{
-		out = ft_substr(tmp, 1, ft_strlen(tmp) - 2);
-		free(tmp);
-		tmp = out;
+		tmp = ft_substr(str, 1, ft_strlen(str) - 2);
+		free(str);
+		str = tmp;
 	}
-	return(out);
+	return(str);
 }
 
 t_token	*ft_new_token(char *str)

@@ -8,6 +8,7 @@ void	search_array(char **arr, char **env)
 	while (arr[i] != NULL)
 	{
 		arr[i] = look_for_dollar(arr[i], env);
+		arr[i] = cut_outer_quotes(arr[i]);
 		i++;
 	}
 }

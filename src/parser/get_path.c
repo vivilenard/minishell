@@ -60,6 +60,8 @@ char	*get_path(char *command)
 	char	**paths;
 	char	*correct_path;
 
+	if (is_built_in(command))
+		return (command);
 	env_paths = getenv("PATH");
 	paths = ft_split(env_paths, ':');
 	correct_path = find_correct_path(paths, command);

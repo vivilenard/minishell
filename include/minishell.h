@@ -91,6 +91,7 @@ int			ft_2darraylen(char **array);
 char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
 char		*ft_strjoin_s_e(char **args, int start, int end, char* c);
 int			check_syntax(t_data *data);
+char		*cut_outer_quotes(char *str);
 
 //Parser
 void		init_exec(t_data *data, t_token *current);
