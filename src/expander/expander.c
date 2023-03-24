@@ -127,7 +127,8 @@ t_exec	**expander(t_exec **exec, char **env)
 	i = 0;
 	while (exec[i])
 	{
-		//if (ft_strncmp(exec[i]->command, "echo", 4) != 0)
+		if (ft_strncmp(exec[i]->command, "echo", 5) != 0
+			&& ft_strncmp(exec[i]->command, "/bin/echo", 10) != 0)
 			expand(exec[i], env);
 		i++;
 	}
@@ -138,7 +139,11 @@ t_exec	*expand(t_exec *exec, char **env)
 {
 	//printf("EXPANDER\n");
 	if (exec->command != NULL)
+	{
 		exec->command = look_for_dollar(exec->command, env);
+		exec->command = cut_outer_quotes(exec->command);
+		exec->command = get_path(exec->command);
+	}
 	search_array(exec->args, env);
 	search_array(exec->input, env);
 	search_array(exec->output, env);
