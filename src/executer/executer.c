@@ -74,11 +74,14 @@ int	executer(t_data *data)
 	{
 		while (data->execs[i])
 		{
-			if(pipe(fd_pipe) == -1)
-				perror("create pipe");
-			//usleep (3000);  //actually dont need if executer is perfect
-			fd_keep_pipe = create_child(data->execs[i], data, fd_pipe, fd_keep_pipe);
-			i++;
+			if(data->execs[i]->command)
+			{
+				if(pipe(fd_pipe) == -1)
+					perror("create pipe");
+				//usleep (3000);  //actually dont need if executer is perfect
+				fd_keep_pipe = create_child(data->execs[i], data, fd_pipe, fd_keep_pipe);
+			}
+			i++;	
 		}
 		if (close(fd_keep_pipe) == -1)
 			perror ("close keep_pipe");

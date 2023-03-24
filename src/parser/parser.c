@@ -72,18 +72,23 @@ void get_command(t_data *data)
 	int i;
 
 	i = 0;
-	while(data->execs[data->exec_count]->args[0][i])
-	{
-		data->execs[data->exec_count]->args[0][i] = ft_tolower(data->execs[data->exec_count]->args[0][i]);
-		i++;
-	}
-	if (is_built_in(data->execs[data->exec_count]->args[0]))
-		data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
+	if (!data->execs[data->exec_count]->args[0])
+		data->execs[data->exec_count]->command = NULL;
 	else
 	{
-		data->execs[data->exec_count]->command = get_path(data->execs[data->exec_count]->args[0]);
-		if(!data->execs[data->exec_count]->command)
+		while(data->execs[data->exec_count]->args[0][i])
+		{
+			data->execs[data->exec_count]->args[0][i] = ft_tolower(data->execs[data->exec_count]->args[0][i]);
+			i++;
+		}
+		if (is_built_in(data->execs[data->exec_count]->args[0]))
 			data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
+		else
+		{
+			data->execs[data->exec_count]->command = get_path(data->execs[data->exec_count]->args[0]);
+			if(!data->execs[data->exec_count]->command)
+				data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
+		}
 	}
 }
 
@@ -92,11 +97,10 @@ int check_syntax(t_data *data)
 	t_token	*current;
 
 	current = data->tokens;
-	if(current->type == is_pipe)
+	if(current && current->type == is_pipe)
 		return(0);
 	while(current)
 	{
-
 		if(current->type == redirection && (!current->next || current->next->type != word))
 		{
 			ft_putstr_fd("syntax error near unexpected token `", 2);
