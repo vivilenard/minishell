@@ -44,8 +44,8 @@ t_token	*ft_new_token(char *str)
 		new_token->content = ft_strdup(str);
 	new_token->next = NULL;
 	new_token->type = content_analyse(new_token);
-	if(new_token->type == word)
-		new_token->content = cut_outer_quotes(new_token->content);
+	// if(new_token->type == word)
+	// 	new_token->content = cut_outer_quotes(new_token->content);
 	return (new_token);
 }
 
