@@ -39,6 +39,7 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 		signal(SIGQUIT, &handle_sigquit);
 		if (in_out(exec, fd_pipe, fd_keep_pipe) == -1)
 			exit (1);
+		close_pipe(fd_pipe);
 		if (built_in(exec, data->env, data))
 			exit (0);
 		if (execve(exec->command, exec->args, data->env) == -1)
@@ -66,17 +67,15 @@ int	executer(t_data *data)
 	i = 0;
 	fd_keep_pipe = 99;
 
-	if(!data->execs[1])
+	if(!data->execs[1] && is_specialbuiltin(data->execs[0]))
 		built_in(data->execs[i], data->env, data);
-	/* if(is_childless_built_in(data->execs[i]->command))
-		built_in(data->execs[i], data->env, data); */
 	else
 	{
 		while (data->execs[i])
 		{
 			if(pipe(fd_pipe) == -1)
 				perror("create pipe");
-			usleep (3000);  //actually dont need if executer is perfect
+			//usleep (3000);  //actually dont need if executer is perfect
 			fd_keep_pipe = create_child(data->execs[i], data, fd_pipe, fd_keep_pipe);
 			i++;
 		}
@@ -91,3 +90,6 @@ int	executer(t_data *data)
 	}
 	return (0);
 }
+
+	/* if(is_childless_built_in(data->execs[i]->command))
+		built_in(data->execs[i], data->env, data); */

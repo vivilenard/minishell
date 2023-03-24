@@ -68,6 +68,7 @@ int	heredoc(t_exec *exec, int *fd, int i)
 	return (0);
 }
 
+
 // int	heredoc(t_exec *exec, int *fd, int i)
 // {
 // 	if (ft_strncmp(exec->input[i], "<<", 3) == 0)

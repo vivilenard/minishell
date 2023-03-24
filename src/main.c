@@ -50,7 +50,7 @@ int	main(int args, char **argv, char **env)
 		//print_tokens(&data->tokens);
 		if (!parse_tokens(data))
 			continue ;
-		//print_execs(data);
+		print_execs(data);
 		if (!expander(data->execs, data->env))
 			continue ;
 		if (!executer(data))
