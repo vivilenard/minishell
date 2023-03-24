@@ -49,7 +49,7 @@ int	main(int args, char **argv, char **env)
 			continue ;
 		//print_tokens(&data->tokens);
 		if (!parse_tokens(data))
-			continue ;
+			continue;
 		//print_execs(data);
 		if (!expander(data->execs, data->env))
 			continue ;
