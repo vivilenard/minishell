@@ -103,7 +103,7 @@ int check_syntax(t_data *data)
 				ft_putstr_fd("newline", 2);
 			else
 				ft_putstr_fd(current->content, 2);
-			ft_putstr_fd("'", 2);
+			ft_putendl_fd("'", 2);
 			return (0);
 		}
 		if(current->type == redirection && ft_strlen(current->content) > 2)
