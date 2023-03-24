@@ -39,7 +39,7 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 		signal(SIGQUIT, &handle_sigquit);
 		if (in_out(exec, fd_pipe, fd_keep_pipe) == -1)
 			exit (1);
-		if (built_in(exec, &data->env, data))
+		if (built_in_child(exec, &data->env, data))
 			exit (0);
 		if (execve(exec->command, exec->args, data->env) == -1)
 		{
@@ -66,7 +66,7 @@ int	executer(t_data *data)
 	i = 0;
 	fd_keep_pipe = 99;
 
-	if(!data->execs[1])
+	if(!data->execs[1] && is_built_in(data->execs[0]->command))
 		built_in(data->execs[i], &data->env, data);
 	/* if(is_childless_built_in(data->execs[i]->command))
 		built_in(data->execs[i], data->env, data); */

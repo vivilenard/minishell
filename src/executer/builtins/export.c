@@ -63,6 +63,7 @@ int	ft_export(char **args, char ***env)
 
 	i = 1;
 	error = 0;
+	g_errno = 0;
 	if(!args[i])
 		export_dclr_message(*env);
 	while(args[i])
@@ -82,5 +83,5 @@ int	ft_export(char **args, char ***env)
 		}
 		i++;
 	}
-	return(error);
+	return(g_errno);
 }
