@@ -27,29 +27,28 @@ void	create_cd_error(char *path)
 
 int	ft_cd(t_exec *exec, char ***env)
 {
-	char	*old_pwd;
-	char	*new_pwd;
+	char	*path;
+	char	*temp;
 
-	old_pwd = getcwd(NULL, 1);
-	if(!exec->args[1] || ft_strlen(exec->args[1]) == 0)
-	{
-		new_pwd = getenv("HOME");
-		if(chdir(new_pwd) != 0)
-			return(free(old_pwd), EXIT_FAILURE);
-		update_env(env, "OLDPWD", old_pwd);
-		update_env(env, "PWD", new_pwd);
-		return(free(old_pwd), EXIT_SUCCESS);
-	}
-	else if (chdir(exec->args[1]) != 0)
-	{
-		ft_putstr_fd(exec->args[1], STDERR_FILENO);
-		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
-		return (free(old_pwd), EXIT_FAILURE);
-	}
-	new_pwd = getcwd(NULL, 1);
-	update_env(env, "OLDPWD=", old_pwd);
-	update_env(env, "PWD=", new_pwd);
-	return (free(old_pwd), free(new_pwd), EXIT_SUCCESS);
+	temp = getcwd(NULL, 1024);
+	if(category_is_in_env("OLDPWD", *env))
+		*env = replace_in_env("OLDPWD", temp, *env);
+	else
+		*env = add_to_env(ft_strjoin("OLDPWD", temp), *env);
+	free(temp);
+	if(!exec->args[1])
+		path = getenv("HOME");
+	else
+		path = exec->args[1];
+	if (chdir(path) == -1)
+		return (create_cd_error(path), 1);
+	temp = getcwd(NULL, 1024);
+	if(category_is_in_env("PWD", *env))
+		*env = replace_in_env("PWD", temp, *env);
+	else
+		*env = add_to_env(ft_strjoin("PWD", temp), *env);
+	free(temp);
+	return(0);
 }
 
 int is_num(char *str)

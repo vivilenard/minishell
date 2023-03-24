@@ -51,7 +51,6 @@ int	get_exec_count(t_token	*current)
 			exec_count++;
 		current = current->next;
 	}
-	ft_printf("%i\n", exec_count);
 	return (exec_count);
 }
 

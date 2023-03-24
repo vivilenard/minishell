@@ -1,34 +1,9 @@
 #include "../../../include/minishell.h"
 
-int update_env(char ***env, char *var, char *value)
+char **add_to_env(char *str, char **env)
 {
-	size_t	i;
-	size_t	len;
-	char	**ev;
-
-	i = 0;
-	ev = *env;
-	len = ft_strlen(var);
-	while (ev && ev[i] && ((ev[i][len] != 0 || ev[i][len] != '=')
-			&& ft_strncmp(var, ev[i], len)))
-		i++;
-	if (ev[i] != NULL && ft_strchr(var, '='))
-	{
-		free(ev[i]);
-		if (value == NULL)
-			ev[i] = ft_strdup(var);
-		else
-			ev[i] = ft_strjoin(var, value);
-	}
-	else if (ev[i] == NULL)
-		*env = add_to_env(*env, var, value);
-	return (EXIT_SUCCESS);
-}
-
-char **add_to_env(char **env, char *var, char *value)
-{
-	size_t	i;
-	char	**new_env;
+	char **new_env;
+	int	i;
 
 	i = 0;
 	if(!env || !*env)
@@ -38,19 +13,19 @@ char **add_to_env(char **env, char *var, char *value)
 		return (ft_printf("Error ALLOC AddToEnv\n"), NULL);
 	while(env[i])
 	{
-		new_env[i] = env[i];
+		new_env[i] = ft_strdup(env[i]);
+		if(!new_env[i])
+			return(NULL);
 		i++;
 	}
-	if(value)
-		new_env[i] = ft_strjoin(var, value);
-	else
-		new_env[i] = ft_strdup(var);
+	new_env[i] = ft_strdup(str);
 	new_env[i + 1] = NULL;
-	free(env);
+	ft_free2d(env);
+	free(str);
 	return(new_env);
 }
 
-/*char **replace_in_env(char *category, char *new_entry, char **env)
+char **replace_in_env(char *category, char *new_entry, char **env)
 {
 	int		i;
 	char	*category_and_equal;
@@ -67,7 +42,6 @@ char **add_to_env(char **env, char *var, char *value)
 		{
 			free(env[i]);
 			env[i] = full_entry;
-			break;
 		}
 		i++;
 	}
@@ -90,7 +64,7 @@ int category_is_in_env(char *category, char **env)
 	}
 	free(category_and_equal);
 	return(0);
-} */
+}
 
 char	**remove_from_env(char *category, char **env)
 {
@@ -127,8 +101,7 @@ int	ft_env(char **env)
 		return(EXIT_FAILURE);
 	while (env[i])
 	{
-		/* if(char_is_in_str(env[i], '=')) */
-			ft_putendl_fd(env[i], 1);
+		ft_putendl_fd(env[i], 1);
 		i++;
 	}
 	return(EXIT_SUCCESS);

@@ -160,9 +160,10 @@ void		write_export_err_message(char *str, char *value);
 
 //env
 int			ft_env(char **env);
-int			update_env(char ***env, char *var, char *value);
-char		**add_to_env(char **env, char *var, char *value);
+char		**add_to_env(char *str, char **env);
 char		**remove_from_env(char *category, char **env);
+char		**replace_in_env(char *category, char *new_entry, char **env);
+int			category_is_in_env(char *category, char **env);
 
 //expander
 char		*take_content(char *declaration);
