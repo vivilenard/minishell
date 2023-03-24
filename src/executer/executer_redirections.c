@@ -29,7 +29,7 @@ int	in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe)
 		//ft_putendl_fd("pipe as stdout", 2);
 		err = pipe_as_stdout(fd_pipe);
 	}
-	close_pipe(fd_pipe);
+
 	return (err);
 }
 

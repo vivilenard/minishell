@@ -146,6 +146,7 @@ int			built_in_child(t_exec *exec, char ***env, t_data *data);
 int			ft_echo(t_exec *exec, t_data *data);
 int			ft_cd(t_exec *exec, char ***env);
 int			ft_pwd(void);
+int			is_specialbuiltin(t_exec *exec);
 
 //unset
 int			ft_unset(char **args, char ***env);
