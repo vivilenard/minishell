@@ -41,18 +41,18 @@ int syntax(t_data *data)
 		if (current->type == redirection && ft_haystack(current->content, "<")
 			&& ft_haystack(current->content, ">"))
 			return (print_syntaxerror_s("\\n"), 0);
-		// if (current->type == redirection && ft_count_char(current->content, '<') > 2)
-		// 	return (print_syntaxerror_c(current->content[0]), 0);
-		// if (current->type == redirection && ft_count_char(current->content, '>') > 2)
-		// 	return (print_syntaxerror_c(current->content[0]), 0);
-		// if (current->type == redirection && ft_haystack(current->content, " "))
-		// 	return (print_syntaxerror_c(current->content[0]), 0);
-		// if (current->type == word && ft_strncmp(current->content, ".", 2) == 0)
-		// 	return (ft_putendl_fd("filename argument required", 2), 0);
-		// if (!current->next && current->type == is_pipe)
-		// 	return(print_syntaxerror_s("|"), 0);
-		// if (!current->next && current->type == redirection)
-		// 	return (print_syntaxerror_s("\\n"), 0);
+		if (current->type == redirection && ft_count_char(current->content, '<') > 2)
+			return (print_syntaxerror_c(current->content[0]), 0);
+		if (current->type == redirection && ft_count_char(current->content, '>') > 2)
+			return (print_syntaxerror_c(current->content[0]), 0);
+		if (current->type == redirection && ft_haystack(current->content, " "))
+			return (print_syntaxerror_c(current->content[0]), 0);
+		if (current->type == word && ft_strncmp(current->content, ".", 2) == 0)
+			return (ft_putendl_fd("filename argument required", 2), 0);
+		if (!current->next && current->type == is_pipe)
+			return(print_syntaxerror_s("|"), 0);
+		if (!current->next && current->type == redirection)
+			return (print_syntaxerror_s("\\n"), 0);
 		current = current->next;
 	}
 	return (1);

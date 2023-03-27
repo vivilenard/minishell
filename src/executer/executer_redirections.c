@@ -7,28 +7,16 @@ int	in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe)
 	err = 0;
 	if (ft_strlen(exec->input[0]) > 0
 		&& ft_strncmp(exec->input[0], "|", 2) != 0)
-	{
 		err = file_as_stdin(exec);
-	}
 	else if (ft_strlen(exec->input[0]) > 0
 		&& ft_strncmp(exec->input[0], "|", 2) == 0)
-	{
-		//ft_putendl_fd("pipe as stdin", 2);
 		err = pipe_as_stdin(fd_keep_pipe);
-	}
 	if (ft_strlen(exec->output[0]) > 0
 		&& ft_strncmp(exec->output[0], "|", 2) != 0)
-	{
-		//ft_putendl_fd("file as stdout", 2);
 		err = file_as_stdout(exec);
-	}
 	if (ft_strlen(exec->output[0]) > 0
 		&& ft_strncmp(exec->output[0], "|", 2) == 0)
-	{
-		//ft_putendl_fd("pipe as stdout", 2);
 		err = pipe_as_stdout(fd_pipe);
-	}
-
 	return (err);
 }
 
@@ -39,22 +27,20 @@ int	file_as_stdin(t_exec *exec)
 	int	fd_file;
 	int	here_doc;
 
-	ft_putendl_fd("file as stdin", 2);
+	//ft_putendl_fd("file as stdin", 2);
 	i = 0;
 	fd_file = 0;
 	here_doc = init_heredoc_pipe(exec, fd_pipe);
 	while (exec->input[i])
 	{
-		if (open_infile(exec, &fd_file, i) == -1
-			|| heredoc(exec, fd_pipe, i) == -1)
+		if (open_infile(exec, &fd_file, i) == -1)
+			return(-1);
+		else if (heredoc(exec, fd_pipe, i) == -1)
 			return (-1);
 		i = i + 2;
 	}
-	if (dup2(fd_file, 0) == -1)
-		return (perror("file as stdin"), -1);
 	if (here_doc == 1)
 		heredoc_as_in(exec, fd_pipe, i);
-	close(fd_file);
 	return (0);
 }
 
@@ -63,6 +49,7 @@ int	file_as_stdout(t_exec *exec)
 	int	fd;
 	int	i;
 
+	//ft_putendl_fd("file as stdout", 2);
 	fd = -1;
 	if (ft_strncmp(exec->output[0], ">>", 3) == 0)
 		fd = open (exec->output[1], O_CREAT | O_APPEND | O_WRONLY, 0644);
@@ -84,6 +71,7 @@ int	file_as_stdout(t_exec *exec)
 
 int	pipe_as_stdin(int fd_keep_pipe)
 {
+	//ft_putendl_fd("pipe as stdin", 2);
 	if (dup2(fd_keep_pipe, 0) == -1)
 		perror("pipe as stdin");
 	if (close(fd_keep_pipe) == -1)
@@ -93,6 +81,7 @@ int	pipe_as_stdin(int fd_keep_pipe)
 
 int	pipe_as_stdout(int *fd_pipe)
 {
+	ft_putendl_fd("pipe as stdout", 2);
 	if (dup2(fd_pipe[1], STDOUT_FILENO) == -1)
 		perror("pipe as stout");
 	return (0);

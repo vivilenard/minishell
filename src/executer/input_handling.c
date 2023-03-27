@@ -2,7 +2,7 @@
 
 int	open_infile(t_exec *exec, int *fd, int i)
 {
-	if (ft_strncmp(exec->input[i], "<", 2) == 0)
+	if (ft_strncmp(exec->input[i], "<", 2) == 0 || ft_strncmp(exec->input[i], "< ", 3) == 0)
 	{
 		*fd = open (exec->input[i + 1], O_RDONLY);
 		if (*fd == -1)
@@ -11,6 +11,9 @@ int	open_infile(t_exec *exec, int *fd, int i)
 			g_errno = 1;
 			return (-1);
 		}
+		if (dup2(*fd, 0) == -1)
+			return (perror("file as stdin"), -1);
+		close(*fd);
 	}
 	return (0);
 }
