@@ -44,13 +44,17 @@ int	get_exec_count(t_token	*current)
 {
 	int		exec_count;
 
-	exec_count = 1;
+	if(!current)
+		exec_count = 0;
+	else
+		exec_count = 1;
 	while (current != NULL && current->content)
 	{
 		if (current->type == is_pipe)
 			exec_count++;
 		current = current->next;
 	}
+	//ft_printf("EXEC Count is: %i \n", exec_count);
 	return (exec_count);
 }
 
