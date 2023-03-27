@@ -53,6 +53,7 @@ int	main(int args, char **argv, char **env)
 		//print_execs(data);
 		if (!expander(data->execs, data->env))
 			continue ;
+		printf("exec\n");
 		if (!executer(data))
 			continue ;
 		free_exec(data, input);

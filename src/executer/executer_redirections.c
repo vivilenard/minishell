@@ -8,7 +8,6 @@ int	in_out(t_exec *exec, int *fd_pipe, int fd_keep_pipe)
 	if (ft_strlen(exec->input[0]) > 0
 		&& ft_strncmp(exec->input[0], "|", 2) != 0)
 	{
-		//ft_putendl_fd("file as stdin", 2);
 		err = file_as_stdin(exec);
 	}
 	else if (ft_strlen(exec->input[0]) > 0
@@ -40,6 +39,7 @@ int	file_as_stdin(t_exec *exec)
 	int	fd_file;
 	int	here_doc;
 
+	ft_putendl_fd("file as stdin", 2);
 	i = 0;
 	fd_file = 0;
 	here_doc = init_heredoc_pipe(exec, fd_pipe);
@@ -54,7 +54,7 @@ int	file_as_stdin(t_exec *exec)
 		return (perror("file as stdin"), -1);
 	if (here_doc == 1)
 		heredoc_as_in(exec, fd_pipe, i);
-	//close(fd_file);
+	close(fd_file);
 	return (0);
 }
 

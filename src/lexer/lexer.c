@@ -39,8 +39,8 @@ char	**create_strings(char **split, char *str)
 		// if (flag == 0 || flag == 3)
 		if (flag != 1)
 			is_split = do_shit(split, str, &i, &start);
-		if (is_split && flag == 3)
-			flag = 4;
+		// if (is_split && flag == 3)
+		// 	flag = 4;
 		if (str[i] && !handle_quote(str, &i, &flag, &keep_quote))
 			i++;
 	}
@@ -71,8 +71,8 @@ int	countstrs(char *str)
 			count += n;
 			if (n)
 			{
-				if (flag == 3)
-					flag = 4;
+				// if (flag == 3)
+				// 	flag = 4;
 				i--;
 			}
 		}
@@ -147,7 +147,7 @@ int	lexer(char *str, t_data *data)
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
-	//ft_put2dstr_fd(split, 2);
+	ft_put2dstr_fd(split, 2);
 	if (!load_tokens(split, data))
 		return (free_data(data), EXIT_FAILURE);
 	return (1);

@@ -86,38 +86,6 @@ void get_command(t_data *data)
 	}
 }
 
-int check_syntax(t_data *data)
-{
-	t_token	*current;
-
-	current = data->tokens;
-	if(current->type == is_pipe)
-		return(0);
-	while(current)
-	{
-
-		if(current->type == redirection && (!current->next || current->next->type != word))
-		{
-			ft_putstr_fd("syntax error near unexpected token `", 2);
-			if(!current->next)
-				ft_putstr_fd("newline", 2);
-			else
-				ft_putstr_fd(current->content, 2);
-			ft_putendl_fd("'", 2);
-			return (0);
-		}
-		if(current->type == redirection && ft_strlen(current->content) > 2)
-			return(0);
-		if(!ft_strncmp(current->content, "echo", 5) && current->next && current->next->type == redirection)
-			return(0);
-		if(!ft_strncmp(current->content, "echo", 5) && current->next && current->next->type == is_pipe)
-			return(0);
-		if(current->type == is_pipe && current->next && current->next->type != word)
-			return(0);
-		current = current->next;
-	}
-	return(1);
-}
 
 int parse_tokens(t_data *data)
 {
@@ -129,8 +97,9 @@ int parse_tokens(t_data *data)
 	if (!data->execs)
 		return(0);
 	data->execs[get_exec_count(data->tokens)] = NULL;
-	if(!check_syntax(data))
+	if(!syntax(data))
 		return(g_errno = 2, 0);
+	printf("after syntax\n");
 	while (current)
 	{
 		init_exec(data, current);
