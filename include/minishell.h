@@ -123,6 +123,10 @@ int			is_delimiter(char c);
 char 		**makestring(char **split, char *str, int start, int i);
 int 		jump_delimiters(char *str, int *i);
 int			jump_redir(char *str, int *i);
+int			quote_is_unbalanced(int singlequote, int doublequote);
+int			recognize_quote(char *str, char c);
+int			countstrs(char *str);
+char		**create_strings(char **split, char *str);
 
 //executer
 int			executer(t_data *data);

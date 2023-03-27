@@ -5,10 +5,12 @@ void	search_array(char **arr, char **env)
 	int	i;
 
 	i = 0;
+	if(!arr || !*arr)
+		return ;
 	while (arr[i] != NULL)
 	{
+		arr[i] = quote_cutter(arr[i]);
 		arr[i] = look_for_dollar(arr[i], env);
-		arr[i] = cut_outer_quotes(arr[i]);
 		i++;
 	}
 }
@@ -18,7 +20,6 @@ char	*minimize_whitespace(char *str)
 	char	**split;
 	char	*out;
 
-	//printf("%s", str);
 	if (!str)
 		return (NULL);
 	split = ft_split(str, ' ');

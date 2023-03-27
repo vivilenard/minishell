@@ -24,21 +24,20 @@ char	**create_strings(char **split, char *str)
 	int	flag;
 	int	keep_quote;
 	int	start;
-	int	is_split;
+	//int	is_split;
 
 	i = 0;
 	start = 0;
 	flag = 0;
 	keep_quote = 0;
-	is_split = 0;
-	//printf("create\n");
+	//is_split = 0;
 	jump_delimiter_split(split, str, &start, &i);
 	while (str[i])
 	{
 		handle_quote(str, &i, &flag, &keep_quote);
 		// if (flag == 0 || flag == 3)
 		if (flag != 1)
-			is_split = do_shit(split, str, &i, &start);
+			do_shit(split, str, &i, &start);
 		// if (is_split && flag == 3)
 		// 	flag = 4;
 		if (str[i] && !handle_quote(str, &i, &flag, &keep_quote))
@@ -147,7 +146,7 @@ int	lexer(char *str, t_data *data)
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
-	ft_put2dstr_fd(split, 2);
+	//ft_put2dstr_fd(split, 2);
 	if (!load_tokens(split, data))
 		return (free_data(data), EXIT_FAILURE);
 	return (1);
