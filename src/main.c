@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	handle_sigint(int sig)
+void handle_sigint(int sig)
 {
 	(void)sig;
 	ft_putchar_fd('\n', 1);
@@ -10,19 +10,19 @@ void	handle_sigint(int sig)
 	g_errno = 130;
 }
 
-void	signals(void)
+void signals(void)
 {
 	rl_catch_signals = 0;
-    rl_clear_signals();
+	rl_clear_signals();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &handle_sigint);
 }
 
-int	take_input(char **input, char *promptline)
+int take_input(char **input, char *promptline)
 {
 	if (isatty(0))
 		*input = readline(promptline);
-	else 
+	else
 		*input = get_next_line(0);
 	if (!*input)
 		return (/* ft_putendl_fd("Shell Aborted", 2), */ 0);
@@ -31,12 +31,12 @@ int	take_input(char **input, char *promptline)
 	return (1);
 }
 
-int	g_errno = 0;
+int g_errno = 0;
 
-int	main(int args, char **argv, char **env)
+int main(int args, char **argv, char **env)
 {
-	char	*input;
-	t_data	*data;
+	char *input;
+	t_data *data;
 
 	signals();
 	data = init_data(env, args, argv);
@@ -44,24 +44,24 @@ int	main(int args, char **argv, char **env)
 	{
 		reset_data(data);
 		if (!take_input(&input, data->promptline))
-			break ;
+			break;
 		if (!lexer(input, data))
-			continue ;
-		//print_tokens(&data->tokens);
+			continue;
+		// print_tokens(&data->tokens);
 		if (!parse_tokens(data))
 			continue;
-		//print_execs(data);
-	//printtokens(data->execs);
+		// print_execs(data);
+		// printtokens(data->execs);
 		if (!expander(data->execs, data->env))
-			continue ;
-		//printf("hi\n");
-		//print_execs(data);
+			continue;
+		// printf("hi\n");
+		// print_execs(data);
 		executer(data);
-		//printtokens(data->execs);
+		// printtokens(data->execs);
 		free_exec(data, input);
-		//system ("leaks shell");
+		// system ("leaks shell");
 	}
 	free_data(data);
-	system ("leaks shell");
+	// system ("leaks shell");
 	return (0);
 }
