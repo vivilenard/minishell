@@ -57,6 +57,7 @@ int	main(int args, char **argv, char **env)
 		//printf("exec\n");
 		if (!executer(data))
 			continue ;
+		//printf("hi\n");
 		free_exec(data, input);
 
 	}

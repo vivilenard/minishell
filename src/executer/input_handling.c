@@ -2,7 +2,7 @@
 
 int	open_infile(t_exec *exec, int *fd, int i)
 {
-	if (ft_strncmp(exec->input[i], "<", 2) == 0 || ft_strncmp(exec->input[i], "< ", 3) == 0)
+	if (ft_strncmp(exec->input[i], "<", 2) == 0)
 	{
 		*fd = open (exec->input[i + 1], O_RDONLY);
 		if (*fd == -1)
