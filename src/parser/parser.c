@@ -2,18 +2,13 @@
 
 void init_exec(t_data *data, t_token *current)
 {
-	data->execs[data->exec_count] = ft_calloc(sizeof(t_exec) + 1, 1);
+	data->execs[data->exec_count] = malloc (sizeof(t_exec) + 1);
 	data->execs[data->exec_count]->pipe_num = exec_has_pipe(current);
 	data->execs[data->exec_count]->input_num = get_input_num(current) * 2 + data->pipeflag;
 	data->execs[data->exec_count]->output_num = get_output_num(current) * 2 + data->execs[data->exec_count]->pipe_num;
 	data->execs[data->exec_count]->arg_num = get_arg_num(current);
 	data->execs[data->exec_count]->input_written = 0;
 	data->execs[data->exec_count]->output_written = 0;
-
-/* 	ft_printf("INPUT: %i\n", data->execs[data->exec_count]->input_num);
-	ft_printf("OUTPUT: %i\n", data->execs[data->exec_count]->output_num);
-	ft_printf("PIPE: %i\n", data->execs[data->exec_count]->pipe_num);
-	ft_printf("ARGS: %i\n", data->execs[data->exec_count]->arg_num); */
 
 	data->execs[data->exec_count]->command = NULL;
 	data->execs[data->exec_count]->args = (char **) malloc(sizeof(char *) * (data->execs[data->exec_count]->arg_num + 1));
@@ -81,14 +76,7 @@ void get_command(t_data *data)
 			data->execs[data->exec_count]->args[0][i] = ft_tolower(data->execs[data->exec_count]->args[0][i]);
 			i++;
 		}
-		if (is_built_in(data->execs[data->exec_count]->args[0]))
-			data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
-		else
-		{
-			//data->execs[data->exec_count]->command = ft_strdup(get_path(data->execs[data->exec_count]->args[0]));
-			if(!data->execs[data->exec_count]->command)
-				data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
-		}
+		data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
 	}
 }
 
@@ -99,7 +87,7 @@ int parse_tokens(t_data *data)
 
 	if(data->tokens)
 		current = data->tokens;
-	data->execs = malloc(sizeof(t_exec) * (get_exec_count(data->tokens) + 1));
+	data->execs = malloc(sizeof(t_exec *) * (get_exec_count(data->tokens) + 1));
 	if (!data->execs)
 		return(0);
 	data->execs[get_exec_count(data->tokens)] = NULL;
