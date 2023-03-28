@@ -59,7 +59,7 @@ int	main(int args, char **argv, char **env)
 			continue ;
 		//printf("hi\n");
 		free_exec(data, input);
-
+		//system ("leaks shell");
 	}
 	free_data(data);
 	//system ("leaks shell");

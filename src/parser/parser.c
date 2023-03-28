@@ -99,13 +99,12 @@ int parse_tokens(t_data *data)
 
 	if(data->tokens)
 		current = data->tokens;
-	data->execs = malloc(sizeof(t_exec *) * (get_exec_count(data->tokens) + 1));
+	data->execs = malloc(sizeof(t_exec) * (get_exec_count(data->tokens) + 1));
 	if (!data->execs)
 		return(0);
 	data->execs[get_exec_count(data->tokens)] = NULL;
 	if(!syntax(data))
 		return(g_errno = 2, 0);
-	//printf("after syntax\n");
 	while (current)
 	{
 		init_exec(data, current);
