@@ -76,7 +76,7 @@ int	executer(t_data *data)
 	{
 		while (data->execs[i])
 		{
-			printf("hi\n");
+			//printf("hi\n");
 			if(pipe(fd_pipe) == -1)
 				perror("create pipe");
 			fd_keep_pipe = create_child(data->execs[i], data, fd_pipe, fd_keep_pipe);

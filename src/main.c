@@ -51,6 +51,7 @@ int	main(int args, char **argv, char **env)
 		if (!parse_tokens(data))
 			continue;
 		//print_execs(data);
+	//printtokens(data->execs);
 		if (!expander(data->execs, data->env))
 			continue ;
 		//printf("hi\n");

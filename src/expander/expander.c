@@ -226,7 +226,7 @@ t_exec *prep_expand(t_exec *exec, char **env)
 
 	tmp = NULL;
 	exp_cycle = 0;
-	if(var_in_str(exec->command) && ft_strncmp(exec->command, "echo", 5 != 0))
+	if(var_in_str(exec->command) && ft_strncmp(exec->command, "echo", 5) != 0)
 	{
 		while(var_in_str(exec->command))
 		{

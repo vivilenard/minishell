@@ -51,16 +51,16 @@ int	file_as_stdout(t_exec *exec)
 
 	//ft_putendl_fd("file as stdout", 2);
 	fd = -1;
-	if (ft_strncmp(exec->output[0], ">>", 3) == 0)
-		fd = open (exec->output[1], O_CREAT | O_APPEND | O_WRONLY, 0644);
-	else if (ft_strncmp(exec->output[0], ">", 2) == 0)
+	i = 0;
+
+	//printf("%sX\n", exec->output[0]);
+	while (exec->output[i])
 	{
-		i = 0;
-		while (exec->output[i])
-		{
+		if (ft_strncmp(exec->output[i], ">>", 3) == 0)
+			fd = open (exec->output[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0644);
+		else if (ft_strncmp(exec->output[i], ">", 2) == 0)
 			fd = open (exec->output[i + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-			i = i + 2;
-		}
+		i = i + 2;
 	}
 	if (fd == -1)
 		perror("open outputfile");
