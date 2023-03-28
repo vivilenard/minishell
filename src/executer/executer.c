@@ -30,6 +30,24 @@ void	handle_sigquit(int sig)
 	exit(3);
 }
 
+void	wrong_command(t_exec *exec)
+{
+	if (ft_strncmp(exec->args[0], ".", 2) == 0)
+	{
+		//g_errno = 2;
+		ft_putendl_fd("minishell: .: filename argument required", 2);
+		ft_putendl_fd(".: usage: . filename [arguments]", 2);
+		exit(2);
+	}
+	if (ft_strncmp(exec->args[0], "..", 2) == 0)
+	{
+		//g_errno = 2;
+		ft_putendl_fd("minishell: ..: filename argument required", 2);
+		ft_putendl_fd("..: usage: .. filename [arguments]", 2);
+		exit(2);
+	}
+}
+
 int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 {
 	pid_t	pid;
@@ -43,6 +61,7 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 		if (in_out(exec, fd_pipe, fd_keep_pipe) == -1)
 			exit (1);
 		close_pipe(fd_pipe);
+		wrong_command(exec);
 		built_in_child(exec, &data->env, data);
 		//printf("after inout\n");
 		if (execve(exec->command, exec->args, data->env) == -1)

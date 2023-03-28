@@ -257,10 +257,11 @@ t_exec	*expand(t_exec *exec, char **env)
 		tmp = exec->args[0];
 		exec->args[0] = quote_cutter(exec->command);
 		free(tmp);
-		if (ft_strncmp(exec->args[0], ".", 2) == 0)
-			return (g_errno = 2, ft_putendl_fd("filename argument required", 2), NULL);
+		// if (ft_strncmp(exec->args[0], ".", 2) == 0)
+		//  	return (g_errno = 2, ft_putendl_fd("filename argument required", 2), NULL);
 		exec->command = ft_strdup(exec->args[0]);
-		exec->command = get_path(exec->command, env);
+		//if (ft_strncmp(exec->command, ".", 3) != 0 && ft_strncmp(exec->command, "..", 3) != 0)
+			exec->command = get_path(exec->command, env);
 	}
 	search_array(exec->args, env);
 	search_array(exec->input, env);

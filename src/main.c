@@ -57,10 +57,11 @@ int	main(int args, char **argv, char **env)
 		//printf("hi\n");
 		//print_execs(data);
 		executer(data);
+		//printtokens(data->execs);
 		free_exec(data, input);
 		//system ("leaks shell");
 	}
 	free_data(data);
-	//system ("leaks shell");
+	system ("leaks shell");
 	return (0);
 }
