@@ -123,7 +123,10 @@ t_exec	**expander(t_exec **exec, char **env)
 	{
 		if (exec[i]->command && ft_strncmp(exec[i]->command, "echo", 5) != 0
 			&& ft_strncmp(exec[i]->command, "/bin/echo", 10) != 0)
-			expand(exec[i], env);
+			{
+				if(!expand(exec[i], env))
+					return (NULL);
+			}
 		i++;
 	}
 	return (exec);
@@ -218,10 +221,12 @@ t_exec *prep_expand(t_exec *exec, char **env)
 {
 	char	**args;
 	char	**tmp_2d;
+	char	*tmp;
 	int		exp_cycle;
 
+	tmp = NULL;
 	exp_cycle = 0;
-	if(var_in_str(exec->command))
+	if(var_in_str(exec->command) && ft_strncmp(exec->command, "echo", 5 != 0))
 	{
 		while(var_in_str(exec->command))
 		{
@@ -229,25 +234,31 @@ t_exec *prep_expand(t_exec *exec, char **env)
 			exp_cycle++;
 		}
 		tmp_2d = mini_lexer(exec->command);
-		//ft_put2dstr_fd(tmp_2d, 1);
 		args = dupclicate_2D(exec->args);
-		//ft_put2dstr_fd(args, 1);
+		ft_free2d(exec->args);
 		exec->args = replace_args(tmp_2d, args, exp_cycle);
 		ft_free2d(args);
 		ft_free2d(tmp_2d);
+		tmp = exec->command;
 		exec->command = ft_strdup(exec->args[0]);
+		free(tmp);
 	}
 	return(exec);
 }
 
 t_exec	*expand(t_exec *exec, char **env)
 {
-	//printf("EXPANDER\n");
+	char *tmp;
+
+	tmp = NULL;
 	exec = prep_expand(exec, env);
 	if (exec->command != NULL)
 	{
-		//exec->command = look_for_dollar(exec->command, env);
-		exec->command = quote_cutter(exec->command);
+		exec->args[0] = quote_cutter(exec->command);
+		if (ft_strncmp(exec->args[0], ".", 2) == 0)
+			return (g_errno = 2, ft_putendl_fd("filename argument required", 2), NULL);
+		//free(exec->command);
+		exec->command = ft_strdup(exec->args[0]);
 		exec->command = get_path(exec->command, env);
 	}
 	search_array(exec->args, env);

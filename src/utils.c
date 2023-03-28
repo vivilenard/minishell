@@ -58,34 +58,29 @@ void free_tokens(t_data *data)
 
 void free_exec(t_data *data, char *input)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while(data->execs[i])
-	{
-		if(data->execs[i]->command)
-			free(data->execs[i]->command);
-		if(data->execs[i]->args)
-			ft_free2d(data->execs[i]->args);
-		if(data->execs[i]->input)
-			ft_free2d(data->execs[i]->input);
-		if(data->execs[i]->output)
-			ft_free2d(data->execs[i]->output);
-		if (data->execs[i])
-		{
-			free(data->execs[i]);
-			data->execs[i] = NULL;
-		}
-		i++;
-	}
-	if(data->execs)
-	{
-		free(data->execs);
-		data->execs = NULL;
-	}
-	if (input)
-		free (input);
+    i = 0;
+    while (data->execs[i])
+    {
+        if(data->execs[i]->command)
+        	free(data->execs[i]->command);
+        if(data->execs[i]->args)
+        	ft_free2d(data->execs[i]->args);
+        if(data->execs[i]->input)
+        	ft_free2d(data->execs[i]->input);
+        if(data->execs[i]->output)
+        	ft_free2d(data->execs[i]->output);
+        free(data->execs[i]);
+        data->execs[i] = NULL;
+        i++;
+    }
+    free(data->execs);
+    data->execs = NULL;
+    if (input)
+    	free(input);
 }
+
 
 void free_data(t_data *data)
 {
@@ -93,7 +88,6 @@ void free_data(t_data *data)
 		free_exec(data, NULL);
 	if(data->env)
 		ft_free2d(data->env);
-	//if(data->promptline)
 	free(data->promptline);
 	if(data)
 		free(data);
@@ -134,6 +128,8 @@ t_data	*init_data(char **env, int args, char **argv)
 	data = ft_calloc(sizeof(t_data), 1);
 	if(!data)
 		return (free(data->promptline), exit(EXIT_FAILURE), NULL);
+	data->execs = NULL;
+	data->tokens = NULL;
 	data->promptline = prompt(data);
 	data->env = dupclicate_2D(env);
 	//data->promptline = prompt(data);

@@ -16,17 +16,21 @@ char	**allocate(char **split, int strnumber)
 
 char	**makestring(char **split, char *str, int start, int i)
 {
-	int	count;
-	int	range;
+	int		count;
+	int		range;
+	char	*tmp;
 
 	count = 0;
 	range = i - start;
+	tmp = NULL;
 	while (split[count])
 		count++;
 	split[count] = malloc(range + 1);
 	split[count][range] = '\0';
 	ft_strlcpy(split[count], str + start, range + 1);
+	tmp = split[count];
 	split[count] = ft_strtrim(split[count], "\n\t\v\f\r ");
+	free(tmp);
 	return (split);
 }
 
