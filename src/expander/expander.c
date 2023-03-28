@@ -254,10 +254,11 @@ t_exec	*expand(t_exec *exec, char **env)
 	exec = prep_expand(exec, env);
 	if (exec->command != NULL)
 	{
+		tmp = exec->args[0];
 		exec->args[0] = quote_cutter(exec->command);
+		free(tmp);
 		if (ft_strncmp(exec->args[0], ".", 2) == 0)
 			return (g_errno = 2, ft_putendl_fd("filename argument required", 2), NULL);
-		//free(exec->command);
 		exec->command = ft_strdup(exec->args[0]);
 		exec->command = get_path(exec->command, env);
 	}

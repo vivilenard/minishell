@@ -83,7 +83,7 @@ char	**remove_from_env(char *category, char **env)
 	{
 		if(env[i] && ft_strncmp(env[i], category_and_equal, ft_strlen(category_and_equal)) == 0)
 			i++;
-		if(env[i] && new_env[j])
+		if(env[i])
 			new_env[j++] = ft_strdup(env[i++]);
 	}
 	new_env[j] = NULL;

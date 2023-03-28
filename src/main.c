@@ -54,14 +54,11 @@ int	main(int args, char **argv, char **env)
 		if (!expander(data->execs, data->env))
 			continue ;
 		//print_execs(data);
-		//printf("exec\n");
-		if (!executer(data))
-			continue ;
-		//printf("hi\n");
+		executer(data);
 		free_exec(data, input);
 		//system ("leaks shell");
 	}
 	free_data(data);
-	system ("leaks shell");
+	//system ("leaks shell");
 	return (0);
 }

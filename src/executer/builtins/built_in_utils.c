@@ -58,7 +58,7 @@ char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 	if (!args || !*args)
 		return (NULL);
 	if (i == end && args[i])
-		return (ft_strdup(args[i]));
+		return (args[i]);
 	out = ft_calloc(sizeof(char), 1);
 	while (i <= end && args[i])
 	{
@@ -70,15 +70,12 @@ char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 		free(temp);
 		if (args[i + 1] && i < end)
 		{
-/* 			if(args[i][0] != ' ')
-			{ */
-				temp = ft_strjoin(out, c);
-				if (!temp)
-					return (free(out),NULL);
-				free(out);
-				out = ft_strdup(temp);
-				free(temp);
-/* 			} */
+			temp = ft_strjoin(out, c);
+			if (!temp)
+				return (free(out),NULL);
+			free(out);
+			out = ft_strdup(temp);
+			free(temp);
 		}
 		i++;
 	}

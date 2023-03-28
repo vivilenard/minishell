@@ -140,8 +140,8 @@ void	reset_data(t_data *data)
 {
 	free(data->promptline);
 	data->promptline = prompt(data);
-	data->tokens = NULL;
-	data->execs = NULL;
+	//data->tokens = NULL;
+	//data->execs = NULL;
 	data->pipeflag = 0;
 	data->arg_count = 0;
 	data->exec_count = 0;
