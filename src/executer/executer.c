@@ -1,10 +1,13 @@
 #include "../../include/minishell.h"
 
-int	error_codes(int	err)
+int	error_codes(int	pid)
 {
-	if (WIFEXITED(err))
+	int err;
+
+	err = 0;
+	if (WIFEXITED(pid))
 	{
-		err = WEXITSTATUS(err);
+		err = WEXITSTATUS(pid);
 		g_errno = err;
 	}
 	return (0);
@@ -62,7 +65,7 @@ int	executer(t_data *data)
 	int		i;
 	int		fd_pipe[2];
 	int		fd_keep_pipe;
-	int		err = 0;
+	int		pid = 0;
 
 	i = 0;
 	fd_keep_pipe = 99;
@@ -73,6 +76,7 @@ int	executer(t_data *data)
 	{
 		while (data->execs[i])
 		{
+			printf("hi\n");
 			if(pipe(fd_pipe) == -1)
 				perror("create pipe");
 			fd_keep_pipe = create_child(data->execs[i], data, fd_pipe, fd_keep_pipe);
@@ -82,13 +86,10 @@ int	executer(t_data *data)
 			perror ("close keep_pipe");
 		while (i >= 0)
 		{
-			waitpid(0, &err, 0);
+			waitpid(0, &pid, 0);
 			i--;
 		}
-		error_codes(err);
+		error_codes(pid);
 	}
 	return (0);
 }
-
-	/* if(is_childless_built_in(data->execs[i]->command))
-		built_in(data->execs[i], data->env, data); */

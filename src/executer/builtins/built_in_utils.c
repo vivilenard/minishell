@@ -134,9 +134,9 @@ char *string_split(char *str, char c, int at_first, int first)
 
 int	is_specialbuiltin(t_exec *exec)
 {
-	if (ft_strncmp(exec->command, "cd", 3) == 0 || ft_strncmp(exec->command, "exit", 5) == 0 ||
+	if (exec->command && (ft_strncmp(exec->command, "cd", 3) == 0 || ft_strncmp(exec->command, "exit", 5) == 0 ||
 		ft_strncmp(exec->command, "export", 7) == 0 || ft_strncmp(exec->command, "expand", 7) == 0 ||
-			ft_strncmp(exec->command, "unset", 6) == 0)
+			ft_strncmp(exec->command, "unset", 6) == 0))
 			return (1);
 	return (0);
 }
