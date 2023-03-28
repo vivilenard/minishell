@@ -8,7 +8,7 @@ char	*find_correct_path(char **paths, char *command)
 
 	i = 0;
 	backslash_command = ft_strjoin("/", command);
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		path_command = ft_strjoin(paths[i], backslash_command);
 		if (access(path_command, X_OK) == 0)
@@ -54,7 +54,21 @@ int	is_childless_built_in(char *command)
 	return(0);
 }
 
-char	*get_path(char *command)
+char	*ft_searchbinary(char **env, char *s)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] && *env[i])
+	{
+		if (ft_haystack(env[i], s) != NULL)
+			return (env[i]);
+		i++;
+	}
+	return (NULL);
+}
+
+char	*get_path(char *command, char **env)
 {
 	char	*env_paths;
 	char	**paths;
@@ -62,7 +76,7 @@ char	*get_path(char *command)
 
 	if (is_built_in(command) || !ft_strlen(command))
 		return (command);
-	env_paths = getenv("PATH");
+	env_paths = ft_searchbinary(env, "PATH");
 	paths = ft_split(env_paths, ':');
 	correct_path = find_correct_path(paths, command);
 	if(!correct_path)

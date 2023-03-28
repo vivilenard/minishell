@@ -256,7 +256,7 @@ t_exec	*expand(t_exec *exec, char **env)
 	{
 		//exec->command = look_for_dollar(exec->command, env);
 		exec->command = quote_cutter(exec->command);
-		exec->command = get_path(exec->command);
+		exec->command = get_path(exec->command, env);
 	}
 	search_array(exec->args, env);
 	search_array(exec->input, env);

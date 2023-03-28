@@ -85,7 +85,7 @@ void get_command(t_data *data)
 			data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
 		else
 		{
-			data->execs[data->exec_count]->command = ft_strdup(get_path(data->execs[data->exec_count]->args[0]));
+			//data->execs[data->exec_count]->command = ft_strdup(get_path(data->execs[data->exec_count]->args[0]));
 			if(!data->execs[data->exec_count]->command)
 				data->execs[data->exec_count]->command = ft_strdup(data->execs[data->exec_count]->args[0]);
 		}

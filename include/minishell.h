@@ -101,7 +101,7 @@ t_token		*write_redirection(t_data *data, t_token *current);
 void		print_execs(t_data *data);
 int			get_exec_count(t_token	*current);
 int			get_arg_num(t_token *current);
-char		*get_path(char *command);
+char		*get_path(char *command, char **env);
 void		write_pipe_in(t_data *data);
 t_token		*write_pipe_out(t_data *data, t_token *current);
 int			char_is_in_str(char *str, char c);
