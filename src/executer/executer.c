@@ -69,8 +69,6 @@ int	executer(t_data *data)
 
 	if(!data->execs[1] && is_specialbuiltin(data->execs[0]))
 		built_in(data->execs[i], &data->env, data);
-	/* if(is_childless_built_in(data->execs[i]->command))
-		built_in(data->execs[i], data->env, data); */
 	else
 	{
 		while (data->execs[i])

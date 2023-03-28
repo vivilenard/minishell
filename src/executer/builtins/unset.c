@@ -19,6 +19,8 @@ int	check_unset(char *str)
 
 	error = 0;
 	i = 0;
+	if(!str || !str[0])
+		return(write_unset_err_message(str), 0);
 	if(!ft_isalpha(str[i]) && str[i] != '_')
 		error = 1;
 	i++;
@@ -43,11 +45,10 @@ int	ft_unset(char **args, char ***env)
 	i = 1;
 	while(args[i])
 	{
-		if(!check_unset(args[i]))
-		{
+		if(check_unset(args[i]))
+			*env = remove_from_env(args[i], *env);
+		else
 			error = 1;
-			*env = remove_from_env(args[1], *env);
-		}
 		i++;
 	}
 	return(error);

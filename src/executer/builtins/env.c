@@ -76,14 +76,14 @@ char	**remove_from_env(char *category, char **env)
 	i = 0;
 	j = 0;
 	category_and_equal = ft_strjoin(category, "=");
-	new_env = malloc(sizeof(char *) * (ft_2darraylen(env)) + 1);
+	new_env = malloc(sizeof(char *) * (ft_2darraylen(env) + 2));
 	if(!new_env)
 		return( ft_printf("Error in rm env\n"), NULL);
 	while(env[i])
 	{
 		if(env[i] && ft_strncmp(env[i], category_and_equal, ft_strlen(category_and_equal)) == 0)
 			i++;
-		if(env[i])
+		if(env[i] && new_env[j])
 			new_env[j++] = ft_strdup(env[i++]);
 	}
 	new_env[j] = NULL;

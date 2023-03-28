@@ -237,9 +237,9 @@ t_exec *prep_expand(t_exec *exec, char **env)
 			exp_cycle++;
 		}
 		tmp_2d = mini_lexer(exec->command);
-		ft_put2dstr_fd(tmp_2d, 1);
+		//ft_put2dstr_fd(tmp_2d, 1);
 		args = dupclicate_2D(exec->args);
-		ft_put2dstr_fd(args, 1);
+		//ft_put2dstr_fd(args, 1);
 		exec->args = replace_args(tmp_2d, args, exp_cycle);
 		ft_free2d(args);
 		ft_free2d(tmp_2d);
