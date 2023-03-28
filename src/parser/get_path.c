@@ -7,6 +7,10 @@ char	*find_correct_path(char **paths, char *command)
 	char	*path_command;
 
 	i = 0;
+	if (ft_strncmp(command, "..", 3) == 0)
+		return (NULL);
+	if (ft_haystack(command, "./") || ft_haystack(command, "/"))
+		return (NULL);
 	backslash_command = ft_strjoin("/", command);
 	while (paths && paths[i])
 	{
