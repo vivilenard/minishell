@@ -81,7 +81,7 @@ int	pipe_as_stdin(int fd_keep_pipe)
 
 int	pipe_as_stdout(int *fd_pipe)
 {
-	ft_putendl_fd("pipe as stdout", 2);
+	//ft_putendl_fd("pipe as stdout", 2);
 	if (dup2(fd_pipe[1], STDOUT_FILENO) == -1)
 		perror("pipe as stout");
 	return (0);
