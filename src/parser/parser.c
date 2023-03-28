@@ -105,7 +105,6 @@ int parse_tokens(t_data *data)
 	data->execs[get_exec_count(data->tokens)] = NULL;
 	if(!syntax(data))
 		return(g_errno = 2, 0);
-	printf("after syntax\n");
 	while (current)
 	{
 		init_exec(data, current);

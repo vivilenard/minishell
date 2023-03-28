@@ -2,16 +2,16 @@
 
 int	is_delimiter(char c)
 {
-	if (ft_iswhitespace(c) || c == '<' || c == '>' || c == '|')
+	if (c == '<' || c == '>' || c == '|')
 		return (c);
 	return (0);
 }
 
 int	jump_delimiter_split(char **split, char *str, int *start, int *i)
 {
-	if (is_delimiter(str[*i]))
+	if (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
 	{
-		while (is_delimiter(str[*i]))
+		while (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
 			(*i)++;
 		split = makestring(split, str, *start, *i);
 		*start = *i;
@@ -61,19 +61,5 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 		(*i)++;
 		return (1);
 	}
-	// if (!ft_strncmp(str + *i, "echo", 4))
-	// {
-	// 	quote = 3;
-	// 	switch_flags(flag, quote, keep_quote);
-	// 	(*i)++;
-	// 	return (1);
-	// }
-/*  	if (!ft_strncmp(str + *i, "echo", 4))
-	{
-		quote = 3;
-		switch_flags(flag, quote, keep_quote);
-		(*i)++;
-		return (1);
-	} */
 	return (0);
 }

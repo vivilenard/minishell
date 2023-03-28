@@ -3,29 +3,33 @@
 
 int	is_outer(char *str, char c)
 {
-	if(str[0] == c && str[ft_strlen(str) - 1] == c)
-		return (1);
+	if (str && ft_strlen(str) > 2)
+	{
+		if(str[0] == c && str[ft_strlen(str) - 1] == c)
+			return (1);
+	}
 	return (0);
 }
 
 char *cut_outer_quotes(char *str)
 {
-	char	*tmp;
+	//char	*tmp;
 	char	c;
 
 	c = '\0';
-	tmp = str;
-	if(!is_outer(str, '\'') && !is_outer(str, '\"'))
-		return(str);
+	//tmp = NULL;
 	if(is_outer(str, '\''))
 		c = '\'';
 	else if(is_outer(str, '\"'))
 		c = '\"';
 	while(is_outer(str, c))
 	{
-		tmp = ft_substr(str, 1, ft_strlen(str) - 2);
-		free(str);
-		str = tmp;
+		//printf("%s\n", str);
+		str = ft_substr(str, 1, ft_strlen(str) - 2);
+		//free(str);
+		//str = ft_strdup(tmp);
+		//printf("%s\n", tmp);
+		//free(tmp);
 	}
 	return(str);
 }

@@ -85,11 +85,11 @@ char *replace_string(char *s, char **env)
 		{
 				substr = ft_substr(s, i, ft_length_dollar(s + i, '$'));
 				look_for_singlequote(finalstring, &flag);
-				//printf("substr %s\n", substr);
+				printf("substr %s\n", substr);
 				//printf("flag %d\n", flag);
 				if (flag == 0)
 					substr = ft_replace_var(env, substr + 1);
-				//printf("substr %s\n", substr);
+				printf("substr %s\n", substr);
 				finalstring = ft_strjoin_free_opt(finalstring, substr, 1, 1);
 				//printf("substr %s\n", substr);
 		}
@@ -140,8 +140,8 @@ t_exec	*expand(t_exec *exec, char **env)
 	//printf("EXPANDER\n");
 	if (exec->command != NULL)
 	{
-		exec->command = look_for_dollar(exec->command, env);
 		exec->command = cut_outer_quotes(exec->command);
+		exec->command = look_for_dollar(exec->command, env);
 		exec->command = get_path(exec->command);
 	}
 	search_array(exec->args, env);

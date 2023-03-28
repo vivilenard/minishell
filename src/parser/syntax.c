@@ -31,7 +31,7 @@ int	ft_count_char(char *s, char c)
 int syntax(t_data *data)
 {
 	t_token	*current;
-	print_tokens(&data->tokens);
+	//print_tokens(&data->tokens);
 
 	current = data->tokens;
 	if (current->type == is_pipe)
