@@ -62,6 +62,6 @@ int	main(int args, char **argv, char **env)
 
 	}
 	free_data(data);
-	//system ("leaks shell");
+	system ("leaks shell");
 	return (0);
 }

@@ -78,6 +78,7 @@ char	*get_path(char *command, char **env)
 	char	**paths;
 	char	*correct_path;
 
+	correct_path = NULL;
 	if (is_built_in(command) || !ft_strlen(command))
 		return (command);
 	env_paths = ft_searchbinary(env, "PATH");
@@ -86,7 +87,7 @@ char	*get_path(char *command, char **env)
 	if(!correct_path)
 		return (ft_free2d(paths), command);
 		//system ("leaks shell");
-	return (ft_free2d(paths), correct_path);
+	return (ft_free2d(paths), free (command), correct_path);
 }
 
 // int main ()

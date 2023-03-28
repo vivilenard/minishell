@@ -59,7 +59,6 @@ char	*ft_replace_var(char **env, char *dollar)
 		value = search_var_in_env(behind_dollar[0], env);
 	}
 		value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
-	//ft_printf("value %s\n", value);
 	ft_free2d(behind_dollar);
 	return (value);
 }
@@ -78,24 +77,18 @@ char *replace_string(char *s, char **env)
 	while(s[i] && s[i] != '$')
 		i++;
 	finalstring = ft_substr(s, 0, i);
-	//look_for_singlequote(finalstring, &flag);
 	while (s[i])
 	{
 		if (s[i] == '$')
 		{
 				substr = ft_substr(s, i, ft_length_dollar(s + i, '$'));
 				look_for_singlequote(finalstring, &flag);
-				//printf("substr %s\n", substr);
-				//printf("flag %d\n", flag);
 				if (flag == 0)
 					substr = ft_replace_var(env, substr + 1);
-				//printf("substr %s\n", substr);
 				finalstring = ft_strjoin_free_opt(finalstring, substr, 1, 1);
-				//printf("substr %s\n", substr);
 		}
 		i++;
 	}
-	//printf("finalstr %s\n", finalstring);
 	return (minimize_whitespace(finalstring));
 }
 
@@ -112,7 +105,6 @@ char	*look_for_dollar(char *str, char **env)
 		if (str[i] == '$')
 		{
 			replaced_str = replace_string(str, env);
-			//printf("rep %s\n", replaced_str);
 			if (!replaced_str)
 				replaced_str = ft_strdup(" ");
 			return (free(str), replaced_str);
@@ -269,7 +261,7 @@ t_exec	*expand(t_exec *exec, char **env)
 	// {
 	// 	while (s[i] == '$' && s[i + 1] == '$')
 	// 		i++;
-	// 	finalword = ft_substr(s, 0, i + 1);
+	// 	finalword = ft_substr(s, 0, i + 1);j
 	// }
 	// printf("string %s\n", s);
 	// printf("finalword %s\n", finalword);
