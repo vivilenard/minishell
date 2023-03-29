@@ -1,17 +1,22 @@
 #include "../../include/minishell.h"
 
 
-void	look_for_singlequote(char *str, int *flag)
+int	look_for_singlequote(char *str, int *flag)
 {
 	int	i;
+	int doubleflag;
 
 	i = 0;
+	doubleflag = 0;
 	while (str && str[i])
 	{
-		if (str[i] == '\'')
+		if (str[i] == '\"')
+			ft_switchflag(&doubleflag);
+		if (doubleflag == 0 && str[i] == '\'')
 			ft_switchflag(flag);
 		i++;
 	}
+	return (*flag);
 }
 
 int	ft_length_dollar(char *s, char c)
@@ -73,7 +78,6 @@ char *replace_string(char *s, char **env)
 	i = 0;
 	flag = 0;
 	finalstring = NULL;
-	(void)env;
 	while(s[i] && s[i] != '$')
 		i++;
 	finalstring = ft_substr(s, 0, i);
@@ -271,51 +275,8 @@ t_exec	*expand(t_exec *exec, char **env)
 	return (exec);
 }
 
+		//tmp = ft_substr(str, 0, i);
+		//look_for_singlequote(tmp, &quoteflag);
+		//free(tmp);
 
-	// if (s[i] == '$' && s[i + 1] == '$')
-	// {
-	// 	while (s[i] == '$' && s[i + 1] == '$')
-	// 		i++;
-	// 	finalword = ft_substr(s, 0, i + 1);j
-	// }
-	// printf("string %s\n", s);
-	// printf("finalword %s\n", finalword);
-	// printf("split %s, %d\n", split_dollar[0], flag);
-
-
-
-
-// char	*replace_string(char *s, char **env)
-// {
-// 	int		i;
-// 	char	**split_dollar;
-// 	char	*value;
-// 	char	*finalword;
-// 	int		flag;
-
-// 	finalword = NULL;
-// 	flag = 0;
-// 	split_dollar = ft_split(s, '$');
-// 	if (!split_dollar[0])
-// 		return (s);
-// 	i = 0;
-// 	if (s[i] != '$')
-// 	{
-// 		finalword = ft_strdup(split_dollar[0]);
-// 		i++;
-// 	}
-
-// 	while (split_dollar[i])
-// 	{
-// 		look_for_singlequote(finalword, &flag);
-// 		if (flag == 0)
-// 			value = ft_replace_var(env, split_dollar[i]);
-// 		else if (flag == 1)
-// 			value = ft_strjoin_free_opt("$", split_dollar[i], 0, 0);
-// 		finalword = ft_strjoin_free_opt(finalword, value, 1, 1);
-// 		i++;
-// 	}
-// 	ft_free2d(split_dollar);
-// 	return (minimize_whitespace(finalword));
-// 	//return (finalword);
-// }
+	

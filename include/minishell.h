@@ -183,5 +183,6 @@ char		*string_split(char *str, char c, int at_first, int first);
 char		*minimize_whitespace(char *str);
 char		*quote_cutter(char *str);
 t_exec		*expand(t_exec *exec, char **env);
+int		look_for_singlequote(char *str, int *flag);
 
 #endif
