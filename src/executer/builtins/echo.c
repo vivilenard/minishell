@@ -108,6 +108,7 @@ int	ft_echo(t_exec *exec, t_data *data)
 	int		end;
 
 	end = 0;
+	out = NULL;
 	while (exec->args[end])
 		end++;
 	if(exec->args[1])
@@ -116,7 +117,8 @@ int	ft_echo(t_exec *exec, t_data *data)
 		{
 			if(!exec->args[option_detect(exec->args)])
 				return(ft_putstr_fd("", 1), EXIT_SUCCESS);
-			out = ft_strjoin_s_e(exec->args, option_detect(exec->args), end - 1, " ");
+			if(ft_2darraylen(exec->args) > 2)
+				out = ft_strjoin_s_e(exec->args, option_detect(exec->args), end - 1, " ");
 			out = look_for_dollar(out, data->env);
 			out = quote_cutter(out);
 			ft_putstr_fd(out, 1);

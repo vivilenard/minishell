@@ -62,6 +62,6 @@ int main(int args, char **argv, char **env)
 		// system ("leaks shell");
 	}
 	free_data(data);
-	// system ("leaks shell");
+	system ("leaks shell");
 	return (g_errno);
 }

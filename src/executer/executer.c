@@ -37,14 +37,14 @@ void	wrong_command(t_exec *exec)
 		//g_errno = 2;
 		ft_putendl_fd("minishell: .: filename argument required", 2);
 		ft_putendl_fd(".: usage: . filename [arguments]", 2);
-		exit(2);
+		exit(127);
 	}
 	if (ft_strncmp(exec->args[0], "..", 2) == 0)
 	{
 		//g_errno = 2;
 		ft_putendl_fd("minishell: ..: filename argument required", 2);
 		ft_putendl_fd("..: usage: .. filename [arguments]", 2);
-		exit(2);
+		exit(127);
 	}
 }
 

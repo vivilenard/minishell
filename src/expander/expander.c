@@ -106,7 +106,7 @@ char	*look_for_dollar(char *str, char **env)
 		{
 			replaced_str = replace_string(str, env);
 			if (!replaced_str)
-				replaced_str = ft_strdup(" ");
+				replaced_str = ft_strdup("");
 			return (free(str), replaced_str);
 		}
 		i++;
