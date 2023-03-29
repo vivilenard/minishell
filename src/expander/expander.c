@@ -204,14 +204,19 @@ char **replace_args(char **c_args, char **args, int exp_cycle)
 
 	i = 0;
 	j = 0;
-	arg_len = ft_2darraylen(c_args) + ft_2darraylen(args) - exp_cycle;
-	new_args = (char **) malloc (sizeof(char *) * (arg_len + 1));
+	(void)exp_cycle;
+	arg_len = ft_2darraylen(c_args) + ft_2darraylen(args);
+	new_args = (char **) malloc (sizeof(char *) * (arg_len));
 	if (!new_args)
 		return (NULL);
-	while(new_args[i] && i < ft_2darraylen(c_args))
-		new_args[i++] = ft_strdup(c_args[j++]);
+	while(c_args && c_args[i])
+	{
+		new_args[i] = ft_strdup(c_args[j]);
+		i++;
+		j++;
+	}
 	j = 1;
-	while(new_args[i] && args[j])
+	while(args[j])
 		new_args[i++] = ft_strdup(args[j++]);
 	new_args[i] = NULL;
 	return(new_args);
