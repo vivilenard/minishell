@@ -67,6 +67,27 @@ char *quote_cutter(char *str)
 	return(free(str), out);
 }
 
+int is_nnn(char *arg)
+{
+	size_t	i;
+
+	i = 0;
+	if(arg[i] == '-')
+		i++;
+	else
+		return(0);
+	if(arg[i] && arg[i] == 'n')
+	{
+		while(arg[i] && arg[i] == 'n')
+			i++;
+	}
+	else
+		return (0);
+	if(arg[i])
+		return (0);
+	return (1);
+}
+
 int option_detect(char **args)
 {
 	int	i;
@@ -74,7 +95,7 @@ int option_detect(char **args)
 	i = 1;
 	while(args[i])
 	{
-		if(ft_strncmp(args[i], "-n", 3) != 0)
+		if(ft_strncmp(args[i], "-n", 3) != 0 || !is_nnn(args[i]))
 			return(i);
 		i++;
 	}
