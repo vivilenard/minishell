@@ -121,6 +121,7 @@ int	ft_echo(t_exec *exec, t_data *data)
 				out = ft_strjoin_s_e(exec->args, option_detect(exec->args), end - 1, " ");
 			out = look_for_dollar(out, data->env);
 			out = quote_cutter(out);
+			//is_only_dollarsign(&out);
 			ft_putstr_fd(out, 1);
 			return(EXIT_SUCCESS);
 		}
@@ -131,6 +132,7 @@ int	ft_echo(t_exec *exec, t_data *data)
 			out = ft_strjoin_s_e(exec->args, 1, end - 1, " ");
 			out = look_for_dollar(out, data->env);
 			out = quote_cutter(out);
+			//is_only_dollarsign(&out);
 			ft_putendl_fd(out, 1);
 			return(EXIT_SUCCESS);
 		}
