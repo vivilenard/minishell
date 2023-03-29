@@ -63,7 +63,6 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 		close_pipe(fd_pipe);
 		wrong_command(exec);
 		built_in_child(exec, &data->env, data);
-		//printf("after inout\n");
 		if (execve(exec->command, exec->args, data->env) == -1)
 		{
 			ft_putstr_fd("minishell: ", 2);
@@ -95,7 +94,6 @@ int	executer(t_data *data)
 	{
 		while (data->execs[i])
 		{
-			//printf("hi\n");
 			if(pipe(fd_pipe) == -1)
 				perror("create pipe");
 			fd_keep_pipe = create_child(data->execs[i], data, fd_pipe, fd_keep_pipe);

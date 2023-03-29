@@ -95,7 +95,7 @@ int option_detect(char **args)
 	i = 1;
 	while(args[i])
 	{
-		if(ft_strncmp(args[i], "-n", 3) != 0 || !is_nnn(args[i]))
+		if(!is_nnn(args[i]))
 			return(i);
 		i++;
 	}
@@ -112,7 +112,7 @@ int	ft_echo(t_exec *exec, t_data *data)
 		end++;
 	if(exec->args[1])
 	{
-		if (ft_strncmp(exec->args[1], "-n", 3) == 0)
+		if (is_nnn(exec->args[1]))
 		{
 			if(!exec->args[option_detect(exec->args)])
 				return(ft_putstr_fd("", 1), EXIT_SUCCESS);
@@ -135,6 +135,6 @@ int	ft_echo(t_exec *exec, t_data *data)
 		free(out);
 	}
 	else
-		ft_putstr_fd("\n", 1);
+		ft_putendl_fd("", 1);
 	return(EXIT_SUCCESS);
 }

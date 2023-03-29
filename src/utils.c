@@ -1,26 +1,11 @@
 #include "../include/minishell.h"
 
-	
-void freestrings(char *s1, char *s2, char *s3, char **array)
-{
-	printf("in free strings\n");
-	if (s1)
-		free(s1);
-	if (s2)
-		free(s2);
-	if (s3)
-		free(s3);
-	if (array)
-		ft_free2d(array);
-}
-
 int is_char(char place, char c)
 {
 	if (place == c)
 		return (1);
 	return (0);
 }
-
 
 void print_tokens (t_token **token)
 {
@@ -81,7 +66,6 @@ void free_exec(t_data *data, char *input)
     	free(input);
 }
 
-
 void free_data(t_data *data)
 {
 	if(data->execs)
@@ -132,7 +116,6 @@ t_data	*init_data(char **env, int args, char **argv)
 	data->tokens = NULL;
 	data->promptline = prompt(data);
 	data->env = dupclicate_2D(env);
-	//data->promptline = prompt(data);
 	return (data);
 }
 
@@ -140,8 +123,8 @@ void	reset_data(t_data *data)
 {
 	free(data->promptline);
 	data->promptline = prompt(data);
-	//data->tokens = NULL;
-	//data->execs = NULL;
+	data->tokens = NULL;
+	data->execs = NULL;
 	data->pipeflag = 0;
 	data->arg_count = 0;
 	data->exec_count = 0;

@@ -55,13 +55,13 @@ int main(int args, char **argv, char **env)
 		if (!expander(data->execs, data->env))
 			continue;
 		// printf("hi\n");
-		// print_execs(data);
+		//print_execs(data);
 		executer(data);
-		// printtokens(data->execs);
+		//printtokens(data->execs);
 		free_exec(data, input);
 		// system ("leaks shell");
 	}
 	free_data(data);
 	// system ("leaks shell");
-	return (0);
+	return (g_errno);
 }
