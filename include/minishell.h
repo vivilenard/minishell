@@ -148,11 +148,33 @@ void		command_not_found(char *s);
 //builtins
 int			built_in(t_exec *exec, char ***env, t_data *data);
 int			built_in_child(t_exec *exec, char ***env, t_data *data);
-int			ft_echo(t_exec *exec, t_data *data);
-int			ft_cd(t_exec *exec, char ***env);
-int			ft_pwd(void);
 int			is_specialbuiltin(t_exec *exec);
 void		is_only_dollarsign(char **s);
+
+//pwd
+int			ft_pwd(void);
+
+//cd
+int			ft_cd(t_exec *exec, char ***env);
+void		create_cd_error(char *path);
+
+//exit
+int			ft_exit(char **args);
+void		exit_no_numeric(char *str);
+int			exit_too_many_args(void);
+int			is_num(char *str);
+
+//echo
+int			ft_echo(t_exec *exec, t_data *data);
+void		out_echo_str(char **args, char **env, char *out, int end);
+int			option_detect(char **args);
+int			is_nnn(char *arg);
+
+//echo utils
+int			is_quote(char c);
+int			count_rm_quotes(char *str);
+void		copy_without_quotes(char *out, char *str);
+char		*quote_cutter(char *str);
 
 //unset
 int			ft_unset(char **args, char ***env);
@@ -161,6 +183,11 @@ void		write_unset_err_message(char *str);
 
 //export
 int			ft_export(char **args, char ***env);
+int			process_export_args(char **args, int i, char ***env);
+int			update_env(char *category, char *value, char ***env);
+
+//export_utils
+void		export_dclr_message(char **env);
 int			check_export(char *str, char *value);
 void		write_export_err_message(char *str, char *value);
 

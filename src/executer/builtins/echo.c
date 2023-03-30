@@ -1,105 +1,63 @@
 #include "../../../include/minishell.h"
 
-int count_rm_quotes(char *str)
-{
-	int		i;
-	int		count;
-	int		in_quote;
-	char	current_quote;
-
-	i = 0;
-	count = 0;
-	in_quote = 0;
-	current_quote = '\0';
-	if(!str)
-		return(0);
-	while(str[i])
-	{
-		if((str[i] == '\"' || str[i] == '\'') && !in_quote)
-		{
-			in_quote = 1;
-			current_quote = str[i];
-			count++;
-		}
-		else if(str[i] == current_quote && in_quote)
-		{
-			in_quote = 0;
-			current_quote = '\0';
-			count ++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-char *quote_cutter(char *str)
-{
-	char	*out;
-	int		i;
-	int		j;
-	int		in_quote;
-	char	current_quote;
-
-	i = 0;
-	j = 0;
-	in_quote = 0;
-	current_quote = '\0';
-	out = (char *)malloc((ft_strlen(str) - count_rm_quotes(str) + 1) * sizeof(char));
-	if (!out)
-		return(NULL);
-	while(str[i])
-	{
-		if((str[i] == '\"' || str[i] == '\'') && !in_quote)
-		{
-			in_quote = 1;
-			current_quote = str[i];
-		}
-		else if(str[i] == current_quote && in_quote)
-		{
-			in_quote = 0;
-			current_quote = '\0';
-		}
-		else
-			out[j++] = str[i];
-		i++;
-	}
-	out[j] = '\0';
-	return(free(str), out);
-}
-
-int is_nnn(char *arg)
+int	is_nnn(char *arg)
 {
 	size_t	i;
 
 	i = 0;
-	if(arg[i] == '-')
+	if (arg[i] == '-')
 		i++;
 	else
-		return(0);
-	if(arg[i] && arg[i] == 'n')
+		return (0);
+	if (arg[i] && arg[i] == 'n')
 	{
-		while(arg[i] && arg[i] == 'n')
+		while (arg[i] && arg[i] == 'n')
 			i++;
 	}
 	else
 		return (0);
-	if(arg[i])
+	if (arg[i])
 		return (0);
 	return (1);
 }
 
-int option_detect(char **args)
+int	option_detect(char **args)
 {
 	int	i;
 
 	i = 1;
-	while(args[i])
+	while (args[i])
 	{
-		if(!is_nnn(args[i]))
-			return(i);
+		if (!is_nnn(args[i]))
+			return (i);
 		i++;
 	}
-	return(i);
+	return (i);
+}
+
+void	out_echo_str(char **args, char **env, char *out, int end)
+{
+	if (is_nnn(args[1]))
+	{
+		if (!args[option_detect(args)])
+			return (ft_putstr_fd("", 1), (void) NULL);
+		if (ft_2darraylen(args) > 2)
+			out = ft_strjoin_s_e(args, option_detect(args),
+					end - 1, " ");
+		out = look_for_dollar(out, env);
+		out = quote_cutter(out);
+		ft_putstr_fd(out, 1);
+	}
+	else
+	{
+		if (!args[1])
+			return (ft_putendl_fd("", 1), (void) NULL);
+		out = ft_strjoin_s_e(args, 1, end - 1, " ");
+		out = look_for_dollar(out, env);
+		out = quote_cutter(out);
+		ft_putendl_fd(out, 1);
+	}
+	free(out);
 }
 
 int	ft_echo(t_exec *exec, t_data *data)
@@ -111,34 +69,9 @@ int	ft_echo(t_exec *exec, t_data *data)
 	out = NULL;
 	while (exec->args[end])
 		end++;
-	if(exec->args[1])
-	{
-		if (is_nnn(exec->args[1]))
-		{
-			if(!exec->args[option_detect(exec->args)])
-				return(ft_putstr_fd("", 1), EXIT_SUCCESS);
-			if(ft_2darraylen(exec->args) > 2)
-				out = ft_strjoin_s_e(exec->args, option_detect(exec->args), end - 1, " ");
-			out = look_for_dollar(out, data->env);
-			out = quote_cutter(out);
-			//is_only_dollarsign(&out);
-			ft_putstr_fd(out, 1);
-			return(EXIT_SUCCESS);
-		}
-		else
-		{
-			if(!exec->args[1])
-				return(ft_putendl_fd("", 1), EXIT_SUCCESS);
-			out = ft_strjoin_s_e(exec->args, 1, end - 1, " ");
-			out = look_for_dollar(out, data->env);
-			out = quote_cutter(out);
-			//is_only_dollarsign(&out);
-			ft_putendl_fd(out, 1);
-			return(EXIT_SUCCESS);
-		}
-		free(out);
-	}
+	if (exec->args[1])
+		return (out_echo_str(exec->args, data->env, out, end), EXIT_SUCCESS);
 	else
 		ft_putendl_fd("", 1);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
