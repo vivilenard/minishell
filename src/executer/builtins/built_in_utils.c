@@ -18,7 +18,6 @@ char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 {
 	int		i;
 	char	*out;
-	char	*temp;
 
 	i = start;
 	if (!args || !*args)
@@ -28,21 +27,9 @@ char	*ft_strjoin_s_e(char **args, int start, int end, char *c)
 	out = ft_calloc(sizeof(char), 1);
 	while (i <= end && args[i])
 	{
-		temp = ft_strjoin(out, args[i]);
-		if (!temp)
-			return (free(out), NULL);
-		free(out);
-		out = ft_strdup(temp);
-		free(temp);
+		out = ft_strjoin_free_opt(out, args[i], 1, 0);
 		if (args[i + 1] && i < end)
-		{
-			temp = ft_strjoin(out, c);
-			if (!temp)
-				return (free(out), NULL);
-			free(out);
-			out = ft_strdup(temp);
-			free(temp);
-		}
+			out = ft_strjoin_free_opt(out, c, 1, 0);
 		i++;
 	}
 	return (out);
@@ -60,6 +47,26 @@ char	*last_occurence(char *str, char c)
 	return (&p[i]);
 }
 
+char	*split_first(char *out, char *str, int len)
+{
+	out = (char *) malloc(sizeof(char) * (len + 1));
+	if (!out)
+		return (NULL);
+	ft_strlcpy(out, str, len + 1);
+	out[len] = '\0';
+	return (out);
+}
+
+char	*split_second(char *out, char *str, int len)
+{
+	out = (char *) malloc(sizeof(char) * (ft_strlen(str) - len + 1));
+	if (!out)
+		return (NULL);
+	ft_strlcpy(out, str + len + 1, ft_strlen(str) - len);
+	out[ft_strlen(str) - len - 1] = '\0';
+	return (out);
+}
+
 char	*string_split(char *str, char c, int at_first, int first)
 {
 	char	*out;
@@ -67,6 +74,7 @@ char	*string_split(char *str, char c, int at_first, int first)
 	int		len;
 
 	len = 0;
+	out = NULL;
 	if (!str || !c)
 		return (NULL);
 	if (!char_is_in_str(str, c))
@@ -80,21 +88,9 @@ char	*string_split(char *str, char c, int at_first, int first)
 			len = p - str;
 	}
 	if (first)
-	{
-		out = (char *) malloc(sizeof(char) * (len + 1));
-		if (!out)
-			return (NULL);
-		ft_strlcpy(out, str, len + 1);
-		out[len] = '\0';
-	}
+		out = split_first(out, str, len);
 	else
-	{
-		out = (char *) malloc(sizeof(char) * (ft_strlen(str) - len + 1));
-		if (!out)
-			return (NULL);
-		ft_strlcpy(out, str + len + 1, ft_strlen(str) - len);
-		out[ft_strlen(str) - len - 1] = '\0';
-	}
+		out = split_second(out, str, len);
 	return (out);
 }
 
@@ -108,7 +104,6 @@ int	is_specialbuiltin(t_exec *exec)
 		return (1);
 	return (0);
 }
-
 
 void	is_only_dollarsign(char **str)
 {

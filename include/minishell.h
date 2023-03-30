@@ -148,11 +148,21 @@ int			open_infile(t_exec *exec, int *fd, int i);
 //builtins
 int			built_in(t_exec *exec, char ***env, t_data *data);
 int			built_in_child(t_exec *exec, char ***env, t_data *data);
-int			ft_echo(t_exec *exec, t_data *data);
-int			ft_cd(t_exec *exec, char ***env);
-int			ft_pwd(void);
 int			is_specialbuiltin(t_exec *exec);
 void		is_only_dollarsign(char **s);
+
+//pwd
+int			ft_pwd(void);
+
+//cd
+int			ft_cd(t_exec *exec, char ***env);
+void		create_cd_error(char *path);
+
+//exit
+int			ft_exit(char **args);
+void		exit_no_numeric(char *str);
+int			exit_too_many_args(void);
+int			is_num(char *str);
 
 //echo
 int			ft_echo(t_exec *exec, t_data *data);
