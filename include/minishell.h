@@ -72,28 +72,21 @@ int 		parse_tokens(t_data *data);
 
 //Utils
 int			is_char(char place, char c);
-void		freestrings(char *s1, char *s2, char *s3, char **array);
-void		printtokens(t_exec **exec);
 char		*username(void);
-void		print_tokens(t_token **token);
 void		free_tokens(t_data *data);
 void		free_data(t_data *data);
 t_data		*init_data(char **env, int args, char **argv);
 void		reset_data(t_data *data);
 void		free_exec(t_data *data, char *input);
-char		**dupclicate_2D(char **str);
-int			ft_2darraylen(char **array);
-char		*ft_strjoin_free_opt(char *s1, char *s2, int free_s1, int free_s2);
+char		**dupclicate_2d(char **str);
 char		*ft_strjoin_s_e(char **args, int start, int end, char* c);
 int			syntax(t_data *data);
-char		*cut_outer_quotes(char *str);
 
 //Parser
 void		init_exec(t_data *data, t_token *current);
 t_token		*write_redirection(t_data *data, t_token *current);
 
 //Utils Parser
-void		print_execs(t_data *data);
 int			get_exec_count(t_token	*current);
 int			get_arg_num(t_token *current);
 char		*get_path(char *command, char **env);
@@ -116,8 +109,6 @@ int			switch_flags(int *flag, int quote, int *keep_quote);
 int			handle_quote(char *str, int *i, int *flag, int *keep_quote);
 int			is_delimiter(char c);
 char 		**makestring(char **split, char *str, int start, int i);
-int 		jump_delimiters(char *str, int *i);
-int			jump_redir(char *str, int *i);
 int			quote_is_unbalanced(int singlequote, int doublequote);
 int			recognize_quote(char *str, char c);
 int			countstrs(char *str);
@@ -131,11 +122,8 @@ int			file_as_stdout(t_exec *exec);
 int			pipe_as_stdin(int fd_keep_pipe);
 int			pipe_as_stdout(int *fd_pipe);
 void		close_pipe(int *fd_pipe);
-int			is_built_in(char *command);
-int			is_childless_built_in(char *command);
 int			heredoc(t_exec *exec, int *fd, int i);
 int			write_heredoc(t_exec *exec, int *fd, int i);
-t_exec		**expander(t_exec **exec, char **env);
 void		heredoc_as_in(t_exec *exec, int *fd_pipe, int i);
 int			init_heredoc_pipe(t_exec *exec, int *fd);
 int			open_infile(t_exec *exec, int *fd, int i);
@@ -150,6 +138,7 @@ int			built_in(t_exec *exec, char ***env, t_data *data);
 int			built_in_child(t_exec *exec, char ***env, t_data *data);
 int			is_specialbuiltin(t_exec *exec);
 void		is_only_dollarsign(char **s);
+int			is_built_in(char *command);
 
 //pwd
 int			ft_pwd(void);
@@ -199,6 +188,7 @@ char		**replace_in_env(char *category, char *new_entry, char **env);
 int			category_is_in_env(char *category, char **env);
 
 //expander
+t_exec		**expander(t_exec **exec, char **env);
 char		*take_content(char *declaration);
 char		*search_var_in_env(char *var, char **env);
 void		search_array(char **arr, char **env);
@@ -206,10 +196,8 @@ char		*look_for_dollar(char *str, char **env);
 char		**if_split_contains_sentence(const char *dollar);
 char		*take_var(char *s, char **env);
 char		*ft_replace_var(char **env, char *dollar);
-char		*search_var_in_env(char *var, char **env);
 char		*string_split(char *str, char c, int at_first, int first);
 char		*minimize_whitespace(char *str);
-char		*quote_cutter(char *str);
 t_exec		*expand(t_exec *exec, char **env);
 t_exec		*go_through_exec(t_exec *exec, char **env);
 int			look_for_singlequote(char *str, int *flag);
@@ -217,7 +205,6 @@ char		**replace_args(char **c_args, char **args, int exp_cycle);
 char		**mini_lexer(char *str);
 char		**join_2d_array(char **s1, char **s2);
 int			var_in_str(char *str);
-void		search_array(char **arr, char **env);
 int			keep_dollar(char *str);
 int			ft_length_dollar(char *s, char c);
 

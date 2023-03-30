@@ -1,12 +1,5 @@
 #include "../include/minishell.h"
 
-int	is_char(char place, char c)
-{
-	if (place == c)
-		return (1);
-	return (0);
-}
-
 void	free_tokens(t_data *data)
 {
 	t_token	*current;
@@ -63,32 +56,6 @@ void	free_data(t_data *data)
 		free(data);
 }
 
-char	**dupclicate_2d(char **str)
-{
-	int		i;
-	int		size;
-	char	**copy;
-
-	size = 0;
-	i = 0;
-	if (!str || !*str)
-		return (NULL);
-	while (str[size])
-		size++;
-	copy = (char **) malloc(sizeof(char *) * (size + 1));
-	if (!copy)
-		return (NULL);
-	while (str[i])
-	{
-		copy[i] = ft_strdup(str[i]);
-		if (!copy[i])
-			return (NULL);
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
-}
-
 t_data	*init_data(char **env, int args, char **argv)
 {
 	t_data	*data;
@@ -101,7 +68,7 @@ t_data	*init_data(char **env, int args, char **argv)
 	data->execs = NULL;
 	data->tokens = NULL;
 	data->promptline = prompt(data);
-	data->env = dupclicate_2D(env);
+	data->env = dupclicate_2d(env);
 	return (data);
 }
 

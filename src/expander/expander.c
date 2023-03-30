@@ -94,7 +94,7 @@ t_exec	*expand(t_exec *exec, char **env)
 			exp_cycle++;
 		}
 		tmp_2d = mini_lexer(exec->command);
-		args = dupclicate_2D(exec->args);
+		args = dupclicate_2d(exec->args);
 		ft_free2d(exec->args);
 		exec->args = replace_args(tmp_2d, args, exp_cycle);
 		ft_free2d(args);
@@ -116,7 +116,6 @@ t_exec	**expander(t_exec **exec, char **env)
 		if (exec[i]->command && ft_strncmp(exec[i]->command, "echo", 5) != 0
 			&& ft_strncmp(exec[i]->command, "/bin/echo", 10) != 0)
 		{
-		//printf("%s\n", exec[i]->command);
 			if (!go_through_exec(exec[i], env))
 				return (NULL);
 		}
