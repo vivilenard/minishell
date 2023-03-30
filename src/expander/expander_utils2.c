@@ -40,15 +40,27 @@ int	keep_dollar(char *str)
 	return (0);
 }
 
+void	command_not_found(char *s)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd(": command not found\n", 2);
+	exit(127);
+}
+
 t_exec	*go_through_exec(t_exec *exec, char **env)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	exec = expand(exec, env);
+	// if (!exec->command)
+	// 	command_not_found(exec->command);
 	if (exec->command != NULL)
 	{
 		tmp = exec->args[0];
+		//  if (!exec->args[0])
+		// 	 	command_not_found(exec->command);
 		exec->args[0] = quote_cutter(exec->command);
 		free(tmp);
 		exec->command = ft_strdup(exec->args[0]);

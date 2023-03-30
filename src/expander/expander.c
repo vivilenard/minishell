@@ -116,6 +116,7 @@ t_exec	**expander(t_exec **exec, char **env)
 		if (exec[i]->command && ft_strncmp(exec[i]->command, "echo", 5) != 0
 			&& ft_strncmp(exec[i]->command, "/bin/echo", 10) != 0)
 		{
+		//printf("%s\n", exec[i]->command);
 			if (!go_through_exec(exec[i], env))
 				return (NULL);
 		}

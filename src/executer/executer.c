@@ -14,12 +14,7 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 		wrong_command(exec);
 		built_in_child(exec, &data->env, data);
 		if (execve(exec->command, exec->args, data->env) == -1)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(exec->command, 2);
-			ft_putstr_fd(": command not found\n", 2);
-			exit (127);
-		}
+			command_not_found(exec->command);
 	}
 	if (close(fd_pipe[1]) == -1)
 		perror ("close pipe[1]");
