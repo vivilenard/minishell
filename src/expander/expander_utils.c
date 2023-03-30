@@ -5,7 +5,7 @@ void	search_array(char **arr, char **env)
 	int	i;
 
 	i = 0;
-	if(!arr || !*arr)
+	if (!arr || !*arr)
 		return ;
 	while (arr[i] != NULL)
 	{
@@ -75,18 +75,16 @@ char	**if_split_contains_sentence(const char *dollar)
 
 	i = 0;
 	n = 0;
-	//printf("%s\n", dollar);
 	behind_dollar = malloc(sizeof(char *) * 3);
 	behind_dollar[2] = NULL;
 	while (dollar[i])
 	{
-		// if ((ft_iswhitespace(dollar[i])) || dollar[i] == '\"' || dollar[i] == '\'')
 		if (dollar[0] == '?')
-			break;
-		if ((!ft_isalpha(dollar[i]) && !ft_isalnum(dollar[i])) && dollar[i] != '_')
+			break ;
+		if ((!ft_isalpha(dollar[i])
+				&& !ft_isalnum(dollar[i])) && dollar[i] != '_')
 		{
 			behind_dollar[0] = ft_substr(dollar, 0, i);
-			//printf("bd %s\n", behind_dollar[0]);
 			behind_dollar[1] = ft_strdup(dollar + i);
 			return (behind_dollar);
 		}
