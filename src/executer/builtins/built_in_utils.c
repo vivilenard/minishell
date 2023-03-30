@@ -149,8 +149,7 @@ void	is_only_dollarsign(char **str)
 
 	s = *str;
 	i = 0;
-	//printf("%s\n", value);
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] != '$')
 			return ;
