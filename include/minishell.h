@@ -12,11 +12,6 @@
 # include <signal.h>
 # include <unistd.h>
 # include <termios.h>
-//# include <errno.h>
-
-/* Data contains all the data of one input. This input is divided by prompts
-(one prompt could be piped into another). Every Prompt is divided into tokens.
-Every token has a tokentype */
 
 int	g_errno;
 
@@ -144,6 +139,10 @@ t_exec		**expander(t_exec **exec, char **env);
 void		heredoc_as_in(t_exec *exec, int *fd_pipe, int i);
 int			init_heredoc_pipe(t_exec *exec, int *fd);
 int			open_infile(t_exec *exec, int *fd, int i);
+int			error_codes(int	pid);
+void		wrong_command(t_exec *exec);
+void		handle_sigquit(int sig);
+void		signals_child(void);
 
 //builtins
 int			built_in(t_exec *exec, char ***env, t_data *data);
@@ -184,6 +183,14 @@ char		*string_split(char *str, char c, int at_first, int first);
 char		*minimize_whitespace(char *str);
 char		*quote_cutter(char *str);
 t_exec		*expand(t_exec *exec, char **env);
-int		look_for_singlequote(char *str, int *flag);
+t_exec		*go_through_exec(t_exec *exec, char **env);
+int			look_for_singlequote(char *str, int *flag);
+char		**replace_args(char **c_args, char **args, int exp_cycle);
+char		**mini_lexer(char *str);
+char		**join_2d_array(char **s1, char **s2);
+int			var_in_str(char *str);
+void		search_array(char **arr, char **env);
+int			keep_dollar(char *str);
+int			ft_length_dollar(char *s, char c);
 
 #endif
