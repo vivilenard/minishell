@@ -154,6 +154,18 @@ int			ft_pwd(void);
 int			is_specialbuiltin(t_exec *exec);
 void		is_only_dollarsign(char **s);
 
+//echo
+int			ft_echo(t_exec *exec, t_data *data);
+void		out_echo_str(char **args, char **env, char *out, int end);
+int			option_detect(char **args);
+int			is_nnn(char *arg);
+
+//echo utils
+int			is_quote(char c);
+int			count_rm_quotes(char *str);
+void		copy_without_quotes(char *out, char *str);
+char		*quote_cutter(char *str);
+
 //unset
 int			ft_unset(char **args, char ***env);
 int			check_unset(char *str);
