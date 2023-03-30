@@ -44,7 +44,6 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 	int	quote;
 
 	quote = 0;
-	//printf("%c, 	flag: %d\n", str[*i], *flag);
 	if ((str[*i] == '<' || str[*i] == '>' || str[*i] == '|') && *flag == 4)
 		*flag = 0;
 	if (is_char(str[*i], '\"'))
@@ -60,6 +59,20 @@ int	handle_quote(char *str, int *i, int *flag, int *keep_quote)
 		switch_flags(flag, quote, keep_quote);
 		(*i)++;
 		return (1);
+	}
+	return (0);
+}
+
+int	quote_is_unbalanced(int singlequote, int doublequote)
+{
+	if (singlequote % 2 > 0 || doublequote % 2 > 0)
+	{
+		ft_putstr_fd("please end quote ", 2);
+		if (singlequote % 2 > 0)
+			ft_putendl_fd(" \' ", 2);
+		else
+			ft_putendl_fd(" \" ", 2);
+		return (-1);
 	}
 	return (0);
 }

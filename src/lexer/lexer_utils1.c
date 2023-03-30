@@ -36,10 +36,8 @@ char	**makestring(char **split, char *str, int start, int i)
 
 int	jump_delimiters(char *str, int *i)
 {
-	//int	start;
 	int	redir;
 
-	//start = *i;
 	if (ft_iswhitespace(str[*i]))
 	{
 		while (ft_iswhitespace(str[*i]))
@@ -70,7 +68,8 @@ int	jump_redir(char *str, int *i)
 		count = 1;
 	if (is_char(str[*i], '>') || is_char(str[*i], '<') || is_char(str[*i], '|'))
 	{
-		while (is_char(str[*i], '>') || is_char(str[*i], '<') || is_char(str[*i], '|'))
+		while (is_char(str[*i], '>')
+			|| is_char(str[*i], '<') || is_char(str[*i], '|'))
 			*i += 1;
 		if (str[*i] == '\0')
 			count++;

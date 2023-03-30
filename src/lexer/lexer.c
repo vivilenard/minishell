@@ -24,21 +24,17 @@ char	**create_strings(char **split, char *str)
 	int	flag;
 	int	keep_quote;
 	int	start;
-	//int	is_split;
 
 	i = 0;
 	start = 0;
 	flag = 0;
 	keep_quote = 0;
-	//is_split = 0;
 	jump_delimiter_split(split, str, &start, &i);
 	while (str[i])
 	{
 		handle_quote(str, &i, &flag, &keep_quote);
 		if (flag != 1)
 			do_shit(split, str, &i, &start);
-		// if (is_split && flag == 3)
-		// 	flag = 4;
 		if (str[i] && !handle_quote(str, &i, &flag, &keep_quote))
 			i++;
 	}
@@ -75,25 +71,10 @@ int	countstrs(char *str)
 	return (count);
 }
 
-int	quote_is_unbalanced(int singlequote, int doublequote)
-{
-	if (singlequote % 2 > 0 || doublequote % 2 > 0)
-	{
-		ft_putstr_fd("please end quote ", 2);
-		if (singlequote % 2 > 0)
-			ft_putendl_fd(" \' ", 2);
-		else
-			ft_putendl_fd(" \" ", 2);
-		return (-1);
-	}
-	return (0);
-}
-
-
-int recognize_quote(char *str, char c)
+int	recognize_quote(char *str, char c)
 {
 	int	i;
-	int keep_quote;
+	int	keep_quote;
 	int	count;
 	int	flag;
 	int	flagbegin;
@@ -113,7 +94,6 @@ int recognize_quote(char *str, char c)
 			count++;
 		i++;
 	}
-	//printf("count %d\n", count);
 	return (count);
 }
 
@@ -122,7 +102,8 @@ int	lexer(char *str, t_data *data)
 	char	**split;
 	int		strnumber;
 
-	if (quote_is_unbalanced(recognize_quote(str, '\''), recognize_quote(str, '\"')) == -1)
+	if (quote_is_unbalanced(recognize_quote(str, '\''),
+			recognize_quote(str, '\"')) == -1)
 		return (0);
 	str = ft_strtrim(str, "\n\t\v\f\r ");
 	strnumber = countstrs(str) + 1;
@@ -131,7 +112,6 @@ int	lexer(char *str, t_data *data)
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
-	//ft_put2dstr_fd(split, 2);
 	if (!load_tokens(split, data))
 		return (free_data(data), EXIT_FAILURE);
 	return (1);
