@@ -173,6 +173,11 @@ void		write_unset_err_message(char *str);
 
 //export
 int			ft_export(char **args, char ***env);
+int			process_export_args(char **args, int i, char ***env);
+int			update_env(char *category, char *value, char ***env);
+
+//export_utils
+void		export_dclr_message(char **env);
 int			check_export(char *str, char *value);
 void		write_export_err_message(char *str, char *value);
 

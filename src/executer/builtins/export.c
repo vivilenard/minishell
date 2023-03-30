@@ -1,96 +1,53 @@
 #include "../../../include/minishell.h"
 
-void	write_export_err_message(char *str, char *value)
+int	update_env(char *category, char *value, char ***env)
 {
-	char	*err_message;
-	char	*tmp;
-		
-	tmp = ft_strjoin_free_opt(str, "=", 0, 0);
-	err_message = ft_strjoin_free_opt(tmp, value, 1, 0);
-	tmp = ft_strjoin_free_opt("minishell: export: `", err_message, 0, 1);
-	err_message = ft_strjoin_free_opt(tmp, "': not a valid identifier\n", 1, 0);
-	ft_putstr_fd(err_message, 2);
-	free(err_message);
-	g_errno = 1;
+	char	*temp;
+
+	if (category_is_in_env(category, *env))
+		*env = replace_in_env(category, value, *env);
+	else
+	{
+		temp = ft_strjoin(category, "=");
+		*env = add_to_env(ft_strjoin_free_opt(temp, value, 1, 0), *env);
+	}
+	return (g_errno);
 }
 
-int	check_export(char *str, char *value)
+int	process_export_args(char **args, int i, char ***env)
 {
-	int		i;
+	char	*value;
+	char	*category;
 	int		error;
 
 	error = 0;
-	i = 0;
-	if(!ft_isalpha(str[i]) && str[i] != '_')
-		error = 1;
-	i++;
-	if(!error && str[i])
+	if (char_is_in_str(args[i], '='))
 	{
-		while(str[i])
-		{
-			if(!ft_isdigit(str[i]) && !ft_isalpha(str[i]) && str[i] != '_')
-				error = 1;
-			i++;
-		}
+		value = string_split(args[i], '=', 1, 0);
+		value = quote_cutter(value);
+		category = string_split(args[i], '=', 1, 1);
+		if (!check_export(category, value))
+			error = 1;
+		if (!error)
+			update_env(category, value, env);
+		free(value);
+		free(category);
 	}
-	if(error)
-		return(write_export_err_message(str, value), 0);
-	else
-		return(1);
-}
-
-void	export_dclr_message(char **env)
-{
-	int		i;
-	char	*out;
-
-	i = 0;
-	while(env[i])
-	{
-		out = ft_strjoin_free_opt("declare -x ", env[i], 0, 0);
-		ft_putendl_fd(out, 2);
-		free(out);
-		i++;
-	}
+	return (g_errno);
 }
 
 int	ft_export(char **args, char ***env)
 {
-	char	*value;
-	char	*category;
-	char	*temp;
 	int		i;
-	int		error;
 
 	i = 1;
-	error = 0;
 	g_errno = 0;
-	if(!args[i])
+	if (!args[i])
 		export_dclr_message(*env);
-	while(args[i])
+	while (args[i])
 	{
-		error = 0;
-		if(char_is_in_str(args[i], '='))
-		{
-			value = string_split(args[i], '=', 1, 0);
-			value = quote_cutter(value);
-			category = string_split(args[i], '=', 1, 1);
-			if(!check_export(category, value))
-				error = 1;
-			if(!error)
-			{
-				if(category_is_in_env(category, *env))
-						*env = replace_in_env(category, value, *env);
-				else
-				{
-					temp = ft_strjoin(category, "=");
-					*env = add_to_env(ft_strjoin_free_opt(temp, value, 1, 0), *env);
-				}
-			}
-			free(value);
-			free(category);
-		}
+		process_export_args(args, i, env);
 		i++;
 	}
-	return(g_errno);
+	return (g_errno);
 }
