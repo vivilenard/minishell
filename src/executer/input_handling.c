@@ -18,7 +18,6 @@ int	open_infile(t_exec *exec, int *fd, int i)
 	return (0);
 }
 
-
 void	heredoc_as_in(t_exec *exec, int *fd_pipe, int i)
 {
 	if (ft_strncmp(exec->input[i - 2], "<<", 3) == 0)
@@ -57,7 +56,8 @@ int	heredoc(t_exec *exec, int *fd, int i)
 			line = get_next_line(0);
 			if (!line)
 				return (perror("gets no line"), 0);
-			if (ft_strncmp(exec->input[i + 1], line, ft_strlen(exec->input[i + 1])) == 0
+			if (ft_strncmp(exec->input[i + 1],
+					line, ft_strlen(exec->input[i + 1])) == 0
 				&& ft_strlen(line) == ft_strlen(exec->input[i + 1]) + 1)
 			{
 				free (line);
@@ -70,17 +70,3 @@ int	heredoc(t_exec *exec, int *fd, int i)
 	}
 	return (0);
 }
-
-
-// int	heredoc(t_exec *exec, int *fd, int i)
-// {
-// 	if (ft_strncmp(exec->input[i], "<<", 3) == 0)
-// 	{
-		// if (pipe(fd) == -1)
-		// 	return (perror("open heredoc pipe"), -1);
-		//write_heredoc(exec, fd, i);
-		// close(fd[1]);
-		// pipe_as_stdin(fd[0]);
-// 	}
-// 	return (0);
-// }
