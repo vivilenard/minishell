@@ -54,14 +54,12 @@ t_exec	*go_through_exec(t_exec *exec, char **env)
 
 	tmp = NULL;
 	exec = expand(exec, env);
-	// if (!exec->command)
-	// 	command_not_found(exec->command);
 	if (exec->command != NULL)
 	{
 		tmp = exec->args[0];
-		//  if (!exec->args[0])
-		// 	 	command_not_found(exec->command);
 		exec->args[0] = quote_cutter(exec->command);
+		if (!exec->args[0][0])
+			command_not_found(exec->command);
 		free(tmp);
 		exec->command = ft_strdup(exec->args[0]);
 		exec->command = get_path(exec->command, env);
