@@ -21,7 +21,7 @@ int	ft_count_char(char *s, char c)
 
 	count = 0;
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] == c)
 			count++;
@@ -44,6 +44,27 @@ void print_tokens (t_token **token)
 	}
 }
 
+int	redirection_faults(t_token *current)
+{
+	if (current->type == redirection && current->next
+		&& current->next->type == redirection)
+		return (print_syntaxerror_s(current->content), -1);
+	if (current->type == redirection && ft_haystack(current->content, "<")
+		&& ft_haystack(current->content, ">"))
+		return (print_syntaxerror_s("\\n"), -1);
+	if (current->type == redirection
+		&& ft_count_char(current->content, '<') > 2)
+		return (print_syntaxerror_c(current->content[0]), -1);
+	if (current->type == redirection
+		&& ft_count_char(current->content, '>') > 2)
+		return (print_syntaxerror_c(current->content[0]), -1);
+	if (current->type == redirection && ft_haystack(current->content, " "))
+		return (print_syntaxerror_c(current->content[0]), -1);
+	if (!current->next && current->type == redirection)
+		return (print_syntaxerror_s("\\n"), -1);
+	return (0);
+}
+
 int syntax(t_data *data)
 {
 	t_token	*current;
@@ -51,25 +72,13 @@ int syntax(t_data *data)
 
 	current = data->tokens;
 	if (current->type == is_pipe)
-		return(print_syntaxerror_s("|"), 0);
-	while(current)
+		return (print_syntaxerror_s("|"), 0);
+	while (current)
 	{
-		if (current->type == redirection && current->next
-			&& current->next->type == redirection)
-			return (print_syntaxerror_s(current->content), 0);
-		if (current->type == redirection && ft_haystack(current->content, "<")
-			&& ft_haystack(current->content, ">"))
-			return (print_syntaxerror_s("\\n"), 0);
-		if (current->type == redirection && ft_count_char(current->content, '<') > 2)
-			return (print_syntaxerror_c(current->content[0]), 0);
-		if (current->type == redirection && ft_count_char(current->content, '>') > 2)
-			return (print_syntaxerror_c(current->content[0]), 0);
-		if (current->type == redirection && ft_haystack(current->content, " "))
-			return (print_syntaxerror_c(current->content[0]), 0);
+		if (redirection_faults(current) == -1)
+			return (0);
 		if (!current->next && current->type == is_pipe)
-			return(print_syntaxerror_s("|"), 0);
-		if (!current->next && current->type == redirection)
-			return (print_syntaxerror_s("\\n"), 0);
+			return (print_syntaxerror_s("|"), 0);
 		current = current->next;
 	}
 	return (1);
