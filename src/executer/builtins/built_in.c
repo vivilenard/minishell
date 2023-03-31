@@ -39,4 +39,3 @@ int	built_in_child(t_exec *exec, char ***env, t_data *data)
 		return (g_errno = ft_exit(exec->args), exit(g_errno), 1);
 	return (0);
 }
- 
