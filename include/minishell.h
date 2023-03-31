@@ -100,7 +100,7 @@ int			exec_has_pipe(t_token *current);
 //Lexer
 int			lexer(char *str, t_data *data);
 char		**allocate(char **split, int strnumber);
-char		**makestring(char **split, char *str, int start, int i);
+char	**makestring(char **split, char *str, int *start, int *i);
 int			is_delimiter(char c);
 int			jump_delimiters(char *str, int *i);
 int			jump_redir(char *str, int *i);
@@ -108,7 +108,6 @@ int			jump_delimiter_split(char **split, char *str, int *start, int *i);
 int			switch_flags(int *flag, int quote, int *keep_quote);
 int			handle_quote(char *str, int *i, int *flag, int *keep_quote);
 int			is_delimiter(char c);
-char 		**makestring(char **split, char *str, int start, int i);
 int			quote_is_unbalanced(int singlequote, int doublequote);
 int			recognize_quote(char *str, char c);
 int			countstrs(char *str);

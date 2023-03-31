@@ -1,18 +1,39 @@
 #include "../../include/minishell.h"
 
+// int	do_shit(char **split, char *str, int *i, int *start)
+// {
+// 	if (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
+// 	{
+// 		printf("go in do shit %c\n", str[*i]);
+// 			split = makestring(split, str, *start, *i);
+// 	// printf("%sX\n", split[0]);
+// 		while (ft_iswhitespace(str[*i]))
+// 			(*i)++;
+// 		*start = *i;
+ 	//	if (jump_redir(str, i))
+// 			split = makestring(split, str, *start, *i);
+// 		while (ft_iswhitespace(str[*i]))
+// 			(*i)++;
+// 		*start = *i;
+// 		return (1);
+// 	}
+// 	return (0);
+// }
+
 int	do_shit(char **split, char *str, int *i, int *start)
 {
 	if (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
 	{
-		split = makestring(split, str, *start, *i);
-		while (ft_iswhitespace(str[*i]))
-			(*i)++;
-		*start = *i;
-		if (jump_redir(str, i))
-			split = makestring(split, str, *start, *i);
-		while (ft_iswhitespace(str[*i]))
-			(*i)++;
-		*start = *i;
+		//if (split[0])
+		split = makestring(split, str, start, i);
+		if (is_delimiter(str[*i]))
+		{
+			while (is_delimiter(str[*i]))
+				(*i)++;
+			if (!is_delimiter(str[*i]) && !ft_iswhitespace(str[*i]))
+				split = makestring(split, str, start, i);
+			(*i)--;
+		}
 		return (1);
 	}
 	return (0);
@@ -26,10 +47,12 @@ char	**create_strings(char **split, char *str)
 	int	start;
 
 	i = 0;
-	start = 0;
 	flag = 0;
 	keep_quote = 0;
-	jump_delimiter_split(split, str, &start, &i);
+	while(ft_iswhitespace(str[i]))
+		i++;
+	start = i;
+	//jump_delimiter_split(split, str, &start, &i);
 	while (str[i])
 	{
 		handle_quote(str, &i, &flag, &keep_quote);
@@ -38,7 +61,7 @@ char	**create_strings(char **split, char *str)
 		if (str[i] && !handle_quote(str, &i, &flag, &keep_quote))
 			i++;
 	}
-	split = makestring(split, str, start, i);
+	split = makestring(split, str, &start, &i);
 	return (split);
 }
 
@@ -112,7 +135,7 @@ int	lexer(char *str, t_data *data)
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
-	//ft_put2dstr_fd(split, 2);
+	ft_put2dstr_fd(split, 2);
 	if (!load_tokens(split, data))
 		return (free_data(data), EXIT_FAILURE);
 	return (1);

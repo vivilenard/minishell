@@ -28,6 +28,21 @@ int	ft_count_char(char *s, char c)
 	}
 	return (count);
 }
+
+void print_tokens (t_token **token)
+{
+	t_token *current;
+
+	current = *token;
+	while (current)
+	{
+		ft_printf("Token-Content: %s\n", current->content);
+		ft_printf("Token-Type: %d\n", current->type);
+		ft_printf("\n", current->type);
+		current = current->next;
+	}
+}
+
 int syntax(t_data *data)
 {
 	t_token	*current;
@@ -38,6 +53,9 @@ int syntax(t_data *data)
 		return(print_syntaxerror_s("|"), 0);
 	while(current)
 	{
+		if (current->type == redirection && current->next
+			&& current->next->type == redirection)
+			return (print_syntaxerror_c(current->content[0]), 0);
 		if (current->type == redirection && ft_haystack(current->content, "<")
 			&& ft_haystack(current->content, ">"))
 			return (print_syntaxerror_s("\\n"), 0);
@@ -47,8 +65,6 @@ int syntax(t_data *data)
 			return (print_syntaxerror_c(current->content[0]), 0);
 		if (current->type == redirection && ft_haystack(current->content, " "))
 			return (print_syntaxerror_c(current->content[0]), 0);
-		// if (current->type == word && ft_strncmp(current->content, ".", 2) == 0)
-		// 	return (ft_putendl_fd("filename argument required", 2), 0);
 		if (!current->next && current->type == is_pipe)
 			return(print_syntaxerror_s("|"), 0);
 		if (!current->next && current->type == redirection)

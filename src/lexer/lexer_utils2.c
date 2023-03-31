@@ -13,7 +13,7 @@ int	jump_delimiter_split(char **split, char *str, int *start, int *i)
 	{
 		while (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
 			(*i)++;
-		split = makestring(split, str, *start, *i);
+		split = makestring(split, str, start, i);
 		*start = *i;
 		return (1);
 	}
