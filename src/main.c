@@ -1,21 +1,11 @@
 #include "../include/minishell.h"
 
-void	handle_sigint(int sig)
+void	put_new_promptline(void)
 {
-	(void)sig;
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	g_errno = 130;
-}
-
-void	signals(void)
-{
-	rl_catch_signals = 0;
-	rl_clear_signals();
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &handle_sigint);
 }
 
 int	take_input(char **input, char *promptline)
@@ -38,13 +28,15 @@ int	main(int args, char **argv, char **env)
 	char	*input;
 	t_data	*data;
 
-	signals();
 	data = init_data(env, args, argv);
 	while (1)
 	{
+		signals();
 		reset_data(data);
 		if (!take_input(&input, data->promptline))
 			break ;
+		if (ft_strncmp(input, "", 1) == 0)
+			continue ;
 		if (!lexer(input, data))
 			continue ;
 		if (!parse_tokens(data))

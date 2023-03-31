@@ -41,16 +41,3 @@ void	wrong_command(t_exec *exec)
 		exit(2);
 	}
 }
-
-void	handle_sigquit(int sig)
-{
-	(void) sig;
-	exit(3);
-}
-
-void signals_child(void)
-{
-	rl_catch_signals = 0;
-	rl_clear_signals();
-	signal(SIGQUIT, &handle_sigquit);
-}

@@ -45,6 +45,7 @@ void	execute(t_data *data)
 		perror ("close keep_pipe");
 	while (i >= 0)
 	{
+		signal(SIGINT, SIG_IGN);
 		waitpid(0, &pid, 0);
 		i--;
 	}

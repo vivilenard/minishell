@@ -68,7 +68,14 @@ typedef struct s_data
 char		*prompt(t_data *data);
 int			load_tokens(char **split_tokens, t_data *data);
 t_tokentype	content_analyse(t_token *token);
-int 		parse_tokens(t_data *data);
+int			parse_tokens(t_data *data);
+void		put_new_promptline(void);
+
+//Signals
+
+void		signals(void);
+void		signals_child(void);
+void		handle_sigint(int sig);
 
 //Utils
 int			is_char(char place, char c);
