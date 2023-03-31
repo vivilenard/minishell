@@ -2,13 +2,14 @@
 
 void	print_syntaxerror_s(char *s)
 {
-	ft_putstr_fd("syntax error near unexpected token `", 2);
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putendl_fd("'", 2);
 }
+
 void	print_syntaxerror_c(char c)
 {
-	ft_putstr_fd("syntax error near unexpected token `", 2);
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	write(1, &c, 1);
 	ft_putendl_fd("'", 2);
 }
@@ -55,7 +56,7 @@ int syntax(t_data *data)
 	{
 		if (current->type == redirection && current->next
 			&& current->next->type == redirection)
-			return (print_syntaxerror_c(current->content[0]), 0);
+			return (print_syntaxerror_s(current->content), 0);
 		if (current->type == redirection && ft_haystack(current->content, "<")
 			&& ft_haystack(current->content, ">"))
 			return (print_syntaxerror_s("\\n"), 0);

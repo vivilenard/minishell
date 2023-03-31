@@ -52,7 +52,7 @@ char	**create_strings(char **split, char *str)
 	while(ft_iswhitespace(str[i]))
 		i++;
 	start = i;
-	//jump_delimiter_split(split, str, &start, &i);
+	jump_delimiter_split(split, str, &start, &i);
 	while (str[i])
 	{
 		handle_quote(str, &i, &flag, &keep_quote);
@@ -135,7 +135,7 @@ int	lexer(char *str, t_data *data)
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
-	ft_put2dstr_fd(split, 2);
+	//ft_put2dstr_fd(split, 2);
 	if (!load_tokens(split, data))
 		return (free_data(data), EXIT_FAILURE);
 	return (1);
