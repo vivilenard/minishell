@@ -139,7 +139,7 @@ t_token	*write_pipe_out(t_data *data, t_token *current)
 	int i;
 
 	i = data->execs[data->exec_count]->output_written;
-	
+
 	data->execs[data->exec_count]->output[i] = ft_strdup(current->content);
 	data->execs[data->exec_count]->output_written++;
 	current = current->next;

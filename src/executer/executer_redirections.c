@@ -32,7 +32,7 @@ int	file_as_stdin(t_exec *exec)
 	i = 0;
 	fd_file = 0;
 	here_doc = init_heredoc_pipe(exec, fd_pipe);
-	while (exec->input[i])
+	while (exec->input[i] && exec->input[i + 1])
 	{
 		if (open_infile(exec, &fd_file, i) == -1)
 			return (-1);
@@ -52,7 +52,7 @@ int	file_as_stdout(t_exec *exec)
 
 	fd = -1;
 	i = 0;
-	while (exec->output[i])
+	while (exec->output[i] && exec->output[i + 1])
 	{
 		if (ft_strncmp(exec->output[i], ">>", 3) == 0)
 			fd = open (exec->output[i + 1], O_CREAT

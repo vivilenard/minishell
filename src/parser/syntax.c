@@ -30,19 +30,19 @@ int	ft_count_char(char *s, char c)
 	return (count);
 }
 
-void print_tokens (t_token **token)
-{
-	t_token *current;
+// void print_tokens (t_token **token)
+// {
+// 	t_token *current;
 
-	current = *token;
-	while (current)
-	{
-		ft_printf("Token-Content: %s\n", current->content);
-		ft_printf("Token-Type: %d\n", current->type);
-		ft_printf("\n", current->type);
-		current = current->next;
-	}
-}
+// 	current = *token;
+// 	while (current)
+// 	{
+// 		ft_printf("Token-Content: %s\n", current->content);
+// 		ft_printf("Token-Type: %d\n", current->type);
+// 		ft_printf("\n", current->type);
+// 		current = current->next;
+// 	}
+// }
 
 int	redirection_faults(t_token *current)
 {

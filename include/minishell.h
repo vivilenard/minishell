@@ -214,4 +214,6 @@ int			var_in_str(char *str);
 int			keep_dollar(char *str);
 int			ft_length_dollar(char *s, char c);
 
+void	print_execs(t_data *data);
+
 #endif

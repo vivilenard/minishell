@@ -11,8 +11,8 @@ char	*find_correct_path(char **paths, char *command)
 		return (ft_strdup(command));
 	 if (ft_strncmp(command, ".", 2) == 0)
 		return (ft_strdup(command));
-	if (ft_haystack(command, "./") || ft_haystack(command, "/"))
-		return (NULL);
+	// if (ft_haystack(command, "./") || ft_haystack(command, "/"))
+	// 	return (NULL);
 	backslash_command = ft_strjoin("/", command);
 	while (paths && paths[i])
 	{

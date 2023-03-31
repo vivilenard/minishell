@@ -1,0 +1,82 @@
+
+/Users/vlenard/coding/shell/tests
+
+EXEC[0]
+---------------------------------------------
+Command:	pwd
+Input:	
+(null)
+Arguments:	
+- arg[0]:	pwd
+Output: 
+(null)
+---------------------------------------------
+/Users
+
+EXEC[0]
+---------------------------------------------
+Command:	pwd
+Input:	
+(null)
+Arguments:	
+- arg[0]:	pwd
+Output: 
+(null)
+---------------------------------------------
+
+EXEC[0]
+---------------------------------------------
+Command:	cd
+Input:	
+(null)
+Arguments:	
+- arg[0]:	cd
+- arg[1]:	/Users
+Output: 
+(null)
+---------------------------------------------
+
+EXEC[0]
+---------------------------------------------
+Command:	pwd
+Input:	
+(null)
+Arguments:	
+- arg[0]:	pwd
+Output: 
+(null)
+---------------------------------------------
+
+EXEC[0]
+---------------------------------------------
+Command:	pwd
+Input:	
+(null)
+Arguments:	
+- arg[0]:	pwd
+Output: 
+(null)
+---------------------------------------------
+
+EXEC[0]
+---------------------------------------------
+Command:	cd
+Input:	
+(null)
+Arguments:	
+- arg[0]:	cd
+- arg[1]:	/Users
+Output: 
+(null)
+---------------------------------------------
+
+EXEC[0]
+---------------------------------------------
+Command:	pwd
+Input:	
+(null)
+Arguments:	
+- arg[0]:	pwd
+Output: 
+(null)
+---------------------------------------------
