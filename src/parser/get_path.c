@@ -33,7 +33,7 @@ char	*find_correct_path(char **paths, char *command)
 		return (ft_strdup(command));
 	if (ft_strncmp(command, ".", 2) == 0)
 		return (ft_strdup(command));
-	if ((ft_strncmp(command, "./", 2) == 0 || ft_strncmp(command, "/", 1) == 0) 
+	if ((ft_strncmp(command, "./", 2) == 0 || ft_strncmp(command, "/", 1) == 0)
 		&& is_fakecommand(paths, command))
 		return (NULL);
 	backslash_command = ft_strjoin("/", command);

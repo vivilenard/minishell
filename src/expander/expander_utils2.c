@@ -54,7 +54,7 @@ void	command_not_found(char *s)
 	if (ft_strncmp(s, "./", 2) == 0 || ft_strncmp(s, "/", 1) == 0)
 	{
 		ft_putstr_fd(": No such file or directory\n", 2);
-		exit(127);	
+		exit (127);
 	}
 	ft_putstr_fd(": command not found\n", 2);
 	exit(127);

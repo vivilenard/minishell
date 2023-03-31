@@ -73,6 +73,7 @@ void print_tokens (t_token **token)
 		current = current->next;
 	}
 }
+
 int	main(int args, char **argv, char **env)
 {
 	char	*input;
@@ -89,19 +90,13 @@ int	main(int args, char **argv, char **env)
 			continue ;
 		if (!lexer(input, data))
 			continue ;
-		//print_tokens(&data->tokens);
 		if (!parse_tokens(data))
 			continue ;
-		//printtokens(data->execs);
-		//print_execs(data);
 		if (!expander(data->execs, data->env))
 			continue ;
-		//printf("hi\n");
-		//printtokens(data->execs);
 		executer(data);
 		free_exec(data, input);
 	}
 	free_data(data);
-	//system ("leaks minishell");
 	return (g_errno);
 }

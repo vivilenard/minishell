@@ -1,30 +1,9 @@
 #include "../../include/minishell.h"
 
-// int	do_shit(char **split, char *str, int *i, int *start)
-// {
-// 	if (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
-// 	{
-// 		printf("go in do shit %c\n", str[*i]);
-// 			split = makestring(split, str, *start, *i);
-// 	// printf("%sX\n", split[0]);
-// 		while (ft_iswhitespace(str[*i]))
-// 			(*i)++;
-// 		*start = *i;
- 	//	if (jump_redir(str, i))
-// 			split = makestring(split, str, *start, *i);
-// 		while (ft_iswhitespace(str[*i]))
-// 			(*i)++;
-// 		*start = *i;
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
 int	do_shit(char **split, char *str, int *i, int *start)
 {
 	if (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
 	{
-		//if (split[0])
 		split = makestring(split, str, start, i);
 		if (is_delimiter(str[*i]))
 		{
@@ -49,7 +28,7 @@ char	**create_strings(char **split, char *str)
 	i = 0;
 	flag = 0;
 	keep_quote = 0;
-	while(ft_iswhitespace(str[i]))
+	while (ft_iswhitespace(str[i]))
 		i++;
 	start = i;
 	jump_delimiter_split(split, str, &start, &i);

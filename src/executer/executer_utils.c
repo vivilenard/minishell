@@ -1,8 +1,8 @@
 #include "../../include/minishell.h"
 
-int	error_codes(int	pid)
+int	error_codes(int pid)
 {
-	int err;
+	int	err;
 
 	err = 0;
 	if (WIFEXITED(pid))
