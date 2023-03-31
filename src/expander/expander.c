@@ -60,7 +60,6 @@ char	*look_for_dollar(char *str, char **env)
 	char	*replaced_str;
 
 	i = 0;
-	//printf("in lfd\n");
 	if (!str || !str[0])
 		return (str);
 	while (str[i])
@@ -94,7 +93,6 @@ t_exec	*expand(t_exec *exec, char **env)
 			exec->command = look_for_dollar(exec->command, env);
 			exp_cycle++;
 		}
-		//printf("after lfd\n");
 		tmp_2d = mini_lexer(exec->command);
 		args = dupclicate_2d(exec->args);
 		ft_free2d(exec->args);

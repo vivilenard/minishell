@@ -1,5 +1,27 @@
 #include "../../include/minishell.h"
 
+int	is_fakecommand(char **paths, char *tmp)
+{
+	char	*command;
+	char	*backslash_command;
+	char	*path_command;
+	int		i;
+
+	i = 0;
+	command = ft_strtrim(tmp, "./");
+	backslash_command = ft_strjoin("/", command);
+	free(command);
+	while (paths && paths[i])
+	{
+		path_command = ft_strjoin(paths[i], backslash_command);
+		if (access(path_command, X_OK) == 0)
+			return (free(backslash_command), free(path_command), 1);
+		free (path_command);
+		i++;
+	}
+	return (0);
+}
+
 char	*find_correct_path(char **paths, char *command)
 {
 	int		i;
@@ -9,10 +31,13 @@ char	*find_correct_path(char **paths, char *command)
 	i = 0;
 	if (ft_strncmp(command, "..", 3) == 0)
 		return (ft_strdup(command));
-	 if (ft_strncmp(command, ".", 2) == 0)
+	if (ft_strncmp(command, ".", 2) == 0)
 		return (ft_strdup(command));
 	// if (ft_haystack(command, "./") || ft_haystack(command, "/"))
 	// 	return (NULL);
+	if ((ft_strncmp(command, "./", 2) == 0 || ft_strncmp(command, "/", 1) == 0) 
+		&& is_fakecommand(paths, command))
+		return (NULL);
 	backslash_command = ft_strjoin("/", command);
 	while (paths && paths[i])
 	{

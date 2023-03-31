@@ -97,10 +97,11 @@ int	main(int args, char **argv, char **env)
 		if (!expander(data->execs, data->env))
 			continue ;
 		//printf("hi\n");
-		printtokens(data->execs);
+		//printtokens(data->execs);
 		executer(data);
 		free_exec(data, input);
 	}
 	free_data(data);
+	//system ("leaks minishell");
 	return (g_errno);
 }
