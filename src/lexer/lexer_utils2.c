@@ -7,15 +7,33 @@ int	is_delimiter(char c)
 	return (0);
 }
 
+//int	jump_delimiter_split(char **split, char *str, int *start, int *i)
+// {
+// 	if (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
+// 	{
+// 		while (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
+// 			(*i)++;
+// 		split = makestring(split, str, start, i);
+// 		*start = *i;
+// 		return (1);
+// 	}
+// 	return (0);
+// }
+
 int	jump_delimiter_split(char **split, char *str, int *start, int *i)
 {
-	if (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
+	while (is_delimiter(str[*i]))
 	{
-		while (is_delimiter(str[*i]) || ft_iswhitespace(str[*i]))
+		while (is_delimiter(str[*i]))
 			(*i)++;
-		split = makestring(split, str, *start, *i);
+		split = makestring(split, str, start, i);
+		if (ft_iswhitespace(str[*i]))
+		{
+			while(ft_iswhitespace(str[*i]))
+				(*i)++;
+		}
 		*start = *i;
-		return (1);
+		//return (1);
 	}
 	return (0);
 }

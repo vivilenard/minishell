@@ -14,23 +14,27 @@ char	**allocate(char **split, int strnumber)
 	return (split);
 }
 
-char	**makestring(char **split, char *str, int start, int i)
+char	**makestring(char **split, char *str, int *start, int *i)
 {
 	int		count;
 	int		range;
 	char	*tmp;
 
 	count = 0;
-	range = i - start;
+	range = *i - *start;
 	tmp = NULL;
 	while (split[count])
 		count++;
 	split[count] = malloc(range + 1);
 	split[count][range] = '\0';
-	ft_strlcpy(split[count], str + start, range + 1);
+	ft_strlcpy(split[count], str + *start, range + 1);
 	tmp = split[count];
+		//printf("%sX\n", split[count]);
 	split[count] = ft_strtrim(split[count], "\n\t\v\f\r ");
 	free(tmp);
+	while (ft_iswhitespace(str[*i]))
+		(*i)++;
+	*start = *i;
 	return (split);
 }
 
