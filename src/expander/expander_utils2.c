@@ -44,6 +44,18 @@ void	command_not_found(char *s)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(s, 2);
+	if (ft_strlen(s) > 1 && s[ft_strlen(s) - 1] == '/')
+	{
+		ft_putstr_fd(": is a directory\n", 2);
+		if (ft_strncmp(s, "/bin/", 6) == 0)
+			exit (126);
+		exit(127);
+	}
+	if (ft_strncmp(s, "./", 2) == 0 || ft_strncmp(s, "/", 1) == 0)
+	{
+		ft_putstr_fd(": No such file or directory\n", 2);
+		exit(127);	
+	}
 	ft_putstr_fd(": command not found\n", 2);
 	exit(127);
 }

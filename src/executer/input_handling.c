@@ -52,7 +52,7 @@ int	heredoc(t_exec *exec, int *fd, int i)
 	{
 		while (1)
 		{
-			ft_putstr_fd("heredoc>", 1);
+			ft_putstr_fd("> ", 1);
 			line = get_next_line(0);
 			if (!line)
 				return (perror("gets no line"), 0);
