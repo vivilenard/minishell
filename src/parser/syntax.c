@@ -7,6 +7,7 @@ void	print_syntaxerror_s(char *s)
 	ft_putendl_fd("'", 2);
 }
 
+
 void	print_syntaxerror_c(char c)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
@@ -21,6 +22,7 @@ int	ft_count_char(char *s, char c)
 
 	count = 0;
 	i = 0;
+	while (s[i])
 	while (s[i])
 	{
 		if (s[i] == c)
@@ -68,8 +70,6 @@ int	redirection_faults(t_token *current)
 int syntax(t_data *data)
 {
 	t_token	*current;
-	//print_tokens(&data->tokens);
-
 	current = data->tokens;
 	if (current->type == is_pipe)
 		return (print_syntaxerror_s("|"), 0);

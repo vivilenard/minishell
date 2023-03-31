@@ -20,9 +20,9 @@ void	free_tokens(t_data *data)
 	}
 }
 
-void free_exec(t_data *data, char *input)
+void	free_exec(t_data *data, char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (data->execs[i])

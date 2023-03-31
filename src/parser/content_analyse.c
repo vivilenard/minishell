@@ -9,12 +9,12 @@ int	ft_islower(int c)
 	return (0);
 }
 
-int is_option(char *str)
+int	is_option(char *str)
 {
 	int	i;
 
 	i = 0;
-	if(str[i] == '"' || str[i] == '\'')
+	if (str[i] == '"' || str[i] == '\'')
 		i++;
 	if (str[i] != '-')
 		return (0);
@@ -24,7 +24,7 @@ int is_option(char *str)
 		return (0);
 	while (ft_islower(str[i]))
 		i++;
-	if(str[i] == '"' || str[i] == '\'')
+	if (str[i] == '"' || str[i] == '\'')
 		return (1);
 	else
 		return (0);
@@ -32,19 +32,19 @@ int is_option(char *str)
 
 t_tokentype	content_analyse(t_token *token)
 {
-	if(token->content)
+	if (token->content)
 	{	
 		if (token->content[0] == '<' || token->content[0] == '>')
 		{
-			if((token->content[0] == '<' && token->content[1] == '>')
+			if ((token->content[0] == '<' && token->content[1] == '>')
 				|| (token->content[0] == '>' && token->content[1] == '<'))
-					exit(2);
-			return(redirection);
+				exit(2);
+			return (redirection);
 		}
 		else if (token->content[0] == '|')
-			return(is_pipe);
+			return (is_pipe);
 		else
-			return(word);	
+			return (word);
 	}
-	return(empty);
+	return (empty);
 }
