@@ -1,38 +1,4 @@
-
 #include "../../include/minishell.h"
-
-int	is_outer(char *str, char c)
-{
-	if (str && ft_strlen(str) > 2)
-	{
-		if(str[0] == c && str[ft_strlen(str) - 1] == c)
-			return (1);
-	}
-	return (0);
-}
-
-char *cut_outer_quotes(char *str)
-{
-	//char	*tmp;
-	char	c;
-
-	c = '\0';
-	//tmp = NULL;
-	if(is_outer(str, '\''))
-		c = '\'';
-	else if(is_outer(str, '\"'))
-		c = '\"';
-	while(is_outer(str, c))
-	{
-		//printf("%s\n", str);
-		str = ft_substr(str, 1, ft_strlen(str) - 2);
-		//free(str);
-		//str = ft_strdup(tmp);
-		//printf("%s\n", tmp);
-		//free(tmp);
-	}
-	return(str);
-}
 
 t_token	*ft_new_token(char *str)
 {
@@ -46,8 +12,6 @@ t_token	*ft_new_token(char *str)
 		new_token->content = ft_strdup(str);
 	new_token->next = NULL;
 	new_token->type = content_analyse(new_token);
-	// if(new_token->type == word)
-	// 	new_token->content = cut_outer_quotes(new_token->content);
 	return (new_token);
 }
 
@@ -87,19 +51,19 @@ int	init_token(t_token **tokens, char *str)
 	return (0);
 }
 
-int load_tokens(char **split_tokens, t_data *data)
+int	load_tokens(char **split_tokens, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	data->tokens = NULL;
-	while(split_tokens[i])
+	while (split_tokens[i])
 	{
-		if(init_token(&data->tokens, split_tokens[i]))
-			return(ft_free2d(split_tokens), 0);
+		if (init_token(&data->tokens, split_tokens[i]))
+			return (ft_free2d(split_tokens), 0);
 		i++;
 	}
-	if(split_tokens)
+	if (split_tokens)
 		ft_free2d(split_tokens);
 	return (1);
 }

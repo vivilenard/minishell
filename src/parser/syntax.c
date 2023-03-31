@@ -6,6 +6,7 @@ void	print_syntaxerror_s(char *s)
 	ft_putstr_fd(s, 2);
 	ft_putendl_fd("'", 2);
 }
+
 void	print_syntaxerror_c(char c)
 {
 	ft_putstr_fd("syntax error near unexpected token `", 2);
@@ -20,7 +21,7 @@ int	ft_count_char(char *s, char c)
 
 	count = 0;
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] == c)
 			count++;
@@ -28,15 +29,14 @@ int	ft_count_char(char *s, char c)
 	}
 	return (count);
 }
-int syntax(t_data *data)
+
+int	syntax(t_data *data)
 {
 	t_token	*current;
-	//print_tokens(&data->tokens);
-
 	current = data->tokens;
 	if (current->type == is_pipe)
-		return(print_syntaxerror_s("|"), 0);
-	while(current)
+		return (print_syntaxerror_s("|"), 0);
+	while (current)
 	{
 		if (current->type == redirection && ft_haystack(current->content, "<")
 			&& ft_haystack(current->content, ">"))

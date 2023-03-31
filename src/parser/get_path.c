@@ -9,7 +9,7 @@ char	*find_correct_path(char **paths, char *command)
 	i = 0;
 	if (ft_strncmp(command, "..", 3) == 0)
 		return (ft_strdup(command));
-	 if (ft_strncmp(command, ".", 2) == 0)
+	if (ft_strncmp(command, ".", 2) == 0)
 		return (ft_strdup(command));
 	if (ft_haystack(command, "./") || ft_haystack(command, "/"))
 		return (NULL);
@@ -29,35 +29,20 @@ char	*find_correct_path(char **paths, char *command)
 int	is_built_in(char *command)
 {
 	if (ft_strncmp(command, "echo", 5) == 0)
-	 	return(1);
+		return (1);
 	else if (ft_strncmp(command, "cd", 3) == 0)
-	 	return(1);
+		return (1);
 	else if (ft_strncmp(command, "pwd", 4) == 0)
-	 	return(1);
+		return (1);
 	else if (ft_strncmp(command, "export", 7) == 0)
-	 	return(1);
+		return (1);
 	else if (ft_strncmp(command, "unset", 6) == 0)
-	 	return(1);
+		return (1);
 	else if (ft_strncmp(command, "env", 4) == 0)
-		return(1);
+		return (1);
 	else if (ft_strncmp(command, "exit", 5) == 0)
-		return(1);
-	return(0);
-}
-
-int	is_childless_built_in(char *command)
-{
-/* 	if (ft_strncmp(command, "pwd", 5) == 0)
-	 	return(1); */
-	if (ft_strncmp(command, "cd", 3) == 0)
-	 	return(1);
-	else if (ft_strncmp(command, "export", 7) == 0)
-	 	return(1);
-	else if (ft_strncmp(command, "unset", 6) == 0)
-	 	return(1);
-	else if (ft_strncmp(command, "exit", 5) == 0)
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
 char	*ft_searchbinary(char **env, char *s)
@@ -86,15 +71,7 @@ char	*get_path(char *command, char **env)
 	env_paths = ft_searchbinary(env, "PATH");
 	paths = ft_split(env_paths, ':');
 	correct_path = find_correct_path(paths, command);
-	if(!correct_path)
+	if (!correct_path)
 		return (ft_free2d(paths), command);
-		//system ("leaks shell");
 	return (ft_free2d(paths), free (command), correct_path);
 }
-
-// int main ()
-// {
-// 	printf("%s\n",	get_path("echo"));
-// 	system ("leaks shell");
-// 	return (0);
-// }

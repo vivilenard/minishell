@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void print_execs(t_data *data)
+/* void print_execs(t_data *data)
 {
 	int i;
 	int j;
@@ -38,13 +38,13 @@ void print_execs(t_data *data)
 		j = 0;
 		i++;
 	}
-}
+} */
 
 int	get_exec_count(t_token	*current)
 {
 	int		exec_count;
 
-	if(!current)
+	if (!current)
 		exec_count = 0;
 	else
 		exec_count = 1;
@@ -54,45 +54,44 @@ int	get_exec_count(t_token	*current)
 			exec_count++;
 		current = current->next;
 	}
-	//ft_printf("EXEC Count is: %i \n", exec_count);
 	return (exec_count);
 }
 
-int get_output_num(t_token *current)
+int	get_output_num(t_token *current)
 {
-	t_token *tmp;
+	t_token	*tmp;
 	int		count;
 
 	count = 0;
 	tmp = current;
-	while(tmp && tmp->type != is_pipe)
+	while (tmp && tmp->type != is_pipe)
 	{
-		if(tmp->type == redirection && tmp->content[0] == '>')
+		if (tmp->type == redirection && tmp->content[0] == '>')
 			count++;
 		tmp = tmp->next;
 	}
-	return(count);
+	return (count);
 }
 
-int get_input_num(t_token *current)
+int	get_input_num(t_token *current)
 {
-	t_token *tmp;
+	t_token	*tmp;
 	int		count;
 
 	count = 0;
 	tmp = current;
-	while(tmp && tmp->type != is_pipe)
+	while (tmp && tmp->type != is_pipe)
 	{
-		if(tmp->type == redirection && tmp->content[0] == '<')
+		if (tmp->type == redirection && tmp->content[0] == '<')
 			count++;
 		tmp = tmp->next;
 	}
-	return(count);
+	return (count);
 }
 
-int exec_has_pipe(t_token *current)
+int	exec_has_pipe(t_token *current)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = current;
 	while (tmp)
@@ -116,35 +115,10 @@ int	get_arg_num(t_token *current)
 	tmp = current;
 	while (tmp && tmp->type != is_pipe)
 	{
-		if(tmp->type == redirection)
+		if (tmp->type == redirection)
 			red_count ++;
 		arg_count++;
 		tmp = tmp->next;
 	}
-	return(arg_count - (red_count * 2));
-}
-
-void	write_pipe_in(t_data *data)
-{
-	int i;
-
-	i = data->execs[data->exec_count]->input_written;
-	data->execs[data->exec_count]->input[i] = ft_strdup("|");
-	data->pipeflag = 0;
-	data->execs[data->exec_count]->input_written++;
-}
-
-t_token	*write_pipe_out(t_data *data, t_token *current)
-{
-	int i;
-
-	i = data->execs[data->exec_count]->output_written;
-	
-	data->execs[data->exec_count]->output[i] = ft_strdup(current->content);
-	data->execs[data->exec_count]->output_written++;
-	current = current->next;
-	data->pipeflag = 1;
-	data->arg_count = 0;
-	data->exec_count++;
-	return(current);
+	return (arg_count - (red_count * 2));
 }

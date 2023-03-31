@@ -86,12 +86,31 @@ t_data		*init_data(char **env, int args, char **argv);
 void		reset_data(t_data *data);
 void		free_exec(t_data *data, char *input);
 char		**dupclicate_2d(char **str);
-char		*ft_strjoin_s_e(char **args, int start, int end, char* c);
+char		*ft_strjoin_s_e(char **args, int start, int end, char *c);
 int			syntax(t_data *data);
 
 //Parser
 void		init_exec(t_data *data, t_token *current);
+int			parse_tokens(t_data *data);
+t_token		*process_token(t_data *data, t_token *current);
+
+//Parser Utils
 t_token		*write_redirection(t_data *data, t_token *current);
+t_token		*write_args(t_data *data, t_token *current);
+t_token		*write_output(t_data *data, t_token *current);
+t_token		*write_input(t_data *data, t_token *current);
+void		get_command(t_data *data);
+
+//Parser Utils 2
+int			get_exec_count(t_token	*current);
+int			get_output_num(t_token *current);
+int			get_input_num(t_token *current);
+int			exec_has_pipe(t_token *current);
+int			get_arg_num(t_token *current);
+
+//Parser Utils 3
+t_token		*write_pipe_out(t_data *data, t_token *current);
+void		write_pipe_in(t_data *data);
 
 //Utils Parser
 int			get_exec_count(t_token	*current);
@@ -115,7 +134,7 @@ int			jump_delimiter_split(char **split, char *str, int *start, int *i);
 int			switch_flags(int *flag, int quote, int *keep_quote);
 int			handle_quote(char *str, int *i, int *flag, int *keep_quote);
 int			is_delimiter(char c);
-char 		**makestring(char **split, char *str, int start, int i);
+char		**makestring(char **split, char *str, int start, int i);
 int			quote_is_unbalanced(int singlequote, int doublequote);
 int			recognize_quote(char *str, char c);
 int			countstrs(char *str);

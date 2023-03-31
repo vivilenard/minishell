@@ -1,13 +1,13 @@
 #include "../../include/minishell.h"
 
-int is_var(char *str, int i)
+int	is_var(char *str, int i)
 {
 	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return(0);
+		return (0);
 	while (str[i] && str[i] != ' ')
 	{
 		if (!ft_isdigit(str[i]) && !ft_isalpha(str[i]) && str[i] != '_')
-			return(0);
+			return (0);
 		i++;
 	}
 	return (1);
@@ -27,8 +27,8 @@ int	var_in_str(char *str)
 		else if (!sq_flag && str[i] == '\'')
 			sq_flag = 1;
 		if (str[i] == '$' && !sq_flag && str[i + 1])
-			if(is_var(str, i + 1))
-				return(1);
+			if (is_var(str, i + 1))
+				return (1);
 		i++;
 	}
 	return (0);
