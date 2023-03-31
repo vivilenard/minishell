@@ -21,9 +21,21 @@ char	*ft_replace_var(char **env, char *dollar)
 	{
 		value = search_var_in_env(behind_dollar[0], env);
 	}
-		value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
+	value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
 	ft_free2d(behind_dollar);
 	return (value);
+}
+
+int	is_inquotes(char *str)
+{
+	if (str && ft_strlen(str) > 2)
+	{
+		if (str[0] == '\"' && str[ft_strlen(str) - 1] == '\"')
+			return (1);
+		else if(str[0] == '\'' && str[ft_strlen(str) - 1] == '\'')
+			return (1);
+	}
+	return (0);
 }
 
 char	*replace_string(char *s, char **env)
@@ -35,7 +47,6 @@ char	*replace_string(char *s, char **env)
 
 	i = 0;
 	flag = 0;
-	finalstring = NULL;
 	while (s[i] && s[i] != '$')
 		i++;
 	finalstring = ft_substr(s, 0, i);
@@ -51,7 +62,9 @@ char	*replace_string(char *s, char **env)
 		}
 		i++;
 	}
-	return (minimize_whitespace(finalstring));
+	if (!is_inquotes(finalstring))
+		finalstring = minimize_whitespace(finalstring);
+	return (finalstring);
 }
 
 char	*look_for_dollar(char *str, char **env)
