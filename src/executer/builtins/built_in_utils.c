@@ -69,20 +69,3 @@ int	is_specialbuiltin(t_exec *exec)
 		return (1);
 	return (0);
 }
-
-void	is_only_dollarsign(char **str)
-{
-	int		i;
-	char	*s;
-
-	s = *str;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] != '$')
-			return ;
-		i++;
-	}
-	free(s);
-	*str = ft_strdup("$");
-}

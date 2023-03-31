@@ -23,3 +23,15 @@ t_token	*write_pipe_out(t_data *data, t_token *current)
 	data->exec_count++;
 	return (current);
 }
+
+int	is_inquotes(char *str)
+{
+	if (str && ft_strlen(str) > 2)
+	{
+		if (str[0] == '\"' && str[ft_strlen(str) - 1] == '\"')
+			return (1);
+		else if (str[0] == '\'' && str[ft_strlen(str) - 1] == '\'')
+			return (1);
+	}
+	return (0);
+}

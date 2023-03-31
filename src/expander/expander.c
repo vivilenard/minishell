@@ -26,18 +26,6 @@ char	*ft_replace_var(char **env, char *dollar)
 	return (value);
 }
 
-int	is_inquotes(char *str)
-{
-	if (str && ft_strlen(str) > 2)
-	{
-		if (str[0] == '\"' && str[ft_strlen(str) - 1] == '\"')
-			return (1);
-		else if(str[0] == '\'' && str[ft_strlen(str) - 1] == '\'')
-			return (1);
-	}
-	return (0);
-}
-
 char	*replace_string(char *s, char **env)
 {
 	char	*finalstring;
