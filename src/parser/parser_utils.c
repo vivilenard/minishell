@@ -68,9 +68,6 @@ t_token	*write_input(t_data *data, t_token *current)
 
 t_token	*write_redirection(t_data *data, t_token *current)
 {
-	int	j;
-
-	j = 0;
 	if (current->content[0] == '<')
 		current = write_input(data, current);
 	else
