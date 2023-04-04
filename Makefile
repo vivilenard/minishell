@@ -22,6 +22,14 @@ all: $(NAME)
 
 $(NAME): $(SRC) $(LIBFT) $(DOWNLOADFOLDER)
 	$(CC) $(CFLAGS) $(SRC) $(INCFLAG) $(LINK) -o $(NAME)
+LSANLIB = /LeakSanitizer/liblsan.a
+lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
+lsan: LINK += -LLeakSanitizer -llsan -lc++
+lsan: fclean $(LSANLIB)
+lsan: all
+$(LSANLIB):
+	@if [ ! -d "LeakSanitizer" ]; then git clone https://github.com/mhahnFr/LeakSanitizer.git; fi
+	@$(MAKE) -C LeakSanitizer
 s: $(NAME)
 	./$(NAME)
 clean:

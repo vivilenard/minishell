@@ -9,7 +9,7 @@ char	*ft_replace_var(char **env, char *dollar)
 	if (!dollar)
 		return (value);
 	if (keep_dollar(dollar) == 1)
-		return (ft_strdup(dollar - 1));
+		return (dollar - 1);
 	behind_dollar = if_split_contains_sentence(dollar);
 	if (ft_strncmp(behind_dollar[0], "?", 1) == 0)
 	{
@@ -23,6 +23,7 @@ char	*ft_replace_var(char **env, char *dollar)
 	}
 	value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
 	ft_free2d(behind_dollar);
+	free(dollar - 1);
 	return (value);
 }
 
@@ -77,27 +78,27 @@ char	*look_for_dollar(char *str, char **env)
 	return (str);
 }
 
-t_exec	*expand(t_exec *exec, char **env)
-{
-	char	**tmp_2d;
-	char	**args;
-	int		exp_cycle;
+// t_exec	*expand(t_exec *exec, char **env)
+// {
+// 	char	**tmp_2d;
+// 	char	**args;
+// 	int		exp_cycle;
 
-	if (var_in_str(exec->command) && ft_strncmp(exec->command, "echo", 5) != 0)
-	{
-		exp_cycle = 0;
-		while (var_in_str(exec->command) && ++exp_cycle)
-			exec->command = look_for_dollar(exec->command, env);
-		tmp_2d = mini_lexer(exec->command);
-		args = dupclicate_2d(exec->args);
-		exec->args = replace_args(tmp_2d, args, exp_cycle);
-		free(exec->command);
-		exec->command = ft_strdup(exec->args[0]);
-		ft_free2d(tmp_2d);
-		ft_free2d(args);
-	}
-	return (exec);
-}
+// 	if (var_in_str(exec->command) && ft_strncmp(exec->command, "echo", 5) != 0)
+// 	{
+// 		exp_cycle = 0;
+// 		while (var_in_str(exec->command) && ++exp_cycle)
+// 			exec->command = look_for_dollar(exec->command, env);
+// 		tmp_2d = mini_lexer(exec->command);
+// 		args = dupclicate_2d(exec->args);
+// 		exec->args = replace_args(tmp_2d, args, exp_cycle);
+// 		free(exec->command);
+// 		exec->command = ft_strdup(exec->args[0]);
+// 		ft_free2d(tmp_2d);
+// 		ft_free2d(args);
+// 	}
+// 	return (exec);
+// }
 
 t_exec	**expander(t_exec **exec, char **env)
 {
