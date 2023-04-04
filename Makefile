@@ -8,7 +8,7 @@ SRC = 	$(addprefix $(SRCPATH),  main.c parser/utils_prep.c utils.c parser/load_t
 		parser/syntax.c \
 		lexer/lexer.c lexer/lexer_utils1.c lexer/lexer_utils2.c parser/parser.c \
 		parser/parser_utils.c parser/parser_utils_2.c parser/parser_utils_3.c \
-		executer/executer.c executer/executer_redirections.c executer/input_handling.c executer/executer_utils.c expander/expander.c \
+		executer/executer.c executer/executer_redirections.c executer/input_handling.c executer/executer_utils.c expander/expander.c expander/expander_replace.c\
 		expander/expander_utils.c expander/expander_utils2.c expander/expander_varinvar.c parser/get_path.c /executer/builtins/built_in.c executer/builtins/built_in_utils.c \
 		executer/builtins/env.c executer/builtins/echo.c executer/builtins/echo_utils.c executer/builtins/export.c \
 		executer/builtins/export_utils.c executer/builtins/unset.c executer/builtins/cd.c executer/builtins/pwd.c executer/builtins/exit.c signals.c)  

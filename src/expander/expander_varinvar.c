@@ -34,33 +34,6 @@ int	var_in_str(char *str)
 	return (0);
 }
 
-char	**join_2d_array(char **s1, char **s2)
-{
-	char	**out;
-	int		i;
-	int		j;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (s2);
-	if (!s2)
-		return (s1);
-	i = 0;
-	j = 0;
-	out = (char **) malloc(sizeof(char *)
-			* (ft_2darraylen(s1) + ft_2darraylen(s2) + 1));
-	if (!out)
-		return (NULL);
-	while (s1[j])
-		out[i++] = ft_strdup(s1[j++]);
-	j = 0;
-	while (s2[j])
-		out[i++] = ft_strdup(s2[j++]);
-	out[i] = NULL;
-	return (out);
-}
-
 char	**mini_lexer(char *str)
 {
 	char	**split;

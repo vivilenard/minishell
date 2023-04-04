@@ -233,5 +233,8 @@ char		**join_2d_array(char **s1, char **s2);
 int			var_in_str(char *str);
 int			keep_dollar(char *str);
 int			ft_length_dollar(char *s, char c);
+char		*replace_string(char *s, char **env);
+char		*rplc_fnlstring(char *finalstring,
+				char *substr, char **env, int flag);
 
 #endif
