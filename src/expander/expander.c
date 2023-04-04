@@ -18,12 +18,23 @@ char	*ft_replace_var(char **env, char *dollar)
 			value = ft_strjoin_free_opt(value, behind_dollar[0] + 1, 1, 0);
 	}
 	else
-	{
 		value = search_var_in_env(behind_dollar[0], env);
-	}
 	value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
 	ft_free2d(behind_dollar);
 	return (value);
+}
+
+char	*replace(char *finalstring, char *substr, char **env, int flag)
+{
+	char	*tmp;
+
+	tmp = substr;
+	look_for_singlequote(finalstring, &flag);
+	if (flag == 0)
+		substr = ft_replace_var(env, substr + 1);
+	finalstring = ft_strjoin_free_opt(finalstring, substr, 1, 1);
+	free(tmp);
+	return (finalstring);
 }
 
 char	*replace_string(char *s, char **env)
@@ -43,10 +54,7 @@ char	*replace_string(char *s, char **env)
 		if (s[i] == '$')
 		{
 			substr = ft_substr(s, i, ft_length_dollar(s + i, '$'));
-			look_for_singlequote(finalstring, &flag);
-			if (flag == 0)
-				substr = ft_replace_var(env, substr + 1);
-			finalstring = ft_strjoin_free_opt(finalstring, substr, 1, 1);
+			finalstring = replace(finalstring, substr, env, flag);
 		}
 		i++;
 	}

@@ -153,7 +153,7 @@ int			write_heredoc(t_exec *exec, int *fd, int i);
 void		heredoc_as_in(t_exec *exec, int *fd_pipe, int i);
 int			init_heredoc_pipe(t_exec *exec, int *fd);
 int			open_infile(t_exec *exec, int *fd, int i);
-int			error_codes(int	pid);
+int			error_codes(int pid);
 void		wrong_command(t_exec *exec);
 void		handle_sigquit(int sig);
 void		signals_child(void);
@@ -233,7 +233,5 @@ char		**join_2d_array(char **s1, char **s2);
 int			var_in_str(char *str);
 int			keep_dollar(char *str);
 int			ft_length_dollar(char *s, char c);
-
-void	print_execs(t_data *data);
 
 #endif
