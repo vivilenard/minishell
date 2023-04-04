@@ -71,8 +71,8 @@ t_exec	*go_through_exec(t_exec *exec, char **env)
 		exec->command = look_for_dollar(exec->command, env);
 		tmp = exec->args[0];
 		exec->args[0] = quote_cutter(exec->command);
-		if (!exec->args[0][0])
-			command_not_found(exec->command);
+		// if (!exec->args[0][0])
+		// 	ft_putstr_fd(": command not found\n", 2);
 		free(tmp);
 		exec->command = ft_strdup(exec->args[0]);
 		exec->command = get_path(exec->command, env);
