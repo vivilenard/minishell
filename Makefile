@@ -53,14 +53,6 @@ $(DOWNLOADFOLDER):
 	cd $(DOWNLOADFOLDER)/readline-8.1.2; ./configure --prefix=$(PWD)/dwnlds/readline_out; cd ../../
 	make -C $(DOWNLOADFOLDER)/readline-8.1.2
 	make install -C $(DOWNLOADFOLDER)/readline-8.1.2
-
-LSAN = LeakSanitizer
-LSANLIB = /LeakSanitizer/liblsan.a
-lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
-lsan: LINK += $(LSANLFLAGS)
-lsan: fclean $(LSANLIB)
-lsan: all
-
 $(LSAN):
 	git clone https://github.com/mhahnFr/LeakSanitizer.git
 
