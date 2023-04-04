@@ -18,9 +18,7 @@ char	*ft_replace_var(char **env, char *dollar)
 			value = ft_strjoin_free_opt(value, behind_dollar[0] + 1, 1, 0);
 	}
 	else
-	{
 		value = search_var_in_env(behind_dollar[0], env);
-	}
 	value = ft_strjoin_free_opt(value, behind_dollar[1], 1, 0);
 	ft_free2d(behind_dollar);
 	free(dollar - 1);
