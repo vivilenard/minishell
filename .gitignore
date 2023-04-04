@@ -12,3 +12,5 @@ in.txt
 in
 shell.dSYM
 minishell.dSYM
+LeakSanitizer
+useful
