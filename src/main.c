@@ -45,7 +45,9 @@ int	main(int args, char **argv, char **env)
 			continue ;
 		executer(data);
 		free_exec(data, input);
+		//system("leaks minishell");
 	}
 	free_data(data);
+	//system("leaks minishell");
 	return (g_errno);
 }
