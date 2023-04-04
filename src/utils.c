@@ -29,7 +29,7 @@ void	free_exec(t_data *data, char *input)
 	{
 		if (data->execs[i]->command)
 			free(data->execs[i]->command);
-		if (data->execs[i]->args)
+		/* if (data->execs[i]->args) */
 			ft_free2d(data->execs[i]->args);
 		if (data->execs[i]->input)
 			ft_free2d(data->execs[i]->input);

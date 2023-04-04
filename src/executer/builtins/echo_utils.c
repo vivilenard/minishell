@@ -64,5 +64,7 @@ char	*quote_cutter(char *str)
 	if (!out)
 		return (NULL);
 	copy_without_quotes(out, str);
-	return (free(str), out);
+	if(str)
+		free(str);
+	return (/* free(str), */ out);
 }
