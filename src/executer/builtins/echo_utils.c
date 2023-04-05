@@ -59,8 +59,6 @@ char	*quote_cutter(char *str)
 {
 	char	*out;
 
-	if(!str[0])
-		return(ft_strdup(str));
 	out = (char *)malloc((ft_strlen(str) - count_rm_quotes(str) + 1)
 			* sizeof(char));
 	if (!out)
