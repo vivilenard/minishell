@@ -68,11 +68,20 @@ t_exec	*go_through_exec(t_exec *exec, char **env, t_data *data)
 	exec = expand(exec, data->env);
 	if (exec->command != NULL)
 	{
-		tmp = exec->args[0];
-		exec->args[0] = quote_cutter(exec->command);
-		// if (!exec->args[0][0])
-		// 	ft_putstr_fd(": command not found\n", 2);
+		tmp = ft_strdup(exec->args[0]);
+		exec->args[0] = quote_cutter(exec->args[0]);
+		if (tmp[0] && !exec->args[0][0])
+		{
+			g_errno = 127;
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(exec->args[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
+			free_exec(data, *exec->input);
+			return (free(tmp), NULL);
+
+		}
 		free(tmp);
+		free(exec->command);
 		exec->command = ft_strdup(exec->args[0]);
 		exec->command = get_path(exec->command, env);
 	}

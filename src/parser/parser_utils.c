@@ -21,8 +21,9 @@ void	get_command(t_data *data)
 	{
 		while (data->execs[data->exec_count]->args[0][i])
 		{
-			data->execs[data->exec_count]->args[0][i]
-				= ft_tolower(data->execs[data->exec_count]->args[0][i]);
+			if (data->execs[data->exec_count]->args[0][0] != '$')
+				data->execs[data->exec_count]->args[0][i]
+					= ft_tolower(data->execs[data->exec_count]->args[0][i]);
 			i++;
 		}
 		data->execs[data->exec_count]->command
