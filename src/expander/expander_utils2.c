@@ -65,10 +65,9 @@ t_exec	*go_through_exec(t_exec *exec, char **env)
 	char	*tmp;
 
 	tmp = NULL;
-	//exec = expand(exec, env);
+	exec = expand(exec, env);
 	if (exec->command != NULL)
 	{
-		exec->command = look_for_dollar(exec->command, env);
 		tmp = exec->args[0];
 		exec->args[0] = quote_cutter(exec->command);
 		// if (!exec->args[0][0])
