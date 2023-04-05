@@ -15,13 +15,13 @@ SRC = 	$(addprefix $(SRCPATH),  main.c parser/utils_prep.c utils.c parser/load_t
 OBJ = $(addprefix _bin/,$(notdir $(SRC:.c=.o)))
 DOWNLOADFOLDER = dwnlds
 INCFLAG = -Iinclude -Ilibft -I$(DOWNLOADFOLDER)/readline_out/include
-LINK = -L$(DOWNLOADFOLDER)/readline_out/lib -lreadline -Llibft -lft
+LINK =  -lreadline -Llibft -lft
 LIBFT = ./libft/libft.a
 
 all: $(NAME)
-
+#-L$(DOWNLOADFOLDER)/readline_out/lib
 $(NAME): $(SRC) $(LIBFT) $(DOWNLOADFOLDER)
-	$(CC) $(CFLAGS) $(SRC) $(INCFLAG) $(LINK) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRC) $(INCFLAG) -o $(NAME) $(LINK) 
 LSANLIB = /LeakSanitizer/liblsan.a
 lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
 lsan: LINK += -LLeakSanitizer -llsan -lc++

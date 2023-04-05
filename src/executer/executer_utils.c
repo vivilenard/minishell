@@ -24,20 +24,20 @@ void	close_pipe(int *fd_pipe)
 	}
 }
 
-void	wrong_command(t_exec *exec)
+void	wrong_command(t_data *data, t_exec *exec)
 {
 	if (!exec->command || !exec->command[0])
-		exit(0);
+		ft_exit_free(data, 0);
 	if (exec->args[0] && ft_strncmp(exec->args[0], ".", 2) == 0)
 	{
 		ft_putendl_fd("minishell: .: filename argument required", 2);
 		ft_putendl_fd(".: usage: . filename [arguments]", 2);
-		exit(2);
+		ft_exit_free(data, 2);
 	}
 	if (exec->args[0] && ft_strncmp(exec->args[0], "..", 2) == 0)
 	{
 		ft_putendl_fd("minishell: ..: filename argument required", 2);
 		ft_putendl_fd("..: usage: .. filename [arguments]", 2);
-		exit(2);
+		ft_exit_free(data, 2);
 	}
 }

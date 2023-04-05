@@ -154,10 +154,11 @@ void		heredoc_as_in(t_exec *exec, int *fd_pipe, int i);
 int			init_heredoc_pipe(t_exec *exec, int *fd);
 int			open_infile(t_exec *exec, int *fd, int i);
 int			error_codes(int pid);
-void		wrong_command(t_exec *exec);
+void		wrong_command(t_data *data, t_exec *exec);
 void		handle_sigquit(int sig);
 void		signals_child(void);
 void		command_not_found(char *s, t_data *data);
+int			ft_exit_free(t_data *data, int code);
 
 //builtins
 int			built_in(t_exec *exec, char ***env, t_data *data);

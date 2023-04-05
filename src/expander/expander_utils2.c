@@ -48,22 +48,16 @@ void	command_not_found(char *s, t_data *data)
 	{
 		ft_putstr_fd(": is a directory\n", 2);
 		if (ft_strncmp(s, "/bin/", 6) == 0)
-		{
-			free_data(data);
-			exit (126);
-		}
-		free_data(data);
-		exit(127);
+			ft_exit_free(data, 126);
+		ft_exit_free(data, 127);
 	}
 	if (s[0] && (ft_strncmp(s, "./", 2) == 0 || ft_strncmp(s, "/", 1) == 0))
 	{
 		ft_putstr_fd(": No such file or directory\n", 2);
-		free_data(data);
-		exit (127);
+		ft_exit_free(data, 127);
 	}
 	ft_putstr_fd(": command not found\n", 2);
-	free_data(data);
-	exit(127);
+	ft_exit_free(data, 127);
 }
 
 t_exec	*go_through_exec(t_exec *exec, char **env, t_data *data)
