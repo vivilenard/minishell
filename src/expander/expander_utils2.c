@@ -55,7 +55,7 @@ void	command_not_found(char *s, t_data *data)
 		free_data(data);
 		exit(127);
 	}
-	if (ft_strncmp(s, "./", 2) == 0 || ft_strncmp(s, "/", 1) == 0)
+	if (s[0] && (ft_strncmp(s, "./", 2) == 0 || ft_strncmp(s, "/", 1) == 0))
 	{
 		ft_putstr_fd(": No such file or directory\n", 2);
 		free_data(data);
