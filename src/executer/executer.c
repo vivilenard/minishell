@@ -1,5 +1,12 @@
 #include "../../include/minishell.h"
 
+int ft_exit_free(t_data *data, int code)
+{
+	if (data)
+		free_data(data);
+	exit(code);
+}
+
 int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 {
 	pid_t	pid;
@@ -9,12 +16,12 @@ int	create_child(t_exec *exec, t_data *data, int *fd_pipe, int fd_keep_pipe)
 	{
 		signals_child();
 		if (in_out(exec, fd_pipe, fd_keep_pipe) == -1)
-			exit (1);
+			ft_exit_free(data, 1);
 		close_pipe(fd_pipe);
-		wrong_command(exec);
+		wrong_command(data, exec);
 		built_in_child(exec, &data->env, data);
 		if (execve(exec->command, exec->args, data->env) == -1)
-			command_not_found(exec->command);
+			command_not_found(exec->command, data);
 	}
 	if (close(fd_pipe[1]) == -1)
 		perror ("close pipe[1]");

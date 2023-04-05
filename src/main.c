@@ -41,7 +41,7 @@ int	main(int args, char **argv, char **env)
 			continue ;
 		if (!parse_tokens(data))
 			continue ;
-		if (!expander(data->execs, data->env))
+		if (!expander(data->execs, data->env, data))
 			continue ;
 		executer(data);
 		free_exec(data, input);
