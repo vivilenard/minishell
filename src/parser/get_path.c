@@ -19,6 +19,7 @@ int	is_fakecommand(char **paths, char *tmp)
 		free (path_command);
 		i++;
 	}
+	free(backslash_command);
 	return (0);
 }
 

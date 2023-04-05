@@ -55,7 +55,7 @@ int	heredoc(t_exec *exec, int *fd, int i)
 			ft_putstr_fd("> ", 1);
 			line = get_next_line(0);
 			if (!line)
-				return (perror("gets no line"), 0);
+				return (perror("gets no line"), -1);
 			if (ft_strncmp(exec->input[i + 1],
 					line, ft_strlen(exec->input[i + 1])) == 0
 				&& ft_strlen(line) == ft_strlen(exec->input[i + 1]) + 1)
