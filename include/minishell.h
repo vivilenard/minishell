@@ -227,7 +227,7 @@ char		*minimize_whitespace(char *str);
 t_exec		*expand(t_exec *exec, char **env);
 t_exec		*go_through_exec(t_exec *exec, char **env);
 int			look_for_singlequote(char *str, int *flag);
-char		**replace_args(char **c_args, char **args, int exp_cycle);
+char		**replace_args(char **c_args, char **args);
 char		**mini_lexer(char *str);
 char		**join_2d_array(char **s1, char **s2);
 int			var_in_str(char *str);
