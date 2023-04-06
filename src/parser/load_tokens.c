@@ -57,6 +57,7 @@ int	load_tokens(char **split_tokens, t_data *data)
 
 	i = 0;
 	data->tokens = NULL;
+	ft_put2dstr_fd(split_tokens, 1);
 	while (split_tokens[i])
 	{
 		if (init_token(&data->tokens, split_tokens[i]))

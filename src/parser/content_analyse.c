@@ -35,12 +35,7 @@ t_tokentype	content_analyse(t_token *token)
 	if (token->content)
 	{	
 		if (token->content[0] == '<' || token->content[0] == '>')
-		{
-			if ((token->content[0] == '<' && token->content[1] == '>')
-				|| (token->content[0] == '>' && token->content[1] == '<'))
-				exit(2);
 			return (redirection);
-		}
 		else if (token->content[0] == '|')
 			return (is_pipe);
 		else
