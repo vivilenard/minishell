@@ -14,13 +14,13 @@ void	exit_no_numeric(char *str)
 	ft_putendl_fd(": numeric argument required", 2);
 }
 
-int	ft_exit(char **args)
+int	ft_exit(t_data *data, char **args)
 {
 	long	exit_num;
 
 	exit_num = 0;
 	if (!args[1])
-		exit(g_errno);
+		return (free_data(data), exit(g_errno), 0);
 	if (args[2])
 		exit_num = exit_too_many_args();
 	if (!is_num(args[1]))
@@ -35,5 +35,6 @@ int	ft_exit(char **args)
 		if (exit_num < 0 || exit_num > 255)
 			exit_num = exit_num % 256;
 	}
+	free_data(data);
 	return (exit(exit_num), exit_num);
 }

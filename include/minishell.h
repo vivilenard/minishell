@@ -176,7 +176,7 @@ int			ft_cd(t_exec *exec, char ***env);
 void		create_cd_error(char *path);
 
 //exit
-int			ft_exit(char **args);
+int			ft_exit(t_data *data, char **args);
 void		exit_no_numeric(char *str);
 int			exit_too_many_args(void);
 int			is_num(char *str);
