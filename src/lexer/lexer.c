@@ -9,7 +9,7 @@ int	do_shit(char **split, char *str, int *i, int *start)
 		{
 			while (is_delimiter(str[*i]))
 				(*i)++;
-			if (!is_delimiter(str[*i]) && !ft_iswhitespace(str[*i]))
+			if (str[*i] && !is_delimiter(str[*i]) && !ft_iswhitespace(str[*i]))
 				split = makestring(split, str, start, i);
 			(*i)--;
 		}
@@ -32,15 +32,18 @@ char	**create_strings(char **split, char *str)
 		i++;
 	start = i;
 	jump_delimiter_split(split, str, &start, &i);
-	while (str[i])
+	if (str[i])
 	{
-		handle_quote(str, &i, &flag, &keep_quote);
-		if (flag != 1)
-			do_shit(split, str, &i, &start);
-		if (str[i] && !handle_quote(str, &i, &flag, &keep_quote))
-			i++;
+		while (str[i])
+		{
+			handle_quote(str, &i, &flag, &keep_quote);
+			if (flag != 1)
+				do_shit(split, str, &i, &start);
+			if (str[i] && !handle_quote(str, &i, &flag, &keep_quote))
+				i++;
+		}
+		split = makestring(split, str, &start, &i);
 	}
-	split = makestring(split, str, &start, &i);
 	return (split);
 }
 
@@ -103,17 +106,21 @@ int	lexer(char *str, t_data *data)
 {
 	char	**split;
 	int		strnumber;
+	char	*tmp;
 
 	if (quote_is_unbalanced(recognize_quote(str, '\''),
 			recognize_quote(str, '\"')) == -1)
 		return (0);
-	str = ft_strtrim(str, "\n\t\v\f\r ");
+	str = ft_strtrim(tmp, "\n\t\v\f\r ");
 	strnumber = countstrs(str) + 1;
+	printf("count %d\n", strnumber);
 	split = NULL;
 	split = allocate(split, strnumber);
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
+	// ft_free2d(split);
+	// exit (0);
 	if (!load_tokens(split, data))
 		return (free_data(data), EXIT_FAILURE);
 	return (1);

@@ -29,7 +29,7 @@ char	**makestring(char **split, char *str, int *start, int *i)
 	split[count][range] = '\0';
 	ft_strlcpy(split[count], str + *start, range + 1);
 	tmp = split[count];
-	split[count] = ft_strtrim(split[count], "\n\t\v\f\r ");
+	split[count] = ft_strtrim(tmp, "\n\t\v\f\r ");
 	free(tmp);
 	while (ft_iswhitespace(str[*i]))
 		(*i)++;
