@@ -23,6 +23,8 @@ char	*minimize_whitespace(char *str)
 	if (!str)
 		return (NULL);
 	split = ft_split(str, ' ');
+	if (!split)
+		return (str);
 	out = ft_strjoin_s_e(split, 0, ft_2darraylen(split), " ");
 	ft_free2d(split);
 	free (str);

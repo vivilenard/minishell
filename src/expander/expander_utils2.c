@@ -61,6 +61,20 @@ void	command_not_found(char *s, t_data *data)
 	ft_exit_free(data, 127);
 }
 
+int	only_whitespace(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_iswhitespace(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 t_exec	*go_through_exec(t_exec *exec, char **env, t_data *data)
 {
 	char	*tmp;
@@ -71,7 +85,8 @@ t_exec	*go_through_exec(t_exec *exec, char **env, t_data *data)
 	{
 		tmp = ft_strdup(exec->args[0]);
 		exec->args[0] = quote_cutter(exec->args[0]);
-		if (tmp[0] && !exec->args[0][0])
+		//printf("%sX\n", exec->args[0]);
+		if (tmp[0] && (!exec->args[0][0] || only_whitespace(exec->args[0])))
 		{
 			g_errno = 127;
 			ft_putstr_fd("minishell: ", 2);
