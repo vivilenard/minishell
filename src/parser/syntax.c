@@ -56,7 +56,7 @@ int	syntax(t_data *data)
 	t_token	*current;
 
 	current = data->tokens;
-	if (current->type == is_pipe)
+	if (current && current->type == is_pipe)
 		return (print_syntaxerror_s("|"), 0);
 	while (current)
 	{
