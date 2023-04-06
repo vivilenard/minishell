@@ -7,6 +7,7 @@ int	look_for_singlequote(char *str, int *flag)
 
 	i = 0;
 	doubleflag = 0;
+	*flag = 0;
 	while (str && str[i])
 	{
 		if (str[i] == '\"')
