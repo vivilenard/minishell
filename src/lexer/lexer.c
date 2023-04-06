@@ -106,12 +106,11 @@ int	lexer(char *str, t_data *data)
 {
 	char	**split;
 	int		strnumber;
-	char	*tmp;
 
 	if (quote_is_unbalanced(recognize_quote(str, '\''),
 			recognize_quote(str, '\"')) == -1)
 		return (0);
-	str = ft_strtrim(tmp, "\n\t\v\f\r ");
+	str = ft_strtrim(str, "\n\t\v\f\r ");
 	strnumber = countstrs(str) + 1;
 	printf("count %d\n", strnumber);
 	split = NULL;
@@ -119,8 +118,6 @@ int	lexer(char *str, t_data *data)
 	create_strings(split, str);
 	split[strnumber] = NULL;
 	free(str);
-	// ft_free2d(split);
-	// exit (0);
 	if (!load_tokens(split, data))
 		return (free_data(data), EXIT_FAILURE);
 	return (1);
