@@ -25,7 +25,6 @@ int	g_errno = 0;
 
 int	main(int args, char **argv, char **env)
 {
-	//char	*input;
 	t_data	*data;
 
 	data = init_data(env, args, argv);
@@ -46,7 +45,6 @@ int	main(int args, char **argv, char **env)
 		executer(data);
 		free_exec(data, data->inputline);
 	}
-		system ("leaks minishell");
 	free_data(data);
 	return (g_errno);
 }

@@ -112,7 +112,6 @@ int	lexer(char *str, t_data *data)
 		return (0);
 	str = ft_strtrim(str, "\n\t\v\f\r ");
 	strnumber = countstrs(str) + 1;
-	printf("count %d\n", strnumber);
 	split = NULL;
 	split = allocate(split, strnumber);
 	create_strings(split, str);
