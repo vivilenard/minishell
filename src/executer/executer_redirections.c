@@ -62,24 +62,24 @@ int	file_as_stdout(t_exec *exec)
 		i = i + 2;
 	}
 	if (fd == -1)
-		perror("open outputfile");
+		return (perror("open outfile"), -1);
 	if (dup2(fd, 1) == -1)
-		perror ("file as stdout");
+		return (perror ("file as stdout"), -1);
 	return (0);
 }
 
 int	pipe_as_stdin(int fd_keep_pipe)
 {
 	if (dup2(fd_keep_pipe, 0) == -1)
-		perror("pipe as stdin");
+		return (perror("pipe as stdin"), -1);
 	if (close(fd_keep_pipe) == -1)
-		perror("close pipe as stdin");
+		return (perror("close pipe as stdin"), -1);
 	return (0);
 }
 
 int	pipe_as_stdout(int *fd_pipe)
 {
 	if (dup2(fd_pipe[1], STDOUT_FILENO) == -1)
-		perror("pipe as stout");
+		return (perror("pipe as stout"), -1);
 	return (0);
 }
