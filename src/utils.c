@@ -69,6 +69,7 @@ t_data	*init_data(char **env, int args, char **argv)
 	data->tokens = NULL;
 	data->promptline = prompt(data);
 	data->env = dupclicate_2d(env);
+	data->inputline = NULL;
 	return (data);
 }
 

@@ -55,7 +55,7 @@ int	parse_tokens(t_data *data)
 		return (0);
 	data->execs[get_exec_count(data->tokens)] = NULL;
 	if (!syntax(data))
-		return (g_errno = 2, 0);
+		return (free(data->inputline), free_tokens(data), g_errno = 2, 0);
 	while (current)
 		current = process_token(data, current);
 	free_tokens(data);

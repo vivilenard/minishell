@@ -59,6 +59,7 @@ typedef struct s_data
 	t_token			*tokens;
 	t_exec			**execs;
 	char			*promptline;
+	char			*inputline;
 	char			**env;
 	int				pipeflag;
 	int				arg_count;

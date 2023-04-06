@@ -25,7 +25,7 @@ int	g_errno = 0;
 
 int	main(int args, char **argv, char **env)
 {
-	char	*input;
+	//char	*input;
 	t_data	*data;
 
 	data = init_data(env, args, argv);
@@ -33,19 +33,20 @@ int	main(int args, char **argv, char **env)
 	{
 		signals();
 		reset_data(data);
-		if (!take_input(&input, data->promptline))
+		if (!take_input(&data->inputline, data->promptline))
 			break ;
-		if (ft_strncmp(input, "", 1) == 0)
+		if (ft_strncmp(data->inputline, "", 1) == 0)
 			continue ;
-		if (!lexer(input, data))
+		if (!lexer(data->inputline, data))
 			continue ;
 		if (!parse_tokens(data))
 			continue ;
 		if (!expander(data->execs, data->env, data))
 			continue ;
 		executer(data);
-		free_exec(data, input);
+		free_exec(data, data->inputline);
 	}
+		system ("leaks minishell");
 	free_data(data);
 	return (g_errno);
 }
