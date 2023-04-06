@@ -44,9 +44,9 @@ void	execute(t_data *data)
 	{
 		if (pipe(fd_pipe) == -1)
 			perror("create pipe");
-		fd_keep_pipe = create_child(data->execs[i],
+		usleep(3000);
+		fd_keep_pipe = create_child(data->execs[i++],
 				data, fd_pipe, fd_keep_pipe);
-		i++;
 	}
 	if (close(fd_keep_pipe) == -1)
 		perror ("close keep_pipe");

@@ -18,9 +18,10 @@ int	ft_exit(t_data *data, char **args)
 {
 	long	exit_num;
 
+	(void) data;
 	exit_num = 0;
 	if (!args[1])
-		return (free_data(data), exit(g_errno), 0);
+		return (g_errno);
 	if (args[2])
 		exit_num = exit_too_many_args();
 	if (!is_num(args[1]))
@@ -35,6 +36,5 @@ int	ft_exit(t_data *data, char **args)
 		if (exit_num < 0 || exit_num > 255)
 			exit_num = exit_num % 256;
 	}
-	free_data(data);
-	return (exit(exit_num), exit_num);
+	return (exit_num);
 }
