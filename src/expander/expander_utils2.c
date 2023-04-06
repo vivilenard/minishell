@@ -76,8 +76,7 @@ t_exec	*go_through_exec(t_exec *exec, char **env, t_data *data)
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(exec->args[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
-			free_exec(data, *exec->input);
-			return (free(tmp), NULL);
+			return (free(tmp), free_exec(data, *exec->input), NULL);
 		}
 		free(tmp);
 		free(exec->command);

@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int ft_exit_free(t_data *data, int code)
+int	ft_exit_free(t_data *data, int code)
 {
 	if (data)
 		free_data(data);
