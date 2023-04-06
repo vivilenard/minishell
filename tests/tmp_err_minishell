@@ -1,0 +1,16 @@
+
+[32mExiting[39m
+
+[3m1 leaks total, 31 B total
+
+[1m[3m[31mLeak[39m[22m of size [23m31 B[3m, allocation stacktrace:
+In: [23m[1mft_stattoline + 137[22m
+[22m[3mat: [23mget_next_line + 84
+[22m[3mat: [23mtake_input + 62
+[22m[3mat: [23mmain + 86
+[22m[3mat: [23mstart + 1
+[22m[3mat: [23m<Unknown>
+
+[23m
+Report by [1mLeakSanitizer [22m[3mv1.4[23m
+
