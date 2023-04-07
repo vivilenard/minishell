@@ -73,3 +73,17 @@ char	**replace_args(char **c_args, char **args)
 	new_args[i] = NULL;
 	return (new_args);
 }
+
+int	only_whitespace(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_iswhitespace(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}

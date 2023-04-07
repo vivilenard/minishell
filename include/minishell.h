@@ -160,6 +160,7 @@ void		handle_sigquit(int sig);
 void		signals_child(void);
 void		command_not_found(char *s, t_data *data);
 int			ft_exit_free(t_data *data, int code);
+int			only_whitespace(char *s);
 
 //builtins
 int			built_in(t_exec *exec, char ***env, t_data *data);
