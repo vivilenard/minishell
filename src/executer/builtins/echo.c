@@ -3,27 +3,30 @@
 int	is_nnn(char *arg)
 {
 	size_t	i;
+	char	*tmp;
 
 	i = 0;
-	if (arg[i] == '-')
+	tmp = ft_strdup(arg);
+	tmp = quote_cutter(tmp);
+	if (tmp[i] == '-')
 		i++;
 	else
-		return (0);
-	if (arg[i] && arg[i] == 'n')
+		return (free(tmp), 0);
+	if (tmp[i] && tmp[i] == 'n')
 	{
-		while (arg[i] && arg[i] == 'n')
+		while (tmp[i] && tmp[i] == 'n')
 			i++;
 	}
 	else
-		return (0);
-	if (arg[i])
-		return (0);
-	return (1);
+		return (free(tmp), 0);
+	if (tmp[i])
+		return (free(tmp), 0);
+	return (free(tmp), 1);
 }
 
 int	option_detect(char **args)
 {
-	int	i;
+	int		i;
 
 	i = 1;
 	while (args[i])
