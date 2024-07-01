@@ -35,3 +35,9 @@ Each execution of a command line runs in a different child process. This means e
 
 Et voila!
 Try it if you dare!
+
+### Build
+1. clone this repository
+2. **`cd minishell`**
+3. **`make`**
+4. **`./minishell`**
